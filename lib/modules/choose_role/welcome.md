@@ -1,0 +1,1 @@
+This is page welcome when user already begining tour
