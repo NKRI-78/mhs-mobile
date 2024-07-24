@@ -12,16 +12,19 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
   RegisterOtpCubit() : super(RegisterOtpState());
 
   AuthRepository repo = getIt<AuthRepository>();
+  AppBloc app = getIt<AppBloc>();
 
   void init(String email) {
     emit(state.copyWith(email: email));
+    repo.verifyOtp(state.email, '', VerifyEmailType.sendingOtp);
   }
 
   Future<void> submit(String verificationCode, BuildContext context) async {
     try {
       emit(state.copyWith(loading: true));
-      final loggedIn = await repo.verifyOtp(state.email, verificationCode);
-      if (context.mounted) {
+      final user = await repo.verifyOtp(
+          state.email, verificationCode, VerifyEmailType.verified);
+      if (context.mounted && user != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: successColor,
@@ -32,7 +35,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
           ),
         );
         // getIt<AppBloc>().add(SetUserData(user: loggedIn.user, token: loggedIn.token));
-
+        app.add(SetAuthenticated(user: user, token: user.token ?? ''));
         HomeRoute().go(context);
       }
     } catch (e) {
@@ -56,7 +59,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
   Future<void> resendOtp(BuildContext context) async {
     try {
       emit(state.copyWith(loading: true));
-      // await repo.resendOtp(state.email);
+      repo.verifyOtp(state.email, '', VerifyEmailType.sendingOtp);
       debugPrint("Berhasil");
     } catch (e) {
       if (!context.mounted) {

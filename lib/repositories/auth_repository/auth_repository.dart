@@ -24,6 +24,8 @@ class EmailNotActivatedFailure implements Exception {
   EmailNotActivatedFailure({this.message = 'Terjadi kesalahan'});
 }
 
+enum VerifyEmailType { sendingOtp, verified }
+
 class AuthRepository {
   String get v1 => '${MyApi.baseUrl}/api/v1/auth';
 
@@ -63,20 +65,14 @@ class AuthRepository {
     String name = '',
     String email = '',
     String phone = '',
-    String address = '',
-    String gender = '',
-    required String clubId,
-    String tigerYear = '',
+    String password = '',
   }) async {
     try {
       final res = await http.post(Uri.parse('$v1/register'), body: {
         'name': name,
         'email': email,
         'phone': phone,
-        'address': address,
-        'gender': gender,
-        'tiger_year': tigerYear,
-        'club_id': clubId,
+        'password': password,
       });
 
       debugPrint(res.body);
@@ -110,16 +106,23 @@ class AuthRepository {
     }
   }
 
-  Future<void> verifyOtp(String email, String verificationCode) async {
+  Future<User?> verifyOtp(
+      String email, String verificationCode, VerifyEmailType type) async {
     try {
-      final res = await http.post(Uri.parse('$v1/verify-email'),
-          body: {'email': email, 'otp': verificationCode});
+      final res = await http.post(Uri.parse('$v1/verify-email'), body: {
+        'email': email,
+        'otp': verificationCode,
+        'type': type == VerifyEmailType.sendingOtp ? 'SENDING_OTP' : 'VERIFIED'
+      });
 
       debugPrint(res.body);
 
       final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        return;
+        if (type == VerifyEmailType.sendingOtp) {
+          return null;
+        }
+        return User.fromJson(json['data']);
       }
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
@@ -127,5 +130,6 @@ class AuthRepository {
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 }

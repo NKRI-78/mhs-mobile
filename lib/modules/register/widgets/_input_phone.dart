@@ -7,7 +7,7 @@ class _InputPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextField(
       onChanged: (value) {
-
+        context.read<RegisterCubit>().setState(phone: value);
       },
       labelText: 'No Telepon',
       maxLength: 15,

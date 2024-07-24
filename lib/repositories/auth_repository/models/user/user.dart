@@ -1,61 +1,106 @@
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
-
-import 'dart:convert';
-
-User userFromJson(String str) => User.fromJson(json.decode(str));
-
-String userToJson(User data) => json.encode(data.toJson());
-
 class User {
-  String id;
-  String email;
-  String phone;
-  int status;
-  int role;
-  DateTime verifiedEmail;
-  DateTime createdAt;
-  DateTime updatedAt;
-  dynamic deletedAt;
-  bool authorized;
+  int? id;
+  String? name;
+  String? username;
+  String? email;
+  String? phone;
+  int? otp;
+  String? fcm;
+  String? verifiedEmail;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  int? roleId;
+  bool? authorized;
+  Role? role;
+  String? token;
+  String? refreshToken;
 
-  User({
-    required this.id,
-    required this.email,
-    required this.phone,
-    required this.status,
-    required this.role,
-    required this.verifiedEmail,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-    required this.authorized,
-  });
+  User(
+      {this.id,
+      this.name,
+      this.username,
+      this.email,
+      this.phone,
+      this.otp,
+      this.fcm,
+      this.verifiedEmail,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.roleId,
+      this.authorized,
+      this.role,
+      this.token,
+      this.refreshToken});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        email: json["email"],
-        phone: json["phone"],
-        status: json["status"],
-        role: json["role"],
-        verifiedEmail: DateTime.parse(json["verified_email"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
-        authorized: json["authorized"],
-      );
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    username = json['username'];
+    email = json['email'];
+    phone = json['phone'];
+    otp = json['otp'];
+    fcm = json['fcm'];
+    verifiedEmail = json['verifiedEmail'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    deletedAt = json['deletedAt'];
+    roleId = json['RoleId'];
+    authorized = json['authorized'];
+    role = json['role'] != null ? Role.fromJson(json['role']) : null;
+    token = json['token'];
+    refreshToken = json['refreshToken'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
-        "phone": phone,
-        "status": status,
-        "role": role,
-        "verified_email": verifiedEmail.toIso8601String(),
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "deleted_at": deletedAt,
-        "authorized": authorized,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['username'] = username;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['otp'] = otp;
+    data['fcm'] = fcm;
+    data['verifiedEmail'] = verifiedEmail;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['deletedAt'] = deletedAt;
+    data['RoleId'] = roleId;
+    data['authorized'] = authorized;
+    if (role != null) {
+      data['role'] = role!.toJson();
+    }
+    data['token'] = token;
+    data['refreshToken'] = refreshToken;
+    return data;
+  }
+}
+
+class Role {
+  int? id;
+  String? name;
+  String? slug;
+  String? createdAt;
+  String? updatedAt;
+
+  Role({this.id, this.name, this.slug, this.createdAt, this.updatedAt});
+
+  Role.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    slug = json['slug'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['slug'] = slug;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    return data;
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/register/cubit/register_cubit.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
 import 'package:mhs_mobile/widgets/textfield/textfield.dart';
@@ -20,7 +21,8 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const RegisterView();
+    return BlocProvider(
+        create: (context) => RegisterCubit(), child: const RegisterView());
   }
 }
 
@@ -30,67 +32,67 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomBackgroundScaffold(
-      assets: BackgroundAssets.standart,
-      child: Form(
-        key: _formRegister,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: CustomScrollView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            slivers: [
-              SliverAppBar(
-                toolbarHeight: 50,
-                backgroundColor: Colors.transparent,
-                leading: InkWell(
-                onTap: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Image.asset("assets/icons/back-icon.png")),
-                title: const Text(
-                  "Regist Account",
-                  style: TextStyle(
-                    fontSize: fontSizeTitle
+        assets: BackgroundAssets.standart,
+        child: Form(
+          key: _formRegister,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: CustomScrollView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              slivers: [
+                SliverAppBar(
+                  toolbarHeight: 50,
+                  backgroundColor: Colors.transparent,
+                  leading: InkWell(
+                      onTap: () {
+                        if (GoRouter.of(context).canPop()) {
+                          GoRouter.of(context).pop();
+                        }
+                      },
+                      child: Image.asset("assets/icons/back-icon.png")),
+                  title: const Text(
+                    "Regist Account",
+                    style: TextStyle(fontSize: fontSizeTitle),
                   ),
+                  centerTitle: true,
                 ),
-                centerTitle: true,
-              ),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _InputStudentName(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: _InputPhone(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: _InputEmail(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: _FieldPassword(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: _FieldConfirmPassword(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: _BottomButon(),
-                    ),
-                  ],
-                )
-              ]))
-            ],
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _InputStudentName(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: _InputPhone(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: _InputEmail(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: _FieldPassword(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: _FieldConfirmPassword(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: _BottomButon(),
+                      ),
+                    ],
+                  )
+                ]))
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

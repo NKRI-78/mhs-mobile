@@ -8,7 +8,6 @@ part of 'builder.dart';
 
 List<RouteBase> get $appRoutes => [
       $beginingTourRoute,
-      $registerRoute,
       $splashScreenRoute,
       $homeRoute,
     ];
@@ -36,28 +35,74 @@ extension $BeginingTourRouteExtension on BeginingTourRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $registerRoute => GoRouteData.$route(
-      path: '/register',
-      factory: $RegisterRouteExtension._fromState,
+RouteBase get $splashScreenRoute => GoRouteData.$route(
+      path: '/splash',
+      factory: $SplashScreenRouteExtension._fromState,
+    );
+
+extension $SplashScreenRouteExtension on SplashScreenRoute {
+  static SplashScreenRoute _fromState(GoRouterState state) =>
+      SplashScreenRoute();
+
+  String get location => GoRouteData.$location(
+        '/splash',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $homeRoute => GoRouteData.$route(
+      path: '/',
+      factory: $HomeRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'register-otp',
-          factory: $RegisterOtpRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'login',
-          factory: $LoginRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'choose-role',
-          factory: $ChooseRoleRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'new-student',
-          factory: $NewStudentRouteExtension._fromState,
+          path: 'register',
+          factory: $RegisterRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'register-otp',
+              factory: $RegisterOtpRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'login',
+              factory: $LoginRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'choose-role',
+              factory: $ChooseRoleRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'new-student',
+              factory: $NewStudentRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
+
+extension $HomeRouteExtension on HomeRoute {
+  static HomeRoute _fromState(GoRouterState state) => HomeRoute();
+
+  String get location => GoRouteData.$location(
+        '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 
 extension $RegisterRouteExtension on RegisterRoute {
   static RegisterRoute _fromState(GoRouterState state) => RegisterRoute();
@@ -137,51 +182,6 @@ extension $NewStudentRouteExtension on NewStudentRoute {
 
   String get location => GoRouteData.$location(
         '/register/new-student',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $splashScreenRoute => GoRouteData.$route(
-      path: '/splash',
-      factory: $SplashScreenRouteExtension._fromState,
-    );
-
-extension $SplashScreenRouteExtension on SplashScreenRoute {
-  static SplashScreenRoute _fromState(GoRouterState state) =>
-      SplashScreenRoute();
-
-  String get location => GoRouteData.$location(
-        '/splash',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeRouteExtension._fromState,
-    );
-
-extension $HomeRouteExtension on HomeRoute {
-  static HomeRoute _fromState(GoRouterState state) => HomeRoute();
-
-  String get location => GoRouteData.$location(
-        '/',
       );
 
   void go(BuildContext context) => context.go(location);

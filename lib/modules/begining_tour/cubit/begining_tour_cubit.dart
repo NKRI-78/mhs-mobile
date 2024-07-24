@@ -18,12 +18,11 @@ class BeginingTourCubit extends Cubit<BeginingTourState> {
 
   void nextPage() {
     BeginingTourCubit.pageController.nextPage(
-      duration: const Duration(milliseconds: 500), curve: Curves.ease
-    );
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   void finish(BuildContext context) {
     context.read<AppBloc>().add(FinishBeginingTour());
-    RegisterRoute().go(context);
+    HomeRoute().go(context);
   }
 }

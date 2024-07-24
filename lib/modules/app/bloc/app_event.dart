@@ -5,3 +5,10 @@ sealed class AppEvent {
 }
 
 final class FinishBeginingTour extends AppEvent {}
+
+final class SetAuthenticated extends AppEvent {
+  final User user;
+  final String token;
+
+  SetAuthenticated({required this.user, required this.token});
+}

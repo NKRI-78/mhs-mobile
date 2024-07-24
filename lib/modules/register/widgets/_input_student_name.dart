@@ -8,7 +8,7 @@ class _InputStudentName extends StatelessWidget {
     return CustomTextField(
       labelText: 'Nama',
       onChanged: (value) {
-
+        context.read<RegisterCubit>().setState(name: value);
       },
       isName: true,
       hintText: "Nama",

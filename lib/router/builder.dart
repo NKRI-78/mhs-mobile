@@ -18,15 +18,6 @@ class BeginingTourRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<RegisterRoute>(path: '/register', routes: [
-  TypedGoRoute<RegisterOtpRoute>( path: 'register-otp',),
-  TypedGoRoute<LoginRoute>( path: 'login',),
-  TypedGoRoute<ChooseRoleRoute>(path: 'choose-role'),
-  TypedGoRoute<NewStudentRoute>(path: 'new-student'),
-  
-])
-
-
 class RegisterRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -76,7 +67,18 @@ class NewStudentRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<HomeRoute>(path: '/')
+@TypedGoRoute<HomeRoute>(path: '/', routes: [
+  TypedGoRoute<RegisterRoute>(path: 'register', routes: [
+    TypedGoRoute<RegisterOtpRoute>(
+      path: 'register-otp',
+    ),
+    TypedGoRoute<LoginRoute>(
+      path: 'login',
+    ),
+    TypedGoRoute<ChooseRoleRoute>(path: 'choose-role'),
+    TypedGoRoute<NewStudentRoute>(path: 'new-student'),
+  ])
+])
 class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {

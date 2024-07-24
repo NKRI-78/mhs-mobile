@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
 import 'package:mhs_mobile/widgets/background/scaffold_splash.dart';
 
 class SplashScreenPage extends StatelessWidget {

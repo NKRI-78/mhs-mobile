@@ -5,15 +5,17 @@ class _FieldPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return CustomTextField(
-        onChanged: (value) {},
-        labelText: "Kata Sandi",
-        isPassword: true,
-        hintText: "Kata Sandi",
-        fillColor: whiteColor.withOpacity(0.10),
-        emptyText: "Kata Sandi tidak boleh kosong",
-        textInputType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.done,
-      );
+    return CustomTextField(
+      onChanged: (value) {
+        context.read<RegisterCubit>().setState(password: value);
+      },
+      labelText: "Kata Sandi",
+      isPassword: true,
+      hintText: "Kata Sandi",
+      fillColor: whiteColor.withOpacity(0.10),
+      emptyText: "Kata Sandi tidak boleh kosong",
+      textInputType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+    );
   }
 }
