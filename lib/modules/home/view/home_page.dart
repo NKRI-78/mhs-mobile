@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
+import 'package:mhs_mobile/modules/home/widgets/news_widget.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/background_home_scafold.dart';
 
@@ -28,11 +30,21 @@ class HomeView extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 800,
+            padding: const EdgeInsets.only(top: 36, bottom: 16),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadiusDirectional.only(
                     topStart: Radius.circular(20), topEnd: Radius.circular(20)),
                 color: whiteColor),
+            child: DefaultTextStyle(
+              style: const TextStyle(color: Colors.black),
+              child: ListView(
+                shrinkWrap: true,
+                children: const [
+                  BannersWidget(),
+                  NewsWidget(),
+                ],
+              ),
+            ),
           ),
           Positioned(
             top: -30,

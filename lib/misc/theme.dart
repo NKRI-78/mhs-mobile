@@ -42,7 +42,6 @@ const String bottomInfo = "assets/images/bottom_info.png";
 //icons
 const String backIcon = "assets/icons/back-icon.png";
 
-
 //Font Size
 const double fontSizeOverExtraSmall = 9.0;
 const double fontSizeExtraSmall = 10.0;
@@ -52,4 +51,3 @@ const double fontSizeLarge = 16.0;
 const double fontSizeExtraLarge = 18.0;
 const double fontSizeOverLarge = 22.0;
 const double fontSizeTitle = 32.0;
-
