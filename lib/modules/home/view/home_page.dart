@@ -38,6 +38,7 @@ class HomeView extends StatelessWidget {
             child: DefaultTextStyle(
               style: const TextStyle(color: Colors.black),
               child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: const [
                   BannersWidget(),
