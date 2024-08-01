@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/news_widget.dart';
 import 'package:mhs_mobile/router/builder.dart';
@@ -13,7 +15,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeView();
+    return BlocProvider<HomeBloc>(
+      lazy: false,
+      create: (context) => HomeBloc()..add(HomeInitialData()),
+      child: const HomeView(),
+    );
   }
 }
 
