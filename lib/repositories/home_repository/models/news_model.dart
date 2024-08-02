@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'news_model.g.dart';
+
+@JsonSerializable()
 class NewsModel {
   int? id;
   String? title;
@@ -47,6 +51,8 @@ class NewsModel {
     }
     return data;
   }
+
+  Map<String, dynamic> fromOther(dynamic other) => _$NewsModelToJson(other);
 }
 
 class User {
