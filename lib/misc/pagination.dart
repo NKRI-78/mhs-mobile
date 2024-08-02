@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:json_annotation/json_annotation.dart';
-part 'pagination.g.dart';
+// import 'package:json_annotation/json_annotation.dart';
+// part 'pagination.g.dart';
 
 Pagination paginationFromJson(String str) =>
     Pagination.fromJson(json.decode(str));
@@ -15,7 +15,7 @@ class PaginationModel<V> {
   PaginationModel({required this.pagination, required this.list});
 }
 
-@JsonSerializable()
+// @JsonSerializable()
 class Pagination {
   int totalItems;
   int totalPages;
