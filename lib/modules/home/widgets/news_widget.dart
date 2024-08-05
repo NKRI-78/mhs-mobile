@@ -1,55 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 
 class NewsWidget extends StatelessWidget {
   const NewsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      children: [
-        const Row(
-          children: [
-            Text(
-              'Berita',
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Spacer(),
-            Text(
-              'See All',
-              style: TextStyle(
-                color: redColor,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        ListView(
+    return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (previous, current) => previous.news != current.news,
+      builder: (context, state) {
+        return ListView(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          children: const [
-            NewWidget(),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          children: [
+            const Row(
+              children: [
+                Text(
+                  'Berita',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Spacer(),
+                Text(
+                  'See All',
+                  style: TextStyle(
+                    color: redColor,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: state.news
+                  .map((e) => NewWidget(
+                        news: e,
+                      ))
+                  .toList(),
+            ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
 
 class NewWidget extends StatelessWidget {
-  const NewWidget({super.key});
+  const NewWidget({super.key, required this.news});
+
+  final NewsModel news;
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +86,8 @@ class NewWidget extends StatelessWidget {
           SizedBox(
             width: 100,
             height: double.infinity,
-            child: Image.asset(
-              'assets/images/banner_metro.png',
+            child: Image.network(
+              news.imageUrl ?? '',
               fit: BoxFit.cover,
             ),
           ),
@@ -85,7 +97,7 @@ class NewWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Mahasiswa Metro Hotel School Titip Bantuan Korban Kebakaran Kaliawi ke ACT Lampung',
+                    news.title ?? '',
                     style: GoogleFonts.roboto().copyWith(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -96,7 +108,7 @@ class NewWidget extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    'Bagi sekitar 13 keluarga di Kompleks Perumahan Jalan Raden Patah Gang',
+                    news.description ?? '',
                     style: GoogleFonts.roboto().copyWith(
                       fontSize: 11,
                       color: const Color(0xff000000).withOpacity(.5),
