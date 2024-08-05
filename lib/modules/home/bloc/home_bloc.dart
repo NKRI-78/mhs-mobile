@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
 import 'package:mhs_mobile/repositories/home_repository/home_repository.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 
 part 'home_state.dart';
@@ -36,5 +37,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  FutureOr<void> _onGetBanners(GetBanners event, Emitter<HomeState> emit) {}
+  FutureOr<void> _onGetBanners(
+      GetBanners event, Emitter<HomeState> emit) async {
+    try {
+      var value = await homeRepo.getBanners();
+      var list = value;
+
+      emit(state.copyWith(banners: list));
+    } catch (e) {
+      //
+    }
+  }
 }
