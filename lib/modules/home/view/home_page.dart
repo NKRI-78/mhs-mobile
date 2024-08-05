@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
+import 'package:mhs_mobile/modules/home/widgets/menus_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/news_widget.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/background_home_scafold.dart';
@@ -47,6 +48,7 @@ class HomeView extends StatelessWidget {
                 shrinkWrap: true,
                 children: const [
                   BannersWidget(),
+                  MenusWidget(),
                   NewsWidget(),
                 ],
               ),
