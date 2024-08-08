@@ -75,9 +75,10 @@ class NewStudentRoute extends GoRouteData {
     TypedGoRoute<LoginRoute>(
       path: 'login',
     ),
-    TypedGoRoute<ChooseRoleRoute>(path: 'choose-role'),
+  ]),
+  TypedGoRoute<ChooseRoleRoute>(path: 'choose-role', routes: [
     TypedGoRoute<NewStudentRoute>(path: 'new-student'),
-  ])
+  ]),
 ])
 class HomeRoute extends GoRouteData {
   @override

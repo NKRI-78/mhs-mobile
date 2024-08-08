@@ -74,10 +74,12 @@ RouteBase get $homeRoute => GoRouteData.$route(
               path: 'login',
               factory: $LoginRouteExtension._fromState,
             ),
-            GoRouteData.$route(
-              path: 'choose-role',
-              factory: $ChooseRoleRouteExtension._fromState,
-            ),
+          ],
+        ),
+        GoRouteData.$route(
+          path: 'choose-role',
+          factory: $ChooseRoleRouteExtension._fromState,
+          routes: [
             GoRouteData.$route(
               path: 'new-student',
               factory: $NewStudentRouteExtension._fromState,
@@ -164,7 +166,7 @@ extension $ChooseRoleRouteExtension on ChooseRoleRoute {
   static ChooseRoleRoute _fromState(GoRouterState state) => ChooseRoleRoute();
 
   String get location => GoRouteData.$location(
-        '/register/choose-role',
+        '/choose-role',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -181,7 +183,7 @@ extension $NewStudentRouteExtension on NewStudentRoute {
   static NewStudentRoute _fromState(GoRouterState state) => NewStudentRoute();
 
   String get location => GoRouteData.$location(
-        '/register/new-student',
+        '/choose-role/new-student',
       );
 
   void go(BuildContext context) => context.go(location);

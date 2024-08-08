@@ -9,6 +9,8 @@ final class AppState extends Equatable {
   const AppState(
       {this.alreadyShowBeginingTour = false, this.user, this.token = ''});
 
+  bool get isLogin => token != '' && user != null;
+
   @override
   List<Object?> get props => [alreadyShowBeginingTour, user, token];
 
