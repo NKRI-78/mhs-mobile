@@ -4,7 +4,9 @@ import 'package:mhs_mobile/modules/begining_tour/view/begining_tour_page.dart';
 import 'package:mhs_mobile/modules/choose_role/view/choose_role_page.dart';
 import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/modules/login/views/login_page.dart';
+import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student/view/new_student_page.dart';
+import 'package:mhs_mobile/modules/new_student_payment/view/new_student_payment_page.dart';
 import 'package:mhs_mobile/modules/register/view/register_page.dart';
 import 'package:mhs_mobile/modules/register_otp/view/register_otp_page.dart';
 import 'package:mhs_mobile/modules/splash_screen/views/splash_screen.dart';
@@ -67,19 +69,66 @@ class NewStudentRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<HomeRoute>(path: '/', routes: [
-  TypedGoRoute<RegisterRoute>(path: 'register', routes: [
-    TypedGoRoute<RegisterOtpRoute>(
-      path: 'register-otp',
+class NewStudentPaymentRoute extends GoRouteData {
+  final String fullname;
+  final String birthDate;
+  final String originSchool;
+  final String parentName;
+  final String phone;
+  final String parentPhone;
+  final String outfitSize;
+  final String height;
+
+  NewStudentPaymentRoute(
+      {required this.fullname,
+      required this.birthDate,
+      required this.originSchool,
+      required this.parentName,
+      required this.phone,
+      required this.parentPhone,
+      required this.outfitSize,
+      required this.height});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return NewStudentPaymentPage(
+      student: NewStudentModel(
+          fullname: fullname,
+          birthDate: birthDate,
+          originSchool: originSchool,
+          parentName: parentName,
+          phone: phone,
+          parentPhone: parentPhone,
+          outfitSize: outfitSize,
+          height: height),
+    );
+  }
+}
+
+@TypedGoRoute<HomeRoute>(
+  path: '/',
+  routes: [
+    TypedGoRoute<RegisterRoute>(path: 'register', routes: [
+      TypedGoRoute<RegisterOtpRoute>(
+        path: 'register-otp',
+      ),
+      TypedGoRoute<LoginRoute>(
+        path: 'login',
+      ),
+    ]),
+    TypedGoRoute<ChooseRoleRoute>(
+      path: 'choose-role',
+      routes: [
+        TypedGoRoute<NewStudentRoute>(
+          path: 'new-student',
+          routes: [
+            TypedGoRoute<NewStudentPaymentRoute>(path: 'payment'),
+          ],
+        ),
+      ],
     ),
-    TypedGoRoute<LoginRoute>(
-      path: 'login',
-    ),
-  ]),
-  TypedGoRoute<ChooseRoleRoute>(path: 'choose-role', routes: [
-    TypedGoRoute<NewStudentRoute>(path: 'new-student'),
-  ]),
-])
+  ],
+)
 class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {

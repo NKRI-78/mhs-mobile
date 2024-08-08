@@ -9,13 +9,15 @@ class _InputHeight extends StatelessWidget {
       flex: 8,
       child: CustomTextField(
         labelText: 'Tinggi Badan',
-        onChanged: (value) {},
-        isName: true,
+        onChanged: (value) {
+          context.read<NewStudentCubit>().copyToState(height: value);
+        },
+        isPhoneNumber: true,
         hintText: "",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Masukan tinggi badan anda",
-        textInputType: TextInputType.text,
-        textInputAction: TextInputAction.next,
+        textInputType: TextInputType.number,
+        textInputAction: TextInputAction.done,
       ),
     );
   }

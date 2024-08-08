@@ -83,6 +83,12 @@ RouteBase get $homeRoute => GoRouteData.$route(
             GoRouteData.$route(
               path: 'new-student',
               factory: $NewStudentRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'payment',
+                  factory: $NewStudentPaymentRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -184,6 +190,43 @@ extension $NewStudentRouteExtension on NewStudentRoute {
 
   String get location => GoRouteData.$location(
         '/choose-role/new-student',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NewStudentPaymentRouteExtension on NewStudentPaymentRoute {
+  static NewStudentPaymentRoute _fromState(GoRouterState state) =>
+      NewStudentPaymentRoute(
+        fullname: state.uri.queryParameters['fullname']!,
+        birthDate: state.uri.queryParameters['birth-date']!,
+        originSchool: state.uri.queryParameters['origin-school']!,
+        parentName: state.uri.queryParameters['parent-name']!,
+        phone: state.uri.queryParameters['phone']!,
+        parentPhone: state.uri.queryParameters['parent-phone']!,
+        outfitSize: state.uri.queryParameters['outfit-size']!,
+        height: state.uri.queryParameters['height']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/choose-role/new-student/payment',
+        queryParams: {
+          'fullname': fullname,
+          'birth-date': birthDate,
+          'origin-school': originSchool,
+          'parent-name': parentName,
+          'phone': phone,
+          'parent-phone': parentPhone,
+          'outfit-size': outfitSize,
+          'height': height,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

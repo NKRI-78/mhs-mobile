@@ -9,8 +9,9 @@ class _InputClothesSize extends StatelessWidget {
       flex: 8,
       child: CustomTextField(
         labelText: 'Ukuran Baju',
-        onChanged: (value) {},
-        isName: true,
+        onChanged: (value) {
+          context.read<NewStudentCubit>().copyToState(outfitSize: value);
+        },
         hintText: "",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Masukan ukuran baju anda",

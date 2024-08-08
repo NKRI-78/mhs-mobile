@@ -7,8 +7,9 @@ class _InputParentName extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextField(
       labelText: 'Nama orang tua',
-      onChanged: (value) {},
-      isName: true,
+      onChanged: (value) {
+        context.read<NewStudentCubit>().copyToState(parentName: value);
+      },
       hintText: "",
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan nama orang tua anda",

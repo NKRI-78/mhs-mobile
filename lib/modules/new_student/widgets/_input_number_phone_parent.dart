@@ -7,12 +7,14 @@ class _InputNumberPhoneParent extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextField(
       labelText: 'No HP Calon Orang Tua',
-      onChanged: (value) {},
-      isName: true,
+      onChanged: (value) {
+        context.read<NewStudentCubit>().copyToState(parentPhone: value);
+      },
+      isPhoneNumber: true,
       hintText: "",
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan No hp calon orang tua anda",
-      textInputType: TextInputType.text,
+      textInputType: TextInputType.number,
       textInputAction: TextInputAction.next,
     );
   }

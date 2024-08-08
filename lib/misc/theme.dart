@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 
-var baseTheme = ThemeData(
+var baseDarkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
     surface: Color(0xff000000),
     background: Color(0xff000000),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: redColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      textStyle: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+);
+
+var baseTheme = ThemeData(
+  colorScheme: const ColorScheme.light(),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       foregroundColor: Colors.white,

@@ -5,15 +5,20 @@ class _InputStudentName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(
-      labelText: 'Nama siswa',
-      onChanged: (value) {},
-      isName: true,
-      hintText: "",
-      fillColor: whiteColor.withOpacity(0.10),
-      emptyText: "Masukan nama anda",
-      textInputType: TextInputType.text,
-      textInputAction: TextInputAction.next,
+    return BlocBuilder<NewStudentCubit, NewStudentState>(
+      builder: (context, state) {
+        return CustomTextField(
+          labelText: 'Nama siswa',
+          onChanged: (value) {
+            context.read<NewStudentCubit>().copyToState(fullname: value);
+          },
+          hintText: "",
+          fillColor: whiteColor.withOpacity(0.10),
+          emptyText: "Masukan nama anda",
+          textInputType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+        );
+      },
     );
   }
 }

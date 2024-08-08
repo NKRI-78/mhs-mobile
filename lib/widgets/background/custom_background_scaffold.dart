@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mhs_mobile/misc/theme.dart';
 
 enum BackgroundAssets { standart, welcome }
 
@@ -6,10 +8,9 @@ class CustomBackgroundScaffold extends StatelessWidget {
   const CustomBackgroundScaffold({
     super.key,
     required this.child,
-  
-    this.assets = BackgroundAssets.standart, 
-    this.gk, 
-    this.bottomNavigationBar, 
+    this.assets = BackgroundAssets.standart,
+    this.gk,
+    this.bottomNavigationBar,
     this.floatingActionButton,
     this.drawer,
   });
@@ -33,22 +34,26 @@ class CustomBackgroundScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: gk,
-      drawer: drawer,
-      bottomNavigationBar: bottomNavigationBar,
-      floatingActionButton: floatingActionButton,
-      body: Stack(
-        fit: StackFit.expand,
-        clipBehavior: Clip.none,
-        children: [
-          Image.asset(
-            asset,
-            fit: BoxFit.cover,
-          ),
-          Positioned.fill(child: child),
-        ],
-      )
+    return Theme(
+      data: baseDarkTheme.copyWith(
+        textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+      ),
+      child: Scaffold(
+          key: gk,
+          drawer: drawer,
+          bottomNavigationBar: bottomNavigationBar,
+          floatingActionButton: floatingActionButton,
+          body: Stack(
+            fit: StackFit.expand,
+            clipBehavior: Clip.none,
+            children: [
+              Image.asset(
+                asset,
+                fit: BoxFit.cover,
+              ),
+              Positioned.fill(child: child),
+            ],
+          )),
     );
   }
 }
