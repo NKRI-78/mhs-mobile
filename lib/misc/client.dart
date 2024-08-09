@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -13,8 +14,20 @@ class MyClient extends http.BaseClient {
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     request.headers.addAll({
       HttpHeaders.authorizationHeader: 'Bearer ${app.state.token}',
-      HttpHeaders.contentTypeHeader: 'application/json',
     });
     return _httpClient.send(request);
+  }
+
+  @override
+  Future<http.Response> post(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    return _httpClient.post(
+      url,
+      headers: {
+        ...headers ?? {},
+        HttpHeaders.authorizationHeader: 'Bearer ${app.state.token}'
+      },
+      body: body,
+    );
   }
 }
