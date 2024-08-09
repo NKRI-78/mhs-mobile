@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
+import 'package:mhs_mobile/modules/new_student_payment/cubit/new_student_payment_cubit.dart';
+import 'package:mhs_mobile/modules/new_student_payment/widgets/select_payment_channel.dart';
 
 class NewStudentPaymentPage extends StatelessWidget {
   const NewStudentPaymentPage({
@@ -14,7 +16,11 @@ class NewStudentPaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const NewStudentPaymentView();
+    return BlocProvider<NewStudentPaymentCubit>(
+      create: (context) =>
+          NewStudentPaymentCubit(student: student)..getPaymentChannel(),
+      child: const NewStudentPaymentView(),
+    );
   }
 }
 
@@ -76,51 +82,94 @@ class NewStudentPaymentView extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: InkWell(
-                onTap: () {},
-                child: Ink(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.black.withOpacity(.3),
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(16),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Iconsax.bank,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Pilih metode pembayaran',
-                          textAlign: TextAlign.end,
-                          maxLines: 1,
+            BlocBuilder<NewStudentPaymentCubit, NewStudentPaymentState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (_) =>
+                            BlocProvider<NewStudentPaymentCubit>.value(
+                          value: context.read<NewStudentPaymentCubit>(),
+                          child: const SelectPaymentChannel(),
+                        ),
+                      );
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.black.withOpacity(.3),
                         ),
                       ),
-                      SizedBox(
-                        width: 6,
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Iconsax.bank,
+                          ),
+                          Expanded(
+                            child: Text(
+                              state.channel != null
+                                  ? state.channel?.name ?? ""
+                                  : 'Pilih metode pembayaran',
+                              textAlign: TextAlign.end,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          const Icon(Iconsax.arrow_circle_right)
+                        ],
                       ),
-                      Icon(Iconsax.arrow_circle_right)
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             const SizedBox(
               height: 16,
             ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 32),
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Checkout'),
-              ),
+            BlocBuilder<NewStudentPaymentCubit, NewStudentPaymentState>(
+              builder: (context, state) {
+                return Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 32),
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: state.loading
+                        ? null
+                        : () async {
+                            var cubit = context.read<NewStudentPaymentCubit>();
+                            if (state.channel == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("Silahkan pilih metode pembayaran"),
+                                ),
+                              );
+                            } else {
+                              try {
+                                await cubit.checkout();
+                              } catch (e) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(e.toString()),
+                                    ),
+                                  );
+                                }
+                              }
+                            }
+                          },
+                    child: const Text('Checkout'),
+                  ),
+                );
+              },
             )
           ],
         ),
