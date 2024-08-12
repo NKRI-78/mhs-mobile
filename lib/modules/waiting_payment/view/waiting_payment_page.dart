@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
 
 class WaitingPaymentPage extends StatelessWidget {
-  const WaitingPaymentPage({super.key});
+  final String id;
+  const WaitingPaymentPage({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const WaitingPaymentView();
+    return BlocProvider<WaitingPaymentCubit>(
+      create: (context) => WaitingPaymentCubit(id: id)..init(),
+      child: const WaitingPaymentView(),
+    );
   }
 }
 
@@ -14,6 +23,15 @@ class WaitingPaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pembayaran"),
+      ),
+      body: const Column(
+        children: [
+          Text("Status"),
+        ],
+      ),
+    );
   }
 }

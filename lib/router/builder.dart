@@ -10,6 +10,7 @@ import 'package:mhs_mobile/modules/new_student_payment/view/new_student_payment_
 import 'package:mhs_mobile/modules/register/view/register_page.dart';
 import 'package:mhs_mobile/modules/register_otp/view/register_otp_page.dart';
 import 'package:mhs_mobile/modules/splash_screen/views/splash_screen.dart';
+import 'package:mhs_mobile/modules/waiting_payment/view/waiting_payment_page.dart';
 part 'builder.g.dart';
 
 @TypedGoRoute<BeginingTourRoute>(path: '/begining')
@@ -17,6 +18,46 @@ class BeginingTourRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const BeginingTourPage();
+  }
+}
+
+@TypedGoRoute<SplashScreenRoute>(path: '/splash')
+class SplashScreenRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SplashScreenPage();
+  }
+}
+
+@TypedGoRoute<HomeRoute>(
+  path: '/',
+  routes: [
+    TypedGoRoute<RegisterRoute>(path: 'register', routes: [
+      TypedGoRoute<RegisterOtpRoute>(
+        path: 'register-otp',
+      ),
+      TypedGoRoute<LoginRoute>(
+        path: 'login',
+      ),
+    ]),
+    TypedGoRoute<ChooseRoleRoute>(
+      path: 'choose-role',
+      routes: [
+        TypedGoRoute<NewStudentRoute>(
+          path: 'new-student',
+          routes: [
+            TypedGoRoute<NewStudentPaymentRoute>(path: 'payment'),
+          ],
+        ),
+      ],
+    ),
+    TypedGoRoute<WaitingPaymentRoute>(path: 'waiting-payment')
+  ],
+)
+class HomeRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomePage();
   }
 }
 
@@ -44,14 +85,6 @@ class LoginRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginPage();
-  }
-}
-
-@TypedGoRoute<SplashScreenRoute>(path: '/splash')
-class SplashScreenRoute extends GoRouteData {
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SplashScreenPage();
   }
 }
 
@@ -105,33 +138,14 @@ class NewStudentPaymentRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<HomeRoute>(
-  path: '/',
-  routes: [
-    TypedGoRoute<RegisterRoute>(path: 'register', routes: [
-      TypedGoRoute<RegisterOtpRoute>(
-        path: 'register-otp',
-      ),
-      TypedGoRoute<LoginRoute>(
-        path: 'login',
-      ),
-    ]),
-    TypedGoRoute<ChooseRoleRoute>(
-      path: 'choose-role',
-      routes: [
-        TypedGoRoute<NewStudentRoute>(
-          path: 'new-student',
-          routes: [
-            TypedGoRoute<NewStudentPaymentRoute>(path: 'payment'),
-          ],
-        ),
-      ],
-    ),
-  ],
-)
-class HomeRoute extends GoRouteData {
+class WaitingPaymentRoute extends GoRouteData {
+  final String id;
+
+  WaitingPaymentRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const HomePage();
+    return WaitingPaymentPage(
+      id: id,
+    );
   }
 }

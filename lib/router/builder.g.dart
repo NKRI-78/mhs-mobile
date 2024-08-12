@@ -92,6 +92,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
             ),
           ],
         ),
+        GoRouteData.$route(
+          path: 'waiting-payment',
+          factory: $WaitingPaymentRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -226,6 +230,29 @@ extension $NewStudentPaymentRouteExtension on NewStudentPaymentRoute {
           'parent-phone': parentPhone,
           'outfit-size': outfitSize,
           'height': height,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $WaitingPaymentRouteExtension on WaitingPaymentRoute {
+  static WaitingPaymentRoute _fromState(GoRouterState state) =>
+      WaitingPaymentRoute(
+        id: state.uri.queryParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/waiting-payment',
+        queryParams: {
+          'id': id,
         },
       );
 
