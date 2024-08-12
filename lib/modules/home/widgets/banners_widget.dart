@@ -9,9 +9,11 @@ class BannersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
-      buildWhen: (previous, current) => previous.banners != current.banners,
+      buildWhen: (previous, current) =>
+          previous.banners != current.banners ||
+          previous.loadingBanner != current.loadingBanner,
       builder: (context, state) {
-        if (state.banners.isEmpty) {
+        if (state.loadingBanner) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Shimmer.fromColors(

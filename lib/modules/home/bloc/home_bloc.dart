@@ -31,8 +31,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var list = value.list;
       var pagination = value.pagination;
 
-      emit(state.copyWith(news: list, paginationNews: pagination));
+      emit(state.copyWith(
+          news: list, paginationNews: pagination, loadingNew: false));
     } catch (e) {
+      emit(state.copyWith(loadingNew: false));
       //
     }
   }
@@ -43,8 +45,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var value = await homeRepo.getBanners();
       var list = value;
 
-      emit(state.copyWith(banners: list));
+      emit(state.copyWith(banners: list, loadingBanner: false));
     } catch (e) {
+      emit(state.copyWith(loadingBanner: false));
       //
     }
   }
