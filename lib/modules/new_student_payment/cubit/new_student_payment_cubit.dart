@@ -30,11 +30,13 @@ class NewStudentPaymentCubit extends Cubit<NewStudentPaymentState> {
     emit(state.copyWith(channel: e));
   }
 
-  Future<void> checkout() async {
+  Future<String> checkout() async {
     try {
       emit(state.copyWith(loading: true));
-      await homeRepo.registerStudent(student, state.channel!);
+      var paymentNumber =
+          await homeRepo.registerStudent(student, state.channel!);
       emit(state.copyWith(loading: false));
+      return paymentNumber;
     } catch (e) {
       emit(state.copyWith(loading: false));
       rethrow;

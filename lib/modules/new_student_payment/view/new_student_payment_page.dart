@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student_payment/cubit/new_student_payment_cubit.dart';
 import 'package:mhs_mobile/modules/new_student_payment/widgets/select_payment_channel.dart';
+import 'package:mhs_mobile/router/builder.dart';
 
 class NewStudentPaymentPage extends StatelessWidget {
   const NewStudentPaymentPage({
@@ -154,7 +155,11 @@ class NewStudentPaymentView extends StatelessWidget {
                               );
                             } else {
                               try {
-                                await cubit.checkout();
+                                var paymentNumber = await cubit.checkout();
+                                if (context.mounted) {
+                                  WaitingPaymentRoute(id: paymentNumber)
+                                      .go(context);
+                                }
                               } catch (e) {
                                 if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(

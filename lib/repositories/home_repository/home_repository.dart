@@ -60,7 +60,7 @@ class HomeRepository {
     }
   }
 
-  Future<void> registerStudent(
+  Future<String> registerStudent(
       NewStudentModel student, PaymentChannelModel payment) async {
     try {
       var res = await MyClient().post(Uri.parse('$studentUrl/register'), body: {
@@ -80,7 +80,7 @@ class HomeRepository {
 
       final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        return;
+        return json['data']['payment']['paymentNumber'];
       }
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
