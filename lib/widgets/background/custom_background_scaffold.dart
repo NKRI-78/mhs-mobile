@@ -36,7 +36,9 @@ class CustomBackgroundScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: baseDarkTheme.copyWith(
-        textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+        textTheme: GoogleFonts.robotoTextTheme(
+          baseDarkTheme.textTheme,
+        ),
       ),
       child: Scaffold(
           key: gk,

@@ -33,6 +33,9 @@ class BannersWidget extends StatelessWidget {
             ),
           );
         }
+        if (state.banners.isEmpty) {
+          return const SizedBox.shrink();
+        }
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Container(
