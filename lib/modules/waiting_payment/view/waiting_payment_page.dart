@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
+import 'package:mhs_mobile/modules/waiting_payment/widgets/virtual_account_method_widget.dart';
 
 class WaitingPaymentPage extends StatelessWidget {
   final String id;
@@ -40,6 +41,16 @@ class WaitingPaymentView extends StatelessWidget {
       ),
       body: BlocBuilder<WaitingPaymentCubit, WaitingPaymentState>(
         builder: (context, state) {
+          if (state.loading) {
+            return const SizedBox.expand(
+              child: Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            );
+          }
+          if (state.payment == null) {
+            return const SizedBox.shrink();
+          }
           return SizedBox.expand(
             child: SingleChildScrollView(
               child: Padding(
@@ -74,9 +85,15 @@ class WaitingPaymentView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const Text(
-                      'Juli, 08 april 2024',
-                      style: TextStyle(
+                    Text(
+                      DateFormat().format(
+                        DateTime.parse(state.payment!.createdAt!).add(
+                          const Duration(
+                            days: 1,
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -87,130 +104,10 @@ class WaitingPaymentView extends StatelessWidget {
                     const Divider(
                       color: Colors.grey,
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const Text(
-                      "Nomor Virtual Account",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w600,
+                    if (state.payment?.paymentMethod == 'VIRTUAL_ACCOUNT')
+                      VirtualAccountMethodWidget(
+                        payment: state.payment!,
                       ),
-                    ),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Text(
-                            '1372627736626255',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Salin',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryColor,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Icon(
-                                Iconsax.copy,
-                                color: primaryColor,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const Text(
-                      "Total Pembayaran",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Text(
-                            'Rp 200.000',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Salin',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryColor,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Icon(
-                                Iconsax.copy,
-                                color: primaryColor,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: primaryColor.withOpacity(.3),
-                          border: Border.all(
-                            color: primaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(6)),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: const Row(
-                        children: [
-                          Icon(
-                            Iconsax.info_circle,
-                            color: primaryColor,
-                            size: 35,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Expanded(
-                            child: Text(
-                                'Tidak disarankan transfer Virtual Account dari bank selain yang dipilih.'),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
                     const Divider(
                       color: Colors.grey,
                     )
