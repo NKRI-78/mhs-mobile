@@ -7,15 +7,27 @@ final class AppState extends Equatable {
   final String token;
 
   const AppState(
-      {this.alreadyShowBeginingTour = false, this.user, this.token = ''});
+  {
+    this.alreadyShowBeginingTour = false, 
+    this.user, 
+    this.token = '',
+  });
 
   bool get isLogin => token != '' && user != null;
 
   @override
   List<Object?> get props => [alreadyShowBeginingTour, user, token];
 
+  AppState logout() {
+    return AppState(
+      alreadyShowBeginingTour: alreadyShowBeginingTour,
+      token: '',
+      user: null,
+    );
+  }
+
   AppState copyWith(
-      {bool? alreadyShowBeginingTour, User? user, String? token}) {
+      {bool? alreadyShowBeginingTour, User? user, ProfileModel? profile, String? token}) {
     return AppState(
       alreadyShowBeginingTour:
           alreadyShowBeginingTour ?? this.alreadyShowBeginingTour,

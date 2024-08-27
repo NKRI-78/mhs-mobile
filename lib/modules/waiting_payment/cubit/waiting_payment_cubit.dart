@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/injections.dart';
+import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_model.dart';
 import 'package:mhs_mobile/repositories/payment_repository/payment_repository.dart';
 
@@ -19,5 +21,13 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> close() {
+    if (getIt.isRegistered<HomeBloc>()) {
+      getIt<HomeBloc>().add(HomeInitialData());
+    }
+    return super.close();
   }
 }

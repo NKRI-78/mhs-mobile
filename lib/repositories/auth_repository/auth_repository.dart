@@ -44,7 +44,7 @@ class AuthRepository {
         return LoggedIn(
           token: json['data']['token'],
           user: User.fromJson(
-            json['data']['user'],
+            json['data'],
           ),
         );
       }

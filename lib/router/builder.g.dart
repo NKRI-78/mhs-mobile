@@ -63,6 +63,54 @@ RouteBase get $homeRoute => GoRouteData.$route(
       factory: $HomeRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
+          path: 'news-detail',
+          factory: $NewsDetailRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'presentation',
+          factory: $ListPresentationRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'modul',
+          factory: $ListModulRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'brochure',
+          factory: $ListBrochureRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'partnership',
+          factory: $PartnershipRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'profile',
+          factory: $ProfileRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'show-more-news',
+          factory: $ShowMoreNewsRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'sm-news-detail',
+              factory: $SMNewsDetailRouteExtension._fromState,
+            ),
+          ],
+        ),
+        GoRouteData.$route(
+          path: 'event',
+          factory: $EventRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'event-detail',
+              factory: $EventDetailRouteExtension._fromState,
+            ),
+          ],
+        ),
+        GoRouteData.$route(
+          path: 'media',
+          factory: $MediaRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'register',
           factory: $RegisterRouteExtension._fromState,
           routes: [
@@ -104,6 +152,211 @@ extension $HomeRouteExtension on HomeRoute {
 
   String get location => GoRouteData.$location(
         '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NewsDetailRouteExtension on NewsDetailRoute {
+  static NewsDetailRoute _fromState(GoRouterState state) => NewsDetailRoute(
+        newsId: int.parse(state.uri.queryParameters['news-id']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/news-detail',
+        queryParams: {
+          'news-id': newsId.toString(),
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ListPresentationRouteExtension on ListPresentationRoute {
+  static ListPresentationRoute _fromState(GoRouterState state) =>
+      ListPresentationRoute();
+
+  String get location => GoRouteData.$location(
+        '/presentation',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ListModulRouteExtension on ListModulRoute {
+  static ListModulRoute _fromState(GoRouterState state) => ListModulRoute();
+
+  String get location => GoRouteData.$location(
+        '/modul',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ListBrochureRouteExtension on ListBrochureRoute {
+  static ListBrochureRoute _fromState(GoRouterState state) =>
+      ListBrochureRoute();
+
+  String get location => GoRouteData.$location(
+        '/brochure',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PartnershipRouteExtension on PartnershipRoute {
+  static PartnershipRoute _fromState(GoRouterState state) => PartnershipRoute();
+
+  String get location => GoRouteData.$location(
+        '/partnership',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ProfileRouteExtension on ProfileRoute {
+  static ProfileRoute _fromState(GoRouterState state) => ProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShowMoreNewsRouteExtension on ShowMoreNewsRoute {
+  static ShowMoreNewsRoute _fromState(GoRouterState state) =>
+      ShowMoreNewsRoute();
+
+  String get location => GoRouteData.$location(
+        '/show-more-news',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SMNewsDetailRouteExtension on SMNewsDetailRoute {
+  static SMNewsDetailRoute _fromState(GoRouterState state) => SMNewsDetailRoute(
+        newsId: int.parse(state.uri.queryParameters['news-id']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/show-more-news/sm-news-detail',
+        queryParams: {
+          'news-id': newsId.toString(),
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $EventRouteExtension on EventRoute {
+  static EventRoute _fromState(GoRouterState state) => EventRoute();
+
+  String get location => GoRouteData.$location(
+        '/event',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $EventDetailRouteExtension on EventDetailRoute {
+  static EventDetailRoute _fromState(GoRouterState state) => EventDetailRoute(
+        idEvent: int.parse(state.uri.queryParameters['id-event']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/event/event-detail',
+        queryParams: {
+          'id-event': idEvent.toString(),
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $MediaRouteExtension on MediaRoute {
+  static MediaRoute _fromState(GoRouterState state) => MediaRoute();
+
+  String get location => GoRouteData.$location(
+        '/media',
       );
 
   void go(BuildContext context) => context.go(location);

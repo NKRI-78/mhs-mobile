@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
+import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/home_repository.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
@@ -13,16 +16,23 @@ part 'home_event.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeState(paginationNews: Pagination.initial)) {
     on<HomeInitialData>(_onHomeInitialData);
+    on<GetProfile>(_onGetProfile);
     on<GetNews>(_onGetNews);
     on<GetBanners>(_onGetBanners);
+    on<SetProfileNull>(_onSetProfileNull);
   }
 
   final homeRepo = HomeRepository();
 
   FutureOr<void> _onHomeInitialData(
       HomeInitialData event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(loadingProfile: true));
+    if (!getIt.isRegistered<HomeBloc>()) {
+      getIt.registerLazySingleton<HomeBloc>(() => this);
+    }
     add(GetNews());
     add(GetBanners());
+    add(GetProfile());
   }
 
   FutureOr<void> _onGetNews(GetNews event, Emitter<HomeState> emit) async {
@@ -50,5 +60,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(loadingBanner: false));
       //
     }
+  }
+
+  FutureOr<void> _onGetProfile(
+      GetProfile event, Emitter<HomeState> emit) async {
+    try {
+      ProfileModel? data = await homeRepo.getProfile();
+      emit(state.copyWith(profile: data));
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      emit(state.copyWith(loadingProfile: false));
+    }
+  }
+
+  FutureOr<void> _onSetProfileNull(
+      SetProfileNull event, Emitter<HomeState> emit) {
+    emit(state.setProfileNull());
   }
 }

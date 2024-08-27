@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
@@ -66,7 +67,7 @@ class ChooseRoleView extends StatelessWidget {
               height: 47,
               child: ElevatedButton(
                 onPressed: () {
-                  LoginRoute().push(context);
+                  // LoginRoute().push(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: whiteColor

@@ -5,6 +5,7 @@ import 'package:mhs_mobile/misc/api_url.dart';
 import 'package:mhs_mobile/misc/client.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
+import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_channel_model.dart';
@@ -12,6 +13,7 @@ import 'package:mhs_mobile/repositories/payment_repository/models/payment_channe
 class HomeRepository {
   Uri get bannerUri => Uri.parse('${MyApi.baseUrl}/api/v1/banner');
   Uri get newUri => Uri.parse('${MyApi.baseUrl}/api/v1/news');
+  Uri get profileUri => Uri.parse('${MyApi.baseUrl}/api/v1/profile');
   String get studentUrl => '${MyApi.baseUrl}/api/v1/student';
 
   Future<List<BannerModel>> getBanners() async {
@@ -32,6 +34,24 @@ class HomeRepository {
         throw "Error";
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ProfileModel> getProfile() async {
+    try {
+      final res = await MyClient().get(profileUri);
+
+      debugPrint(res.body);
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return ProfileModel.fromJson(json);
+      } else {
+        throw "error api";
+      }
+    } catch (e) {
+      // print(e);
+      debugPrint(e.toString());
       rethrow;
     }
   }

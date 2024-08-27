@@ -1,5 +1,11 @@
 part of '../view/choose_role_page.dart';
 
+const List<String> _list = [
+    'Student',
+    'Parent',
+    'Alumn',
+  ];
+
 class _SelectRoleWidgets extends StatelessWidget {
   const _SelectRoleWidgets();
 
@@ -7,30 +13,29 @@ class _SelectRoleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      child: DropdownButtonFormField(
-        style: const TextStyle(
-          fontSize: 16,
+      child:  CustomDropdown(
+        decoration: CustomDropdownDecoration(
+          expandedFillColor:  whiteColor,
+          closedFillColor: whiteColor.withOpacity(0.10),
+          closedBorder: Border.all(width: 1, color: whiteColor),
+          expandedBorder: Border.all(width: 1, color: whiteColor),
+          listItemStyle: const TextStyle(
+            color: blackColor
+          ),
+          headerStyle: const TextStyle(
+            color: whiteColor
+          ),
+          expandedSuffixIcon: const Icon(Icons.keyboard_arrow_up_sharp, color: blackColor,),
+          closedSuffixIcon: const Icon(Icons.keyboard_arrow_down_sharp, color: whiteColor,),
         ),
-        validator: (value) {
-          if (value == null) return 'Harap pilih role terlebih dahulu';
-          return null;
+        excludeSelected: false,
+        hideSelectedFieldWhenExpanded: false,
+        hintText: 'Select Role',
+        items: _list,
+        initialItem: _list[0],
+        onChanged: (value) {
+          print('changing value to: $value');
         },
-        icon: const Icon(Icons.keyboard_arrow_down_rounded),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: whiteColor.withOpacity(0.10),
-          labelText: 'Choose role u are',
-          border: OutlineInputBorder(
-             borderRadius: BorderRadius.circular(8)),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-        ),
-        items: const [
-          DropdownMenuItem(
-            value: "Student",
-            child: Text("Student"),
-          )
-        ],
-        onChanged: (value) {},
       ),
     );
   }

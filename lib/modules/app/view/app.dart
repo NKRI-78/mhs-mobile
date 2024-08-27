@@ -32,11 +32,15 @@ class _AppViewState extends State<AppView> {
   );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: baseTheme.copyWith(
-        textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
-      ),
-      routerConfig: router,
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (context, st) {
+        return MaterialApp.router(
+          theme: baseTheme.copyWith(
+            textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+          ),
+          routerConfig: router,
+        );
+      }
     );
   }
 }

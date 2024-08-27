@@ -5,15 +5,20 @@ class _FieldPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(
-      onChanged: (p0) {},
-      labelText: "Kata Sandi",
-      isPassword: true,
-      hintText: "",
-      fillColor: whiteColor.withOpacity(0.10),
-      emptyText: "Kata sandi tidak boleh kosong",
-      textInputType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.done,
-    );
+    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+      return CustomTextField(
+        onChanged: (p0) {
+          var cubit = context.read<LoginCubit>();
+          cubit.copyState(cubit.state.copyWith(password: p0));
+        },
+        labelText: "Kata Sandi",
+        isPassword: true,
+        hintText: "",
+        // emptyText: "",
+        fillColor: whiteColor.withOpacity(0.10),
+        textInputType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.done,
+      );
+    });
   }
 }

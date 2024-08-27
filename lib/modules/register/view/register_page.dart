@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -60,33 +61,51 @@ class RegisterView extends StatelessWidget {
                 ),
                 SliverList(
                     delegate: SliverChildListDelegate([
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      _InputStudentName(),
-                      Padding(
+                      const _InputStudentName(),
+                      const Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: _InputPhone(),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _InputEmail(),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _FieldPassword(),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _FieldConfirmPassword(),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _BottomButon(),
                       ),
+                      RichText(
+
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(text: "Sudah Punya Akun ? "),
+                            TextSpan(
+                              text: "Login",
+                              style: const TextStyle(
+                                color: redColor,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                LoginRoute().go(context);
+                              },
+                            ),
+                          ]
+                        )
+                      )
                     ],
                   )
                 ]))

@@ -7,3 +7,7 @@ class HomeInitialData extends HomeEvent {}
 class GetNews extends HomeEvent {}
 
 class GetBanners extends HomeEvent {}
+
+class SetProfileNull extends HomeEvent {}
+
+class GetProfile extends HomeEvent {}

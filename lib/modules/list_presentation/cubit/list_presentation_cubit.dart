@@ -1,0 +1,32 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mhs_mobile/misc/pagination.dart';
+import 'package:mhs_mobile/repositories/document_repository/document_repository.dart';
+import 'package:mhs_mobile/repositories/document_repository/models/document_model.dart';
+
+part 'list_presentation_state.dart';
+part 'list_presentation_cubit.g.dart';
+
+class ListPresentationCubit extends Cubit<ListPresentationState> {
+  ListPresentationCubit() : super(const ListPresentationState());
+
+  final document = DocumentRepository();
+
+  void copyState({required ListPresentationState newState}) {
+    emit(newState);
+  }
+
+  Future<void> fetchPresentation() async {
+    try {
+      var value = await document.getDocument("Presentation");
+      var list = value;
+
+      emit(state.copyWith(document: list, loadingModul: false));
+    } catch (e) {
+      rethrow;
+    } finally {
+      emit(state.copyWith(loadingModul: false));
+    }
+  }
+}

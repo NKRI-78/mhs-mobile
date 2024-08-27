@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
+import 'package:mhs_mobile/modules/news_detail/view/news_detail.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NewsWidget extends StatelessWidget {
@@ -19,11 +21,10 @@ class NewsWidget extends StatelessWidget {
         return ListView(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 32),
           children: [
-            const Row(
+            Row(
               children: [
-                Text(
+                const Text(
                   'Berita',
                   style: TextStyle(
                     color: primaryColor,
@@ -31,13 +32,18 @@ class NewsWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Spacer(),
-                Text(
-                  'See All',
-                  style: TextStyle(
-                    color: redColor,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    ShowMoreNewsRoute().go(context);
+                  },
+                  child: const Text(
+                    'See All',
+                    style: TextStyle(
+                      color: redColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -130,62 +136,67 @@ class NewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.width * .3,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.1),
-            blurRadius: 5,
-            spreadRadius: 2,
-            offset: const Offset(3, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 100,
-            height: double.infinity,
-            child: Image.network(
-              news.imageUrl ?? '',
-              fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        NewsDetailRoute(newsId: news.id ?? 0,).go(context);
+      },
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.width * .3,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.1),
+              blurRadius: 5,
+              spreadRadius: 2,
+              offset: const Offset(3, 3),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    news.title ?? '',
-                    style: GoogleFonts.roboto().copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    maxLines: 3,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    news.description ?? '',
-                    style: GoogleFonts.roboto().copyWith(
-                      fontSize: 11,
-                      color: const Color(0xff000000).withOpacity(.5),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    maxLines: 2,
-                  ),
-                ],
+          ],
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 100,
+              height: double.infinity,
+              child: Image.network(
+                news.imageUrl ?? '',
+                fit: BoxFit.cover,
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      news.title ?? '',
+                      style: GoogleFonts.roboto().copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 3,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      news.description ?? '',
+                      style: GoogleFonts.roboto().copyWith(
+                        fontSize: 11,
+                        color: const Color(0xff000000).withOpacity(.5),
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 2,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

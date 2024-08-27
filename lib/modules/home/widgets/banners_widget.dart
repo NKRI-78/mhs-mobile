@@ -1,7 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
+import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:shimmer/shimmer.dart';
+
+int currentIndexMultipleImg = 0;
 
 class BannersWidget extends StatelessWidget {
   const BannersWidget({super.key});
@@ -9,52 +13,52 @@ class BannersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
-      buildWhen: (previous, current) =>
-          previous.banners != current.banners ||
-          previous.loadingBanner != current.loadingBanner,
-      builder: (context, state) {
-        if (state.loadingBanner) {
+        buildWhen: (previous, current) =>
+            previous.banners != current.banners ||
+            previous.loadingBanner != current.loadingBanner,
+        builder: (context, st) {
+          if (st.loadingBanner || st.banners!.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: ImageCard(image: "", radius: 20, width: double.infinity),
+            );
+          }
           return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: Container(
-                height: MediaQuery.of(context).size.width * .4,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.white,
-                ),
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                ),
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: CarouselSlider.builder(
+              options: CarouselOptions(
+                height: 152.0,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                viewportFraction: 1,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                initialPage: 0,
+                onPageChanged: (int i, CarouselPageChangedReason reason) {
+                  currentIndexMultipleImg = i;
+                },
               ),
+              itemCount: st.banners?.length ?? 0,
+              itemBuilder: (context, index, realIndex) {
+                final data = st.banners?[index];
+                return InkWell(
+                  onTap: () {
+                    // if(data!.postLink != "-" && data.postLink!.isNotEmpty){
+                    //   WebViewScreenRoute(url: data.postLink, title: data.name).go(context);
+                    // }
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: ImageCard(
+                      image: data?.bannerLink ?? "",
+                      height: 180,
+                      radius: 16,
+                      width: double.infinity,
+                    ),
+                  ),
+                );
+              },
             ),
           );
-        }
-        if (state.banners.isEmpty) {
-          return const SizedBox.shrink();
-        }
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            height: MediaQuery.of(context).size.width * .4,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.symmetric(
-              horizontal: 32,
-            ),
-            child: Image.network(
-              state.banners.first.bannerLink ?? '',
-              fit: BoxFit.cover,
-            ),
-          ),
-        );
-      },
-    );
+        });
   }
 }

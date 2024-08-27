@@ -49,7 +49,7 @@ class BackgroundHomeScafold extends StatelessWidget {
                   child: Image.asset(
                     circleDown,
                     height: 200,
-                    width: 100,
+                    width: 200,
                     fit: BoxFit.cover,
                   ),
                 )),

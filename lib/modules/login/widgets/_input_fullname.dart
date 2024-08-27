@@ -5,15 +5,20 @@ class _InputFullname extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextField(
-      labelText: 'Full Name',
-      onChanged: (value) {},
-      isName: true,
-      hintText: "",
-      fillColor: whiteColor.withOpacity(0.10),
-      emptyText: "Masukan nama anda",
-      textInputType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-    );
+    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+      return CustomTextField(
+        labelText: 'Email/No. Telepon',
+        isEmail: true,
+        onChanged: (p0) {
+          var cubit = context.read<LoginCubit>();
+          cubit.copyState(cubit.state.copyWith(email: p0));
+        },
+        hintText: "",
+        fillColor: whiteColor.withOpacity(0.10),
+        emptyText: "Email/No. Telepon wajib di isi",
+        textInputType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.next,
+      );
+    });
   }
 }
