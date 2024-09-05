@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:mhs_mobile/misc/api_url.dart';
+import 'package:mhs_mobile/misc/http_client.dart';
+import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/repositories/auth_repository/models/club/club.dart';
 
 import 'package:mhs_mobile/repositories/auth_repository/models/user/user.dart';
@@ -26,8 +28,11 @@ class EmailNotActivatedFailure implements Exception {
 
 enum VerifyEmailType { sendingOtp, verified }
 
+
+
 class AuthRepository {
   String get v1 => '${MyApi.baseUrl}/api/v1/auth';
+  final httpBase = getIt<BaseNetworkClient>(); 
 
   Future<LoggedIn> login(
       {required String email, required String password}) async {
@@ -51,6 +56,58 @@ class AuthRepository {
       if (res.statusCode == 401) {
         throw EmailNotActivatedFailure(
             message: json['message'] ?? "Terjadi kesalahan");
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      }
+      throw json['message'] ?? "Terjadi kesalahan";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> loginExistingStudent(
+      {required String fullname, required String nisn}) async {
+    try {
+      final res = await httpBase.post(Uri.parse('$v1/verify-existing-student'), body: {
+        'fullname': fullname,
+        'nisn': nisn,
+      });
+      debugPrint("Fullname : $fullname Nisn : $nisn");
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      }
+      throw json['message'] ?? "Terjadi kesalahan";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<LoggedIn> loginParent(
+      {required String fullname, required String student , required String nisn}) async {
+    try {
+      final res = await httpBase.post(Uri.parse('$v1/verify-parent'), body: {
+        'fullname': fullname,
+        'studentName': student,
+        'nisn': nisn,
+      });
+
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return LoggedIn(
+          token: json['data']['token'],
+          user: User.fromJson(
+            json['data'],
+          ),
+        );
       }
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";

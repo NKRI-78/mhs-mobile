@@ -36,32 +36,31 @@ class RegisterView extends StatelessWidget {
         assets: BackgroundAssets.standart,
         child: Form(
           key: _formRegister,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CustomScrollView(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: [
-                SliverAppBar(
-                  toolbarHeight: 50,
-                  backgroundColor: Colors.transparent,
-                  leading: InkWell(
-                      onTap: () {
-                        if (GoRouter.of(context).canPop()) {
-                          GoRouter.of(context).pop();
-                        }
-                      },
-                      child: Image.asset("assets/icons/back-icon.png")),
-                  title: const Text(
-                    "Regist Account",
-                    style: TextStyle(fontSize: fontSizeTitle),
-                  ),
-                  centerTitle: true,
+          child: CustomScrollView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                leading: InkWell(
+                    onTap: () {
+                      if (GoRouter.of(context).canPop()) {
+                        GoRouter.of(context).pop();
+                      }
+                    },
+                    child: Image.asset("assets/icons/back-icon.png")),
+                title: const Text(
+                  "Daftar Akun",
+                  style: TextStyle(fontSize: fontSizeTitle),
                 ),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Column(
+                centerTitle: true,
+              ),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
@@ -89,12 +88,12 @@ class RegisterView extends StatelessWidget {
                         child: _BottomButon(),
                       ),
                       RichText(
-
+                            
                         text: TextSpan(
                           children: [
                             const TextSpan(text: "Sudah Punya Akun ? "),
                             TextSpan(
-                              text: "Login",
+                              text: "Masuk",
                               style: const TextStyle(
                                 color: redColor,
                               ),
@@ -107,10 +106,10 @@ class RegisterView extends StatelessWidget {
                         )
                       )
                     ],
-                  )
-                ]))
-              ],
-            ),
+                  ),
+                )
+              ]))
+            ],
           ),
         ));
   }

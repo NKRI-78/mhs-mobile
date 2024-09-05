@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
-import 'package:shimmer/shimmer.dart';
 
 int currentIndexMultipleImg = 0;
 
@@ -24,7 +24,7 @@ class BannersWidget extends StatelessWidget {
             );
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 25),
             child: CarouselSlider.builder(
               options: CarouselOptions(
                 height: 152.0,
@@ -42,9 +42,9 @@ class BannersWidget extends StatelessWidget {
                 final data = st.banners?[index];
                 return InkWell(
                   onTap: () {
-                    // if(data!.postLink != "-" && data.postLink!.isNotEmpty){
-                    //   WebViewScreenRoute(url: data.postLink, title: data.name).go(context);
-                    // }
+                    if(data!.postLink != "-" && data.postLink!.isNotEmpty){
+                      WebViewRoute(url: data.postLink ?? "", title: data.name ?? "").go(context);
+                    }
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),

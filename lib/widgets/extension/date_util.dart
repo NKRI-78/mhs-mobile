@@ -45,6 +45,10 @@ class DateUntil {
     initializeDateFormatting("id");
      return DateFormat.yMMMMd("id").format(formatDate);
   }
+  static String formatDateDocument(DateTime formatDate) {
+    initializeDateFormatting("id");
+     return '${DateFormat.yMMMMd("id").format(formatDate)} | ${DateFormat.Hm("id").format(formatDate)}';
+  }
 
   static String getDate(DateTime dateTime) {
     final now = DateTime(dateTime.year, dateTime.month, dateTime.day,

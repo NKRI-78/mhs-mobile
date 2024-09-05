@@ -5,11 +5,11 @@ import 'package:shimmer/shimmer.dart';
 
 class ImageCard extends StatelessWidget {
   final String image;
-  final double width;
+  final double? width;
   final double? height;
   final double radius;
   final BoxFit? fit;
-  const ImageCard({super.key, required this.image, this.height, required this.radius, required this.width, this.fit = BoxFit.fill});
+  const ImageCard({super.key, required this.image, this.height, required this.radius, this.width, this.fit = BoxFit.fill});
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ class NewStudentState extends Equatable {
       this.parentName = '',
       this.phone = '',
       this.parentPhone = '',
-      this.outfitSize = '',
+      this.outfitSize = 'S',
       this.height = ''});
 
   NewStudentModel get toModel => NewStudentModel(

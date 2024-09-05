@@ -78,9 +78,10 @@ class _ContentWidget extends StatelessWidget {
                         ),
                         Expanded(
                           child: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_circle_right_outlined,
-                              color: blackColor,
+                            icon: Image.asset(
+                              "assets/icons/next-icon.png",
+                              width: 30,
+                              height: 35,
                             ), 
                             onPressed: () { 
                               if (state.index == 2) {

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mhs_mobile/misc/http_client.dart';
 import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/repositories/app_repository/app_repository.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';

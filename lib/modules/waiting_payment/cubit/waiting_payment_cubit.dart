@@ -23,6 +23,15 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
     }
   }
 
+  Future<void> onRefresh() async {
+    try {
+      var payment = await paymentRepo.findPayment(id);
+      emit(state.copyWith(loading: false, payment: payment));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   @override
   Future<void> close() {
     if (getIt.isRegistered<HomeBloc>()) {

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
@@ -26,14 +24,12 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, st) {
-      int roleId = st.profile?.data.roleId ?? 0;
               String nameStudent = st.profile?.data.profile?.fullname ?? "" ;
               String nameUser = st.profile?.data.name ?? "" ;
       return Scaffold(
         backgroundColor: whiteColor,
         bottomNavigationBar: DetailUser(
-          email: st.profile?.data.email ?? "",
-          phone: st.profile?.data.phone ?? "",
+          profile: st.profile!.data
         ),
         body: CustomScrollView(
           shrinkWrap: true,
@@ -119,10 +115,10 @@ class ProfileView extends StatelessWidget {
                                               fontSize: 30,
                                               fontWeight: FontWeight.w900),
                                         ),
-                                        const Text(
-                                          "122323244443535",
+                                        Text(
+                                          st.profile?.data.student?.nisn ?? "-",
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: whiteColor,
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400),

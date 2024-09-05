@@ -8,8 +8,7 @@ import 'package:mhs_mobile/repositories/payment_repository/payment_repository.da
 part 'new_student_payment_state.dart';
 
 class NewStudentPaymentCubit extends Cubit<NewStudentPaymentState> {
-  NewStudentPaymentCubit({required this.student})
-      : super(const NewStudentPaymentState());
+  NewStudentPaymentCubit({required this.student}) : super(const NewStudentPaymentState());
 
   final NewStudentModel student;
 

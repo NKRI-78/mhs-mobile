@@ -33,11 +33,11 @@ class CardNews extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 100,
+              width: 180,
               height: double.infinity,
               child: Image.network(
                 news.imageUrl ?? '',
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             Expanded(
@@ -51,19 +51,20 @@ class CardNews extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Text(
-                      news.description ?? '',
+                      news.description?.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), "") ?? '',
+                      textAlign: TextAlign.start,
                       style: GoogleFonts.roboto().copyWith(
                         fontSize: 11,
                         color: const Color(0xff000000).withOpacity(.5),
                         fontWeight: FontWeight.w400,
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                     ),
                   ],
                 ),

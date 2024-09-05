@@ -207,21 +207,6 @@ class _RegisterOtpViewState extends State<RegisterOtpView> {
                                     width: double.infinity,
                                     height: 47,
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        ChooseRoleRoute().go(context);
-                                      },
-                                      child: const Text(
-                                        'Konfirmasi',
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 47,
-                                    child: ElevatedButton(
                                       onPressed: () {},
                                       child: const Text(
                                         'Ubah Email',

@@ -4,6 +4,7 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/detail_event/cubit/event_detail_cubit.dart';
 import 'package:mhs_mobile/modules/event/bloc/event_bloc.dart';
 import 'package:mhs_mobile/modules/login/cubit/login_cubit.dart';
+import 'package:mhs_mobile/modules/login_student/cubit/login_student_cubit.dart';
 import 'package:mhs_mobile/modules/news_detail/cubit/detail_news_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/repositories/app_repository/app_repository.dart';
@@ -26,6 +27,7 @@ class MyInjection {
     getIt.registerLazySingleton<DetailNewsCubit>(() => DetailNewsCubit());
     getIt.registerLazySingleton<ShowMoreNewsCubit>(() => ShowMoreNewsCubit());
     getIt.registerLazySingleton<LoginCubit>(() => LoginCubit());
+    getIt.registerLazySingleton<LoginStudentCubit>(() => LoginStudentCubit());
 
     /// Http Client
     getIt.registerLazySingleton<BaseNetworkClient>(

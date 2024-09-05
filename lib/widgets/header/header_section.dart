@@ -15,36 +15,21 @@ class HeaderSection extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(isCircle ? 70 : 0)),
       ),
-      title: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Text(
-          title, 
-          style: TextStyle(
-            color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
-          ),
+      title: Text(
+        title, 
+        style: TextStyle(
+          color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
         ),
       ),
-      leading: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios_new,
-            color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
-          ),
+      leading: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios_new,
+          color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
         ),
       ),
-      floating: true,
-      primary: true,
-      snap: true,
-      centerTitle: true,
-      pinned: true,
-      forceMaterialTransparency: false,
-      automaticallyImplyLeading: false,
-      expandedHeight: 80,
-      toolbarHeight: 75,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         background: Container(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_news/widgets/card_news.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
@@ -44,7 +42,10 @@ class ShowMoreNewsView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    children: st.news.map((e) => CardNews(news: e)).toList(),
+                    children: st.news.map((e) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: CardNews(news: e),
+                    )).toList(),
                   )
                 ]),
               )

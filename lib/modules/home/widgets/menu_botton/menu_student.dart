@@ -70,11 +70,24 @@ class MenuWidget extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 5),
-        child: Image.asset(
-          "assets/icons/$icon.png",
-          width: 5,
-          height: 5,
-          scale: 0.5,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/icons/$icon.png",
+              width: 20,
+              height: 20,
+            ),
+            const Spacer(),
+            Text(
+              title,
+              style: const TextStyle(
+                color: whiteColor,
+                fontSize: fontSizeExtraLarge
+              ),
+            )
+          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -57,7 +58,7 @@ class NewStudentView extends StatelessWidget {
                       },
                       child: Image.asset("assets/icons/back-icon.png")),
                   title: const Text(
-                    "New Student",
+                    "Siswa Baru",
                     style: TextStyle(fontSize: fontSizeTitle),
                   ),
                   centerTitle: true,

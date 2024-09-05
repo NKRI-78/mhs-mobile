@@ -29,8 +29,7 @@ final class AppState extends Equatable {
   AppState copyWith(
       {bool? alreadyShowBeginingTour, User? user, ProfileModel? profile, String? token}) {
     return AppState(
-      alreadyShowBeginingTour:
-          alreadyShowBeginingTour ?? this.alreadyShowBeginingTour,
+      alreadyShowBeginingTour: alreadyShowBeginingTour ?? this.alreadyShowBeginingTour,
       user: user ?? this.user,
       token: token ?? this.token,
     );

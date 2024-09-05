@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mhs_mobile/misc/modal.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/detail_event/cubit/event_detail_cubit.dart';
 import 'package:mhs_mobile/modules/detail_event/widget/detail_event.dart';
-import 'package:mhs_mobile/modules/detail_event/widget/joint_button.dart';
 import 'package:mhs_mobile/widgets/extension/date_util.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 
@@ -66,24 +63,24 @@ class EventDetailView extends StatelessWidget {
                   )
                 ]
               ),
-              JoinButton(
-                joined: data?.isJoin ?? false, 
-                isExpired: data?.isExpired ?? false, 
-                onPressed: () async { 
-                  GeneralModal.showConfirmModal(
-                    msg: 'yakin ingin join ?', 
-                    context: context, 
-                    onPressed: () async { 
-                      await context.read<EventDetailCubit>().jointEvent(context,idEvent.toString());
-                      Future.delayed(Duration.zero, () {
-                        GoRouter.of(context).pop();
-                        GoRouter.of(context).pop();
-                      });
-                     }, 
-                     locationImage: 'assets/icons/joined-event.png'
-                  );
-                },
-              )
+              // JoinButton(
+              //   joined: data?.isJoin ?? false, 
+              //   isExpired: data?.isExpired ?? false, 
+              //   onPressed: () async { 
+              //     GeneralModal.showConfirmModal(
+              //       msg: 'yakin ingin join ?', 
+              //       context: context, 
+              //       onPressed: () async { 
+              //         await context.read<EventDetailCubit>().jointEvent(context,idEvent.toString());
+              //         Future.delayed(Duration.zero, () {
+              //           GoRouter.of(context).pop();
+              //           GoRouter.of(context).pop();
+              //         });
+              //        }, 
+              //        locationImage: 'assets/icons/joined-event.png'
+              //     );
+              //   },
+              // )
             ]
           ),
         );

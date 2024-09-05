@@ -13,6 +13,7 @@ class DocumentRepository {
       var res = await MyClient().get(Uri.parse('$documentUri?type=$type'));
 
       debugPrint(res.body);
+      debugPrint("Test ${Uri.parse('$documentUri?type=$type')}");
 
       final json = jsonDecode(res.body);
       if (res.statusCode == 200) {

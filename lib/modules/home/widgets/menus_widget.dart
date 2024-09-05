@@ -15,14 +15,14 @@ class MenusWidget extends StatelessWidget {
         child: Row(
           children: [
             MenuWidget(
-              title: 'Event',
+              title: 'Acara',
               icon: "icon_calendar_event", 
               onTap: () { 
                 EventRoute().go(context);
               },
             ),
             MenuWidget(
-              title: 'Partnership',
+              title: 'Kemitraan',
               icon: "Handshake", 
               onTap: () { 
                 PartnershipRoute().go(context);
@@ -36,14 +36,14 @@ class MenusWidget extends StatelessWidget {
               },
             ),
             MenuWidget(
-              title: 'Persentation',
+              title: 'Presentasi',
               icon: "Presentation", 
               onTap: () { 
                 ListPresentationRoute().go(context);
               },
             ),
             MenuWidget(
-              title: 'Brochure',
+              title: 'Brosur',
               icon: "Magazine", 
               onTap: () { 
                 ListBrochureRoute().go(context);

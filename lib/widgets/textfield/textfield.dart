@@ -124,7 +124,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ]
           : widget.isName
               ? [
-                  UpperCaseTextFormatter(),
+                  // UpperCaseTextFormatter(), 
                   FilteringTextInputFormatter.singleLineFormatter,
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))
                 ]

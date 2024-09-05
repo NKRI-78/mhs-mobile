@@ -12,30 +12,21 @@ class FooterAddress extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "Alamat",
-              style: TextStyle(
-                color: whiteColor,
-                fontWeight: FontWeight.w500,
-                fontSize: fontSizeDefault
-              ),
+          Image.asset(
+            'assets/images/logo.png',
+            fit: BoxFit.contain,
+            height: 50,
+          ),
+          const Text(
+            "MHS Bandar Lampung",
+            style: TextStyle(
+              color: whiteColor,
+              fontWeight: FontWeight.w500,
+              fontSize: fontSizeOverLarge
             ),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "MHS Bandar Lampung",
-              style: TextStyle(
-                color: whiteColor,
-                fontWeight: FontWeight.w500,
-                fontSize: fontSizeOverLarge
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: 5),
             child: Text(
               "Komplek Shopping Arcade Transmart Lampung unit 72-73 B Jalan Sultan Agung Nomor 283, Jalur 2 Way Halim Permai Bandar Lampung 35821 Telp 08117239946",
               style: TextStyle(
@@ -58,7 +49,7 @@ class FooterAddress extends StatelessWidget {
             ),
             onPressed: (){}, 
             child: const Text(
-              "Open Maps",
+              "Buka Peta",
               style: TextStyle(
                 fontSize: fontSizeSmall,
                 color: whiteColor

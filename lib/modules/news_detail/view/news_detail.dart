@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/news_detail/cubit/detail_news_cubit.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 
@@ -64,13 +66,16 @@ class NewsDetailView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text(
-                      data?.description ?? "",
-                      style: const TextStyle(
-                        color: blackColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: fontSizeDefault,
-                      ),
+                    child: Html(
+                      data: data?.description ?? "-",
+                      style: {
+                        "a": Style(
+                          color: Colors.blue,
+                        ),
+                      },
+                      onLinkTap: (String? url, Map<String, String> attributes, element) async {
+                        WebViewRoute(url: url!, title: "MHS-MOBILE").go(context);
+                      },
                     ),
                   ),
                 ])

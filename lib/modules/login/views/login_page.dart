@@ -76,7 +76,7 @@ class LoginView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  "Login",
+                  "Masuk",
                   style: TextStyle(
                     color: whiteColor,
                     fontWeight: FontWeight.w600,

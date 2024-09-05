@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 
@@ -47,35 +49,22 @@ class DetailEventList extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.location_on,
-                    size: 15,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    address,
-                    style: const TextStyle(
-                      fontSize: fontSizeExtraSmall
+                  const Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.location_on,
+                      size: 15,
                     ),
                   ),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  const Icon(
-                    Icons.date_range,
-                    size: 15,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    date,
-                    style: const TextStyle(
-                      fontSize: fontSizeExtraSmall
+                  Expanded(
+                    flex: 15,
+                    child: Text(
+                      address,
+                      style: const TextStyle(
+                        fontSize: fontSizeExtraSmall
+                      ),
                     ),
                   ),
                 ],

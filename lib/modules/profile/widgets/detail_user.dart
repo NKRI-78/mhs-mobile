@@ -3,13 +3,13 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 
 class DetailUser extends StatelessWidget {
-  const DetailUser({super.key, required this.email, required this.phone});
+  const DetailUser({super.key, required this.profile});
 
-  final String email;
-  final String phone;
+  final ProfileData profile;
 
   @override
   Widget build(BuildContext context) {
+    final student = profile.student;
     return Container(
       padding: const EdgeInsets.all(30),
       width: double.infinity,
@@ -21,8 +21,9 @@ class DetailUser extends StatelessWidget {
         ),
       child: Column(
         children: [
-          CarListUser(detail: "Email:", title: email),
-          CarListUser(detail: "Phone:", title: phone),
+          CarListUser(detail: "Orang Tua :", title: student?.parentName ?? "-"),
+          CarListUser(detail: "Email :", title: profile.email ?? "-"),
+          CarListUser(detail: "No. Tlpn :", title: student?.phone ?? ""),
         ],
       ),
     );

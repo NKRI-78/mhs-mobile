@@ -36,7 +36,7 @@ class _AppViewState extends State<AppView> {
       builder: (context, st) {
         return MaterialApp.router(
           theme: baseTheme.copyWith(
-            textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),
+            textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
           ),
           routerConfig: router,
         );

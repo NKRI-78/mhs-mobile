@@ -27,8 +27,8 @@ class BodyHome extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       buildWhen: (previous, current) => previous.profile != current.profile,
       builder: (context, state) {
-        bool isWaitingAprovalAdmin =
-            state.profile?.data.isWaitingAprovalAdmin ?? false;
+        bool isWaitingAprovalAdmin = state.profile?.data.isWaitingAprovalAdmin ?? false;
+        final waitingPaymentNewStudent = state.profile?.data.waitingPaymentNewStudent;
         String roleId = state.profile?.data.role?.slug ?? "USER";
         // int roleId = state.profile?.data.roleId ?? 0;
         debugPrint("Data profile Home : $roleId");
@@ -54,27 +54,36 @@ class BodyHome extends StatelessWidget {
                   child: DefaultTextStyle(
                     style: const TextStyle(color: Colors.black),
                     child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: [
-                        const BannersWidget(),
-                        roleId == "STUDENT" ? const MenuStudent() : const MenusWidget(),
-                        const TestimoniWidget(),
-                        const NewsWidget(),
+                      children: const [
+                        BannersWidget(),
+                        MenusWidget(),
+                        TestimoniWidget(),
+                        NewsWidget(),
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  top: -30,
-                  left: 20,
-                  right: 20,
+                  top: -35,
+                  left: 10,
+                  right: 10,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: roleId == "STUDENT"
                         ? const HeaderMenuStudent()
-                        : isWaitingAprovalAdmin
+                        : waitingPaymentNewStudent != null ?
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: greenColor
+                            ),
+                            child: const Text("Menunggu Pembayaran"),
+                            onPressed: () {
+                              WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
+                            },
+                          ) : isWaitingAprovalAdmin
                             ? BottomMenu(
                                 title: 'Menunggu Persetujuan Admin',
                                 onPressed: () {},
@@ -89,30 +98,40 @@ class BodyHome extends StatelessWidget {
                                 : Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        flex: 7,
-                                        child: BottomMenu(
-                                          title: "Gabung Bersama Kami",
-                                          onPressed: () {
-                                            RegisterRoute().go(context);
-                                          },
-                                        ),
+                                        flex: 6,
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              RegisterRoute().go(context);
+                                            },
+                                            child: const Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 20),
+                                                child: Text(
+                                                  "Gabung Bersama Kami",
+                                                  style: TextStyle(
+                                                    color: whiteColor,
+                                                    fontSize: fontSizeDefault,
+                                                    fontWeight: FontWeight.bold
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
                                       ),
-                                      const Spacer(),
                                       Expanded(
                                         flex: 2,
                                         child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              shape: const CircleBorder()
-                                            ),
-                                            onPressed: () {
-                                              z.toggle!();
-                                            },
-                                            child: const Center(
-                                              child: Icon(Iconsax.element_3),
-                                            )),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: const CircleBorder(),
+                                        ),
+                                        onPressed: () {
+                                          z.toggle!();
+                                        },
+                                        child: const Center(
+                                          child: Icon(Iconsax.element_3),
+                                        )),
                                       )
                                     ],
                                   ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/document_repository/models/document_model.dart';
-import 'package:mhs_mobile/widgets/images/image_card.dart';
+import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/date_util.dart';
 
 class CardBrochure extends StatelessWidget {
   const CardBrochure({super.key, required this.document});
@@ -12,7 +13,7 @@ class CardBrochure extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,12 +22,28 @@ class CardBrochure extends StatelessWidget {
             height: 60,
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                   flex: 1,
-                  child: ImageCard(
-                    image: "https://via.placeholder.com/39x48", 
-                    radius: 0, 
+                  child: Container(
                     width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(topRight: Radius.circular(10)),
+                      color: document.fileUrl?.split('.').last == "pdf" ? redColor : primaryColor
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          document.fileUrl?.split('.').last.toUpperCase() ?? "PDF",
+                          style: const TextStyle(
+                            color: whiteColor,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ),
                 Expanded(
@@ -47,7 +64,7 @@ class CardBrochure extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '12 Juli 2024 | 07:30',
+                          DateUntil.formatDateDocument(DateTime.parse(document.createdAt ?? "")),
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             color: Colors.black.withOpacity(0.6000000238418579),
@@ -67,12 +84,14 @@ class CardBrochure extends StatelessWidget {
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                     ),
-                    onPressed: (){}, 
+                    onPressed: (){
+                      BrochureShowPdfRoute(url: document.fileUrl ?? "", title: document.title ?? "",).go(context);
+                    }, 
                     child: const Text(
-                      'View',
+                      'Lihat',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 11,
+                        fontSize: fontSizeSmall,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w500,
                       )

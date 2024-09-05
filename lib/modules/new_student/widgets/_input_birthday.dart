@@ -24,16 +24,18 @@ class _InputBirthdayState extends State<_InputBirthday> {
       onTap: () async {
         var date = await showDatePicker(
             context: context,
+            // locale: const Locale("id"),
             firstDate: DateTime(DateTime.now().year - 100),
-            lastDate: DateTime(DateTime.now().year - 10, DateTime.now().month,
-                DateTime.now().day));
+            lastDate: DateTime(DateTime.now().year - 10, 
+            DateTime.now().month,
+            DateTime.now().day));
 
         if (date != null && context.mounted) {
           context
               .read<NewStudentCubit>()
               .copyToState(birthDate: date.toString());
           controller.text = DateFormat(
-            'yMMMEd',
+            'yMMMMd',
           ).format(date);
           setState(() {});
         }

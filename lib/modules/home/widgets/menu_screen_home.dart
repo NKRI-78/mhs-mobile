@@ -44,68 +44,32 @@ class MenuScreenHome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            MenuButton(
+                            isLogin ? MenuButton(
                               text: 'Notifikasi',
                               onPressed: () {},
-                            ),
-                            MenuButton(
+                            ) : const SizedBox.shrink(),
+                            isLogin ? MenuButton(
                               text: 'Profile',
                               onPressed: () {
                                 z.close?.call()?.then(
                                       (value) => ProfileRoute().go(context),
                                     );
                               },
-                            ),
-                            MenuButton(
-                              text: 'Setting',
+                            ) : const SizedBox.shrink(),
+                            isLogin ? MenuButton(
+                              text: 'Pengaturan',
                               onPressed: () {},
-                            ),
+                            ) : const SizedBox.shrink(),
                             MenuButton(
                               text: 'Kebijakan Privasi',
                               onPressed: () {},
                             ),
-                            roleId == 3
-                                ? MenuButton(
-                                    text: 'Partnership',
-                                    onPressed: () {
-                                      z.close?.call()?.then(
-                                            (value) =>
-                                                PartnershipRoute().go(context),
-                                          );
-                                    },
-                                  )
-                                : Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      MenuButton(
-                                        text: 'Presentation',
-                                        onPressed: () {
-                                          z.close?.call()?.then(
-                                                (value) =>
-                                                    ListPresentationRoute()
-                                                        .go(context),
-                                              );
-                                        },
-                                      ),
-                                      MenuButton(
-                                        text: 'Brocure',
-                                        onPressed: () {
-                                          z.close?.call()?.then(
-                                                (value) => ListBrochureRoute()
-                                                    .go(context),
-                                              );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                            MenuButton(
-                              text: 'Tutup',
-                              onPressed: () {
-                                z.toggle!();
-                              },
-                            ),
+                            // MenuButton(
+                            //   text: 'Tutup',
+                            //   onPressed: () {
+                            //     z.toggle!();
+                            //   },
+                            // ),
                           ],
                         ),
                         isLogin
@@ -173,7 +137,7 @@ class MenuButton extends StatelessWidget {
             text,
             style: const TextStyle(
                 color: whiteColor,
-                fontSize: fontSizeOverLarge,
+                fontSize: fontSizeExtraLarge,
                 fontWeight: FontWeight.bold),
           )),
     );

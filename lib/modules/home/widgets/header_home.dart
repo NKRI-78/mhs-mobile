@@ -14,8 +14,11 @@ class HeaderHome extends StatelessWidget {
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, st) {
               int roleId = st.profile?.data.roleId ?? 0;
-              String nameStudent = st.profile?.data.profile?.fullname ?? "" ;
+              String nameStudent = st.profile?.data.student?.fullname ?? "-" ;
               String nameUser = st.profile?.data.name ?? "" ;
+              bool waitAdmin = st.profile?.data.isWaitingAprovalAdmin ?? false ;
+
+              debugPrint("user name : $nameUser");
               return Stack(
                 children: [
                   Positioned(
@@ -34,7 +37,7 @@ class HeaderHome extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                isLogin ? "Hello," : "Selamat datang di,",
+                                isLogin ? "Hello," : "Selamat Datang di,",
                                 style: const TextStyle(
                                   color: whiteColor,
                                   fontSize: 15,
@@ -42,7 +45,7 @@ class HeaderHome extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                isLogin ? (nameStudent.isEmpty ? nameUser : nameStudent) : "Metro Hotel School",
+                                isLogin ? (st.profile?.data.student == null ? nameUser : nameStudent) : "Metro Hotel School",
                                 style: const TextStyle(
                                   color: whiteColor,
                                   fontSize: 23,
@@ -56,6 +59,14 @@ class HeaderHome extends StatelessWidget {
                               ),
                               roleId == 3 ? const Text(
                                 "Motivasi adalah hal yang membuat Anda memulai. Kebiasaan adalah hal yang membuat Anda terus maju...",
+                                maxLines: 3,
+                                style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: fontSizeSmall,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ) : waitAdmin ? const Text(
+                                "Your’e Success to choose you account for, Please wait for approval... ",
                                 maxLines: 3,
                                 style: TextStyle(
                                   color: whiteColor,

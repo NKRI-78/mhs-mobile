@@ -24,7 +24,7 @@ class _BottomButon extends StatelessWidget {
                   .push(context);
             }
           },
-          child: const Text("Payment")),
+          child: const Text("Pembayaran")),
     );
   }
 }

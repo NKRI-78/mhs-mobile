@@ -8,10 +8,12 @@ import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_channel_model.dart';
 
 class HomeRepository {
   Uri get bannerUri => Uri.parse('${MyApi.baseUrl}/api/v1/banner');
+  Uri get testimoni => Uri.parse('${MyApi.baseUrl}/api/v1/testimoni/dummy');
   Uri get newUri => Uri.parse('${MyApi.baseUrl}/api/v1/news');
   Uri get profileUri => Uri.parse('${MyApi.baseUrl}/api/v1/profile');
   String get studentUrl => '${MyApi.baseUrl}/api/v1/student';
@@ -26,6 +28,28 @@ class HomeRepository {
       if (res.statusCode == 200) {
         var list =
             (json['data'] as List).map((e) => BannerModel.fromJson(e)).toList();
+        return list;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      } else {
+        throw "Error";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TestimoniData>> getTestimoni() async {
+    try {
+      var res = await MyClient().get(testimoni);
+
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        var list =
+            (json['data'] as List).map((e) => TestimoniData.fromJson(e)).toList();
         return list;
       }
       if (res.statusCode == 400) {

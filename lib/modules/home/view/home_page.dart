@@ -30,23 +30,24 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(
-        boxShadow: const [
-          BoxShadow(
-            color: blackColor,
-            blurRadius: 50,
-          )
-        ],
-        controller: z,
-        isRtl: true,
-        borderRadius: 50.0,
-        angle: -7.0,
-        mainScreenScale: 0.1,
-        openCurve: Curves.easeIn,
-        closeCurve: Curves.easeInOut,
-        slideWidth: MediaQuery.of(context).size.width * 0.8,
-        style: DrawerStyle.defaultStyle,
-        menuBackgroundColor: primaryColor,
-        menuScreen: const MenuScreenHome(),
-        mainScreen: const BodyHome());
+      boxShadow: const [
+        BoxShadow(
+          color: blackColor,
+          blurRadius: 50,
+        )
+      ],
+      controller: z,
+      isRtl: true,
+      borderRadius: 50.0,
+      angle: -7.0,
+      mainScreenScale: 0.1,
+      mainScreenAbsorbPointer: false,
+      openCurve: Curves.easeIn,
+      closeCurve: Curves.easeInOut,
+      slideWidth: MediaQuery.of(context).size.width * 0.7,
+      style: DrawerStyle.defaultStyle,
+      menuBackgroundColor: primaryColor,
+      menuScreen: const MenuScreenHome(),
+      mainScreen: const BodyHome());
   }
 }

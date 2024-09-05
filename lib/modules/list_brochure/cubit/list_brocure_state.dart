@@ -22,6 +22,8 @@ final class ListBrocureState extends Equatable {
         newsPagination,
         loadingBrocuhure
       ];
+  
+  List<GalleryItemModel> get presentationImage => document.map((e) => GalleryItemModel(id: e.id.toString(), imageUrl: e.fileUrl ?? "", index: document.indexOf(e), title: e.title ?? "")).toList();
 
   ListBrocureState copyWith({
     List<DocumentData>? document,

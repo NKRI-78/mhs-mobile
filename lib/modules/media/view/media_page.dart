@@ -1,15 +1,22 @@
-  import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/media/cubit/media_cubit.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/images/image_circle.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class MediaPage extends StatelessWidget {
   const MediaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MediaView();
+    return BlocProvider(
+      create: (context) => MediaCubit()..fetchMedia(),
+      child: const MediaView()
+    );
   }
 }
 
@@ -18,77 +25,81 @@ class MediaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: CustomScrollView(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        slivers: [
-          const HeaderSection(
-            title: "Media", 
-            isCircle: true,
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
-            sliver: SliverGrid.builder(
-              itemCount: 20,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 40,
-                crossAxisSpacing: 20.0,
-                childAspectRatio: 2.0
-              ), 
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(17)
-                  ),
-                  width: 100,
-                  height: 30,
-                  child: const Stack(
-                    fit: StackFit.loose,
-                    clipBehavior: Clip.none,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 35),
-                              child: Text("Facebook",
-                                maxLines: 1,
+    return BlocBuilder<MediaCubit, MediaState>(
+      buildWhen: (previous, current) => previous.loadingMedia != current.loadingMedia,
+      builder: (context, st) {
+        return Scaffold(
+          backgroundColor: whiteColor,
+          body: CustomScrollView(
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            slivers: [
+              const HeaderSection(
+                title: "Media", 
+                isCircle: true,
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 100),
+                sliver: SliverGrid.builder(
+                  itemCount: st.media.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: 80,
+                    crossAxisSpacing: 50.0,
+                    childAspectRatio: 2.0
+                  ), 
+                  itemBuilder: (context, index) {
+                    final data = st.media[index];
+                    if(st.media.isEmpty)
+                    {
+                      debugPrint("Kepanggil ?");
+                      const EmptyPage(msg: "Media kosong");
+                    }
+                    return st.loadingMedia ? const LoadingPage() : Container(
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Stack(
+                        fit: StackFit.loose,
+                        clipBehavior: Clip.none,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(data.name ?? "",
+                                maxLines: 2,
                                 softWrap: true,
+                                textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: whiteColor,
-                                  fontSize: fontSizeExtraLarge,
+                                  fontSize: fontSizeDefault,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Positioned(
+                            right: 50,
+                            left: 50,
+                            top: -50,
+                            child: ImageCircle(
+                              image: data.imgUrl ?? "", 
+                              radius: 45,
+                            ),
+                          )
+                        ],
                       ),
-                      Positioned(
-                        right: 0,
-                        left: 0,
-                        top: -30,
-                        child: ImageCircle(
-                          image: "https://via.placeholder.com/200x500", 
-                          radius: 30
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          )
-        ]
-      ),
+                    );
+                  },
+                ),
+              )
+            ]
+          ),
+        );
+      }
     );
   }
 }

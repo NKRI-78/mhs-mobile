@@ -11,3 +11,5 @@ class GetBanners extends HomeEvent {}
 class SetProfileNull extends HomeEvent {}
 
 class GetProfile extends HomeEvent {}
+
+class GetTestimoni extends HomeEvent {}

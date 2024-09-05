@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
-import 'package:mhs_mobile/modules/news_detail/view/news_detail.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:shimmer/shimmer.dart';
@@ -38,7 +37,7 @@ class NewsWidget extends StatelessWidget {
                     ShowMoreNewsRoute().go(context);
                   },
                   child: const Text(
-                    'See All',
+                    'Lihat Semua',
                     style: TextStyle(
                       color: redColor,
                       fontSize: 13,
@@ -117,10 +116,13 @@ class NewsWidget extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: state.news
-                    .map((e) => NewWidget(
-                          news: e,
-                        ))
-                    .toList(),
+                .map((e) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: NewWidget(
+                        news: e,
+                      ),
+                ))
+                .toList(),
               ),
           ],
         );
@@ -138,7 +140,7 @@ class NewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        NewsDetailRoute(newsId: news.id ?? 0,).go(context);
+        ShowMoreNewsRoute().go(context);
       },
       child: Container(
         width: double.infinity,
@@ -159,7 +161,7 @@ class NewWidget extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 100,
+              width: 180,
               height: double.infinity,
               child: Image.network(
                 news.imageUrl ?? '',
@@ -183,13 +185,13 @@ class NewWidget extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      news.description ?? '',
+                      news.description?.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), "") ?? '',
                       style: GoogleFonts.roboto().copyWith(
                         fontSize: 11,
                         color: const Color(0xff000000).withOpacity(.5),
                         fontWeight: FontWeight.w400,
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                     ),
                   ],
                 ),

@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
-import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/event_repository/event_repository.dart';
 import 'package:mhs_mobile/repositories/event_repository/models/event_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/data_pagination.dart';

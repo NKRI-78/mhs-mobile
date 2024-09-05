@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
@@ -57,7 +59,7 @@ class CardEvent extends StatelessWidget {
                     ),
                   ) : Container(),
                   ClipRRect(
-                    borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), topLeft: Radius.circular(20)),
+                    borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10)),
                     child: ImageCard(
                       image: image,
                       radius: 15, 
@@ -76,10 +78,10 @@ class CardEvent extends StatelessWidget {
                 height: 90,
                 decoration: const BoxDecoration(
                   color: greyColor,
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topRight: Radius.circular(20))
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), topRight: Radius.circular(10))
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,36 +107,48 @@ class CardEvent extends StatelessWidget {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 15,
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            address,
-                            style: const TextStyle(
-                              fontSize: fontSizeExtraSmall
+                          Expanded(
+                            flex: 3,
+                            child: Row(
+                              children: [
+                                const Expanded(
+                                  flex: 1,
+                                  child: Icon(
+                                    Icons.location_on,
+                                    size: 15,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 7,
+                                  child: Text(
+                                    address,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: fontSizeExtraSmall
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Icon(
-                            Icons.date_range,
-                            size: 15,
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            startDate,
-                            style: const TextStyle(
-                              fontSize: fontSizeExtraSmall
+                          Expanded(
+                            flex: 4,
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.date_range,
+                                  size: 15,
+                                ),
+                                Text(
+                                  startDate,
+                                  style: const TextStyle(
+                                    fontSize: fontSizeExtraSmall
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

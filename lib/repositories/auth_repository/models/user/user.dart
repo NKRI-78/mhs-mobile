@@ -35,22 +35,22 @@ class User {
       this.refreshToken});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    username = json['username'];
-    email = json['email'];
-    phone = json['phone'];
-    otp = json['otp'];
-    fcm = json['fcm'];
-    verifiedEmail = json['verifiedEmail'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    deletedAt = json['deletedAt'];
-    roleId = json['RoleId'];
-    authorized = json['authorized'];
+    id = json['id'] ?? 0;
+    name = json['name'] ?? "";
+    username = json['username'] ?? "";
+    email = json['email'] ?? "";
+    phone = json['phone'] ?? "";
+    otp = json['otp']  ?? 0;
+    fcm = json['fcm'] ?? "";
+    verifiedEmail = json['verifiedEmail'] ?? "";
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    deletedAt = json['deletedAt'] ?? "";
+    roleId = json['RoleId'] ?? 0;
+    authorized = json['authorized'] ?? false;
     role = json['role'] != null ? Role.fromJson(json['role']) : null;
-    token = json['token'];
-    refreshToken = json['refreshToken'];
+    token = json['token'] ?? "";
+    refreshToken = json['refreshToken'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -87,11 +87,11 @@ class Role {
   Role({this.id, this.name, this.slug, this.createdAt, this.updatedAt});
 
   Role.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    slug = json['slug'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    id = json['id'] ?? 0;
+    name = json['name'] ?? "";
+    slug = json['slug'] ?? "";
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

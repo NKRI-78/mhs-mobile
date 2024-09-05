@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
+import 'package:mhs_mobile/modules/list_presentation/model/gallery_item_model.dart';
 import 'package:mhs_mobile/repositories/document_repository/document_repository.dart';
 import 'package:mhs_mobile/repositories/document_repository/models/document_model.dart';
 

@@ -15,13 +15,15 @@ final class ListPresentationState extends Equatable {
     this.loadingModul = false,
   });
 
+  List<GalleryItemModel> get presentationImage => document.map((e) => GalleryItemModel(id: e.id.toString(), imageUrl: e.fileUrl ?? "", index: document.indexOf(e), title: e.title ?? "")).toList();
+
   @override
   List<Object?> get props => [
-        document,
-        nextPageNews,
-        presentationPagination,
-        loadingModul
-      ];
+    document,
+    nextPageNews,
+    presentationPagination,
+    loadingModul
+  ];
 
   ListPresentationState copyWith({
     List<DocumentData>? document,

@@ -1,91 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/list_presentation/cubit/list_presentation_cubit.dart';
 import 'package:mhs_mobile/repositories/document_repository/models/document_model.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 
-class CardPresentation extends StatelessWidget {
-  const CardPresentation({super.key, required this.document});
-
-  final DocumentData document;
+class CardPresentation extends StatefulWidget {
+  const CardPresentation({super.key});
 
   @override
+  State<CardPresentation> createState() => _CardPresentationState();
+}
+
+class _CardPresentationState extends State<CardPresentation> {
+  late final PageController _controller =
+      PageController(initialPage: 0);
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    _currentPage = 0;
+    _controller.addListener(() {
+      setState(() {
+        _currentPage = _controller.page?.toInt() ?? 0;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+    return BlocBuilder<ListPresentationCubit, ListPresentationState>(
+        // buildWhen: (previous, current) => previous.document != current.document,
+        builder: (context, st) {
+        return Container(
+          constraints:
+              BoxConstraints.expand(height: MediaQuery.of(context).size.height),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onVerticalDragEnd: (details) {},
+                          child: PageView.builder(
+                            controller: _controller,
+                            itemCount: st.document.length,
+                            itemBuilder: (context, index) =>
+                                _buildImage(st.document[index]),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                          height: 80,
+                          child: Text(
+                            "Test dmna lo",
+                            style: TextStyle(
+                              color: blackColor
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+        );
+      }
+    );
+  }
+  Widget _buildImage(DocumentData item) {
+    return Hero(
+      tag: item.id ?? "",
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: 60,
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: ImageCard(
-                    image: "https://via.placeholder.com/39x48", 
-                    radius: 0, 
-                    width: double.infinity,
-                  )
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          document.title ?? "",
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '12 Juli 2024 | 07:30',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6000000238418579),
-                            fontSize: 11,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex:2,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    ),
-                    onPressed: (){}, 
-                    child: const Text(
-                      'View',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
-                      )
-                    )
-                  ),
-                ),
-              ],
-            ),
+          Center(
+            child: ImageCard(image: item.fileUrl ?? "", radius: 0, width: 500, height: 20,),
           ),
-          const Divider(
-            thickness: 0.4,
-            color: blackColor,
-          )
+          const SizedBox(
+                          height: 80,
+                          child: Text(
+                            "Test dmna lo",
+                            style: TextStyle(
+                              color: blackColor
+                            ),
+                          ),
+                        ),
         ],
       ),
     );

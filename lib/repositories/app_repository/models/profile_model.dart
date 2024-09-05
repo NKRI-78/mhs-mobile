@@ -2,8 +2,6 @@
 //
 //     final profileModel = profileModelFromJson(jsonString);
 
-import 'dart:convert';
-
 class ProfileModel {
     String message;
     ProfileData data;
@@ -33,6 +31,7 @@ class ProfileData {
   int? roleId;
   Profile? profile;
   Role? role;
+  Student? student;
   bool? isWaitingAprovalAdmin;
   WaitingPaymentNewStudent? waitingPaymentNewStudent;
 
@@ -50,6 +49,7 @@ class ProfileData {
       this.roleId,
       this.profile,
       this.role,
+      this.student,
       this.isWaitingAprovalAdmin,
       this.waitingPaymentNewStudent});
 
@@ -65,29 +65,29 @@ class ProfileData {
     updatedAt = json['updatedAt'];
     deletedAt = json['deletedAt'] ?? "";
     roleId = json['RoleId'];
-    profile =
-        json['Profile'] != null ? Profile.fromJson(json['Profile']) : null;
+    profile = json['Profile'] != null ? Profile.fromJson(json['Profile']) : null;
     role = json['Role'] != null ? Role.fromJson(json['Role']) : null;
+    student = json['student'] != null ? Student.fromJson(json['student']) : null;
     isWaitingAprovalAdmin = json['isWaitingAprovalAdmin'];
     waitingPaymentNewStudent = json['waitingPaymentNewStudent'] != null
-        ? WaitingPaymentNewStudent.fromJson(
-            json['waitingPaymentNewStudent'])
-        : null;
+    ? WaitingPaymentNewStudent.fromJson(
+        json['waitingPaymentNewStudent'])
+    : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['username'] = username;
-    data['email'] = email;
-    data['phone'] = phone;
-    data['fcm'] = fcm;
-    data['verifiedEmail'] = verifiedEmail;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['deletedAt'] = deletedAt;
-    data['RoleId'] = roleId;
+    data['id'] = id ?? 0;
+    data['name'] = name ?? "";
+    data['username'] = username ?? "";
+    data['email'] = email ?? "";
+    data['phone'] = phone ?? "";
+    data['fcm'] = fcm ?? "";
+    data['verifiedEmail'] = verifiedEmail ?? "";
+    data['createdAt'] = createdAt ?? "";
+    data['updatedAt'] = updatedAt ?? "";
+    data['deletedAt'] = deletedAt ?? "";
+    data['RoleId'] = roleId ?? 0;
     if (profile != null) {
       data['Profile'] = profile!.toJson();
     }
@@ -128,15 +128,15 @@ class Profile {
     });
 
     factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-        id: json["id"],
-        fullname: json["fullname"],
-        nickname: json["nickname"],
-        pictureUrl: json["pictureUrl"],
-        city: json["city"],
-        address: json["address"],
+        id: json["id"] ?? 0,
+        fullname: json["fullname"] ?? "",
+        nickname: json["nickname"] ?? "",
+        pictureUrl: json["pictureUrl"] ?? "",
+        city: json["city"] ?? "",
+        address: json["address"] ?? "",
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        userId: json["UserId"],
+        userId: json["UserId"] ?? 0,
     );
 
     Map<String, dynamic> toJson() => {
@@ -159,17 +159,17 @@ class WaitingPaymentNewStudent {
   String? paymentMethod;
   String? paymentName;
   String? paymentCode;
-  Null? paymentFee;
-  Null? paymentLogo;
-  Null? paymentUrl;
+  Null paymentFee;
+  Null paymentLogo;
+  Null paymentUrl;
   String? paymentPlatform;
-  Null? paymentGuideUrl;
-  Null? paymentNoVa;
+  Null paymentGuideUrl;
+  Null paymentNoVa;
   int? amount;
   String? status;
   String? createdAt;
   String? updatedAt;
-  Null? deletedAt;
+  Null deletedAt;
   int? userId;
   PaymentGetOneOrder? paymentGetOneOrder;
 
@@ -250,18 +250,18 @@ class WaitingPaymentNewStudent {
 class PaymentGetOneOrder {
   int? id;
   String? orderNumber;
-  Null? noTracking;
+  Null noTracking;
   int? amount;
-  Null? status;
+  Null status;
   String? type;
-  Null? finishAt;
+  Null finishAt;
   String? createdAt;
   String? updatedAt;
-  Null? deletedAt;
+  Null deletedAt;
   int? userId;
   int? paymentId;
-  Null? userShippingAddressId;
-  Null? storeShippingAddressId;
+  Null userShippingAddressId;
+  Null storeShippingAddressId;
 
   PaymentGetOneOrder(
       {this.id,
@@ -334,4 +334,113 @@ class Role {
         "name": name,
         "slug": slug,
     };
+}
+
+class Student {
+  int? id;
+  String? nisn;
+  String? fullname;
+  String? birthDate;
+  String? gender;
+  String? originSchool;
+  String? address;
+  String? phone;
+  String? parentName;
+  String? parentJob;
+  String? parentPhone;
+  String? programSchool;
+  int? height;
+  String? outfitSize;
+  int? status;
+  String? statusMessage;
+  String? photo;
+  String? classYear;
+  String? end;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  int? userId;
+  int? parentId;
+
+  Student(
+      {this.id,
+      this.nisn,
+      this.fullname,
+      this.birthDate,
+      this.gender,
+      this.originSchool,
+      this.address,
+      this.phone,
+      this.parentName,
+      this.parentJob,
+      this.parentPhone,
+      this.programSchool,
+      this.height,
+      this.outfitSize,
+      this.status,
+      this.statusMessage,
+      this.photo,
+      this.classYear,
+      this.end,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.userId,
+      this.parentId});
+
+  Student.fromJson(Map<String, dynamic> json) {
+    id = json['id'] ?? 0;
+    nisn = json['nisn'] ?? "-";
+    fullname = json['fullname'] ?? "-";
+    birthDate = json['birthDate'] ?? "-";
+    gender = json['gender'] ?? "";
+    originSchool = json['originSchool'] ?? "-";
+    address = json['address'] ?? "-";
+    phone = json['phone'] ?? "-";
+    parentName = json['parentName'] ?? "-";
+    parentJob = json['parentJob'] ?? "-";
+    parentPhone = json['parentPhone'] ?? "-";
+    programSchool = json['programSchool'] ?? "-";
+    height = json['height'] ?? 0;
+    outfitSize = json['outfitSize'] ?? "-";
+    status = json['status'] ?? 0;
+    statusMessage = json['statusMessage'] ?? "-";
+    photo = json['photo'] ?? "-";
+    classYear = json['classYear'] ?? "-";
+    end = json['end'] ?? "-";
+    createdAt = json['createdAt'] ?? "-";
+    updatedAt = json['updatedAt'] ?? "-";
+    deletedAt = json['deletedAt'] ?? "-";
+    userId = json['UserId'] ?? 0;
+    parentId = json['ParentId'] ?? 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nisn'] = this.nisn;
+    data['fullname'] = this.fullname;
+    data['birthDate'] = this.birthDate;
+    data['gender'] = this.gender;
+    data['originSchool'] = this.originSchool;
+    data['address'] = this.address;
+    data['phone'] = this.phone;
+    data['parentName'] = this.parentName;
+    data['parentJob'] = this.parentJob;
+    data['parentPhone'] = this.parentPhone;
+    data['programSchool'] = this.programSchool;
+    data['height'] = this.height;
+    data['outfitSize'] = this.outfitSize;
+    data['status'] = this.status;
+    data['statusMessage'] = this.statusMessage;
+    data['photo'] = this.photo;
+    data['classYear'] = this.classYear;
+    data['end'] = this.end;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['deletedAt'] = this.deletedAt;
+    data['UserId'] = this.userId;
+    data['ParentId'] = this.parentId;
+    return data;
+  }
 }

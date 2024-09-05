@@ -67,24 +67,54 @@ RouteBase get $homeRoute => GoRouteData.$route(
           factory: $NewsDetailRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: 'gallery-image',
+          factory: $GalleryImageViewWrapperRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'presentation',
           factory: $ListPresentationRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'presentation-detail',
+              factory: $PresentationShowPdfRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'modul',
           factory: $ListModulRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'modul-detail',
+              factory: $ModulShowPdfRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'brochure',
           factory: $ListBrochureRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'brochure-detail',
+              factory: $BrochureShowPdfRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'partnership',
           factory: $PartnershipRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: 'webview',
+          factory: $WebViewRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'profile',
           factory: $ProfileRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'show-more-testimoni',
+          factory: $ShowMoreTestimoniRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: 'show-more-news',
@@ -128,6 +158,14 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'choose-role',
           factory: $ChooseRoleRouteExtension._fromState,
           routes: [
+            GoRouteData.$route(
+              path: 'login-student-existing',
+              factory: $LoginStudentRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'login-parent',
+              factory: $LoginParentRouteExtension._fromState,
+            ),
             GoRouteData.$route(
               path: 'new-student',
               factory: $NewStudentRouteExtension._fromState,
@@ -186,6 +224,33 @@ extension $NewsDetailRouteExtension on NewsDetailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $GalleryImageViewWrapperRouteExtension
+    on GalleryImageViewWrapperRoute {
+  static GalleryImageViewWrapperRoute _fromState(GoRouterState state) =>
+      GalleryImageViewWrapperRoute(
+        initialIndex: int.parse(state.uri.queryParameters['initial-index']!),
+        $extra: state.extra as List<GalleryItemModel>,
+      );
+
+  String get location => GoRouteData.$location(
+        '/gallery-image',
+        queryParams: {
+          'initial-index': initialIndex.toString(),
+        },
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
+}
+
 extension $ListPresentationRouteExtension on ListPresentationRoute {
   static ListPresentationRoute _fromState(GoRouterState state) =>
       ListPresentationRoute();
@@ -204,11 +269,60 @@ extension $ListPresentationRouteExtension on ListPresentationRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $PresentationShowPdfRouteExtension on PresentationShowPdfRoute {
+  static PresentationShowPdfRoute _fromState(GoRouterState state) =>
+      PresentationShowPdfRoute(
+        url: state.uri.queryParameters['url']!,
+        title: state.uri.queryParameters['title']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/presentation/presentation-detail',
+        queryParams: {
+          'url': url,
+          'title': title,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ListModulRouteExtension on ListModulRoute {
   static ListModulRoute _fromState(GoRouterState state) => ListModulRoute();
 
   String get location => GoRouteData.$location(
         '/modul',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ModulShowPdfRouteExtension on ModulShowPdfRoute {
+  static ModulShowPdfRoute _fromState(GoRouterState state) => ModulShowPdfRoute(
+        url: state.uri.queryParameters['url']!,
+        title: state.uri.queryParameters['title']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/modul/modul-detail',
+        queryParams: {
+          'url': url,
+          'title': title,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -239,6 +353,31 @@ extension $ListBrochureRouteExtension on ListBrochureRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $BrochureShowPdfRouteExtension on BrochureShowPdfRoute {
+  static BrochureShowPdfRoute _fromState(GoRouterState state) =>
+      BrochureShowPdfRoute(
+        url: state.uri.queryParameters['url']!,
+        title: state.uri.queryParameters['title']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/brochure/brochure-detail',
+        queryParams: {
+          'url': url,
+          'title': title,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $PartnershipRouteExtension on PartnershipRoute {
   static PartnershipRoute _fromState(GoRouterState state) => PartnershipRoute();
 
@@ -256,11 +395,53 @@ extension $PartnershipRouteExtension on PartnershipRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $WebViewRouteExtension on WebViewRoute {
+  static WebViewRoute _fromState(GoRouterState state) => WebViewRoute(
+        url: state.uri.queryParameters['url']!,
+        title: state.uri.queryParameters['title']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/webview',
+        queryParams: {
+          'url': url,
+          'title': title,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ProfileRouteExtension on ProfileRoute {
   static ProfileRoute _fromState(GoRouterState state) => ProfileRoute();
 
   String get location => GoRouteData.$location(
         '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShowMoreTestimoniRouteExtension on ShowMoreTestimoniRoute {
+  static ShowMoreTestimoniRoute _fromState(GoRouterState state) =>
+      ShowMoreTestimoniRoute();
+
+  String get location => GoRouteData.$location(
+        '/show-more-testimoni',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -430,6 +611,41 @@ extension $ChooseRoleRouteExtension on ChooseRoleRoute {
 
   String get location => GoRouteData.$location(
         '/choose-role',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $LoginStudentRouteExtension on LoginStudentRoute {
+  static LoginStudentRoute _fromState(GoRouterState state) =>
+      LoginStudentRoute();
+
+  String get location => GoRouteData.$location(
+        '/choose-role/login-student-existing',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $LoginParentRouteExtension on LoginParentRoute {
+  static LoginParentRoute _fromState(GoRouterState state) => LoginParentRoute();
+
+  String get location => GoRouteData.$location(
+        '/choose-role/login-parent',
       );
 
   void go(BuildContext context) => context.go(location);

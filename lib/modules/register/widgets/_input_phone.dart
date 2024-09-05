@@ -10,6 +10,7 @@ class _InputPhone extends StatelessWidget {
         context.read<RegisterCubit>().setState(phone: value);
       },
       labelText: 'No Telepon',
+      minLines: 10,
       maxLength: 15,
       hintText: "No Telepon",
       fillColor: whiteColor.withOpacity(0.10),

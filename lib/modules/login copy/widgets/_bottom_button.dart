@@ -12,7 +12,7 @@ class _BottomButon extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {}, 
         child: const Text(
-          "Login"
+          "Masuk"
         )
       ),
     );
