@@ -4,6 +4,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/widgets/card/testimoni_card.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class TestimoniWidget extends StatelessWidget {
   const TestimoniWidget({super.key});
@@ -11,11 +12,13 @@ class TestimoniWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (previous, current) => previous.loadingTestimoni != current.loadingTestimoni,
       builder: (context, st) {
+        debugPrint("Loading Testimoni ? ${st.loadingTestimoni}");
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.only(top: 20, bottom: 3),
               child: Row(
                 children: [
                   const Text(
@@ -44,15 +47,15 @@ class TestimoniWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, bottom: 20),
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(top: 40),
                 scrollDirection: Axis.horizontal,
-                child: Row(
+                child: st.loadingTestimoni ? const LoadingPage(height: .20,) :  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: st.testimoni!.map((e) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding: const EdgeInsets.only(top: 10, right: 10,),
                 child: InkWell(
                   onTap: () {
                     ShowMoreTestimoniRoute().go(context);

@@ -11,6 +11,7 @@ class _InputStudentName extends StatelessWidget {
         context.read<RegisterCubit>().setState(name: value);
       },
       isName: true,
+      isCapital: true,
       hintText: "Nama",
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan nama anda",

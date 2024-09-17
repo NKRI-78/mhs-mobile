@@ -19,14 +19,13 @@ class ListModulCubit extends Cubit<ListModulState> {
 
   Future<void> fetchModul() async {
     try {
+      emit(state.copyWith(loadingModul: true));
       var value = await document.getDocument("Lesson");
       var list = value;
 
       emit(state.copyWith(document: list, loadingModul: false));
     } catch (e) {
       rethrow;
-    } finally {
-      emit(state.copyWith(loadingModul: false));
     }
   }
 }

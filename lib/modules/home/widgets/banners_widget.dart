@@ -24,7 +24,7 @@ class BannersWidget extends StatelessWidget {
             );
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25),
+            padding: const EdgeInsets.only(top: 20, bottom: 15),
             child: CarouselSlider.builder(
               options: CarouselOptions(
                 height: 152.0,

@@ -12,6 +12,7 @@ class PaymentModel {
   String? paymentGuideUrl;
   String? paymentNoVa;
   int? amount;
+  int? totalAmount;
   String? status;
   String? createdAt;
   String? updatedAt;
@@ -32,6 +33,7 @@ class PaymentModel {
       this.paymentGuideUrl,
       this.paymentNoVa,
       this.amount,
+      this.totalAmount,
       this.status,
       this.createdAt,
       this.updatedAt,
@@ -52,6 +54,7 @@ class PaymentModel {
     paymentGuideUrl = json['paymentGuideUrl'];
     paymentNoVa = json['paymentNoVa'];
     amount = json['amount'];
+    totalAmount = json['totalAmount'];
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -76,6 +79,7 @@ class PaymentModel {
     data['paymentGuideUrl'] = paymentGuideUrl;
     data['paymentNoVa'] = paymentNoVa;
     data['amount'] = amount;
+    data['totalAmount'] = totalAmount;
     data['status'] = status;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;

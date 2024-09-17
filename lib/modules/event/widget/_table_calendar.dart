@@ -132,114 +132,118 @@ class _TabeleCalendarPageState extends State<TabeleCalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: primaryColor,
-          ),
-          child: TableCalendar(
-                // locale: const Locale('id', 'ID').toString(),
-                eventLoader: (day) {
-                  return getEventsForDay(day);
-                },
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                calendarStyle: const CalendarStyle(
-                  defaultTextStyle: TextStyle(
-                    color: whiteColor
-                  ),
-                  weekendTextStyle: TextStyle(
-                    color: redColor
-                  ),
-                ),
-                onDaySelected: onDaySelected,
-                selectedDayPredicate: (DateTime day) => isSameDay(selectedDay, day),
-                onPageChanged: (val) {
-                  focusedDay = val;
-                },
-                daysOfWeekStyle: const DaysOfWeekStyle(
-                  weekendStyle: TextStyle(
-                    color: redColor
-                  ),
-                  weekdayStyle: TextStyle(
-                    color: whiteColor
-                  ),
-                ),
-                daysOfWeekHeight: 50,
-                weekendDays: const [DateTime.sunday],
-                headerStyle: HeaderStyle(
-                  titleCentered: true,
-                  formatButtonShowsNext: false,
-                  formatButtonVisible : false,
-                  headerMargin: const EdgeInsets.symmetric(vertical: 10),
-                  titleTextStyle: const TextStyle(
-                    fontSize: fontSizeLarge,
-                    color: whiteColor
-                  ),
-                  leftChevronIcon: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: greyColor,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 10,
-                      opticalSize: 20,
-                    ),
-                  ),
-                  rightChevronIcon: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: greyColor,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: const Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      size: 10,
-                    ),
-                  ),
-                ),
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
-                focusedDay: focusedDay,
-                calendarFormat: CalendarFormat.month,
-                 calendarBuilders: CalendarBuilders(
-                    markerBuilder: (BuildContext context, DateTime dateTime, data) {
-                    if(data.isNotEmpty) {
-                      return Stack(
-                      fit: StackFit.expand,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: const Center(),
-                        ),
-                        Positioned(
-                          right: 2,
-                          child: SizedBox(
-                            width: 20.0,
-                            height: 20.0,
-                            child: Image.asset(
-                              "assets/icons/star-icon.png",
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                    }
-                    return Container();
-                  },
-                ),
+    return BlocBuilder <EventBloc, EventState>(
+      builder: (context, st) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             st.loading ? const LoadingPage() : Container(
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: primaryColor,
               ),
-        ),
-        buildCalenderValueListener(),
-      ],
+              child: TableCalendar(
+                    // locale: const Locale('id', 'ID').toString(),
+                    eventLoader: (day) {
+                      return getEventsForDay(day);
+                    },
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    calendarStyle: const CalendarStyle(
+                      defaultTextStyle: TextStyle(
+                        color: whiteColor
+                      ),
+                      weekendTextStyle: TextStyle(
+                        color: redColor
+                      ),
+                    ),
+                    onDaySelected: onDaySelected,
+                    selectedDayPredicate: (DateTime day) => isSameDay(selectedDay, day),
+                    onPageChanged: (val) {
+                      focusedDay = val;
+                    },
+                    daysOfWeekStyle: const DaysOfWeekStyle(
+                      weekendStyle: TextStyle(
+                        color: redColor
+                      ),
+                      weekdayStyle: TextStyle(
+                        color: whiteColor
+                      ),
+                    ),
+                    daysOfWeekHeight: 50,
+                    weekendDays: const [DateTime.sunday],
+                    headerStyle: HeaderStyle(
+                      titleCentered: true,
+                      formatButtonShowsNext: false,
+                      formatButtonVisible : false,
+                      headerMargin: const EdgeInsets.symmetric(vertical: 10),
+                      titleTextStyle: const TextStyle(
+                        fontSize: fontSizeLarge,
+                        color: whiteColor
+                      ),
+                      leftChevronIcon: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: greyColor,
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          size: 10,
+                          opticalSize: 20,
+                        ),
+                      ),
+                      rightChevronIcon: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: greyColor,
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_sharp,
+                          size: 10,
+                        ),
+                      ),
+                    ),
+                    firstDay: kFirstDay,
+                    lastDay: kLastDay,
+                    focusedDay: focusedDay,
+                    calendarFormat: CalendarFormat.month,
+                     calendarBuilders: CalendarBuilders(
+                        markerBuilder: (BuildContext context, DateTime dateTime, data) {
+                        if(data.isNotEmpty) {
+                          return Stack(
+                          fit: StackFit.expand,
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              child: const Center(),
+                            ),
+                            Positioned(
+                              right: 2,
+                              child: SizedBox(
+                                width: 20.0,
+                                height: 20.0,
+                                child: Image.asset(
+                                  "assets/icons/star-icon.png",
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                        }
+                        return Container();
+                      },
+                    ),
+                  ),
+            ),
+            buildCalenderValueListener(),
+          ],
+        );
+      }
     );
   }
 

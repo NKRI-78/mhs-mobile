@@ -4,6 +4,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_news/widgets/card_news.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowMoreNewsPage extends StatelessWidget {
   const ShowMoreNewsPage({super.key});
@@ -27,29 +28,40 @@ class ShowMoreNewsView extends StatelessWidget {
       builder: (context, st) {
         return Scaffold(
           backgroundColor: whiteColor,
-          body: CustomScrollView(
-            shrinkWrap: true,
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              const HeaderSection(
-                title: "Berita", 
-                isCircle: true,
-                isPrimary: false,
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  ListView(
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: st.news.map((e) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: CardNews(news: e),
-                    )).toList(),
-                  )
-                ]),
-              )
-            ],
+          body: SmartRefresher(
+          onRefresh: () async {
+            await context.read<ShowMoreNewsCubit>().onRefresh();
+          },
+          enablePullUp: st.newsPagination?.next == null ? false : true,
+          enablePullDown: true,
+          onLoading: () async {
+            await context.read<ShowMoreNewsCubit>().loadMoreNews();
+          },
+          controller: ShowMoreNewsCubit.newsRefreshCtrl,
+            child: CustomScrollView(
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                const HeaderSection(
+                  title: "Berita", 
+                  isCircle: true,
+                  isPrimary: false,
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    ListView(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: st.news.map((e) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: CardNews(news: e),
+                      )).toList(),
+                    )
+                  ]),
+                )
+              ],
+            ),
           ),
         );
       }

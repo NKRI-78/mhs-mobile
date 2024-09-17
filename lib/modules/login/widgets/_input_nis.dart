@@ -6,7 +6,7 @@ class _InputNis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      labelText: 'NIS ( Nomor Induk Siswa )',
+      labelText: 'NPM (Nomor Pokok Mahasiswa)',
       onChanged: (value) {},
       isName: true,
       hintText: "",

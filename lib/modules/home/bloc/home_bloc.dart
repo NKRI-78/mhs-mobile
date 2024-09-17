@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -8,6 +10,7 @@ import 'package:mhs_mobile/misc/pagination.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/home_repository.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/message_home_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 
@@ -22,6 +25,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetBanners>(_onGetBanners);
     on<SetProfileNull>(_onSetProfileNull);
     on<GetTestimoni>(_onGetTestimoni);
+    on<GetMessageHome>(_onGetMessageHome);
+    on<SetFcm>(_onSetFcm);
   }
 
   final homeRepo = HomeRepository();
@@ -35,11 +40,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     add(GetNews());
     add(GetBanners());
     add(GetProfile());
+    add(GetMessageHome());
     add(GetTestimoni());
+    add(SetFcm());
   }
 
   FutureOr<void> _onGetNews(GetNews event, Emitter<HomeState> emit) async {
     try {
+      emit(state.copyWith(loadingNew: true));
       var value = await homeRepo.getNews();
       var list = value.list;
       var pagination = value.pagination;
@@ -68,13 +76,43 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _onGetTestimoni(
       GetTestimoni event, Emitter<HomeState> emit) async {
     try {
+      emit(state.copyWith(loadingTestimoni: true));
       var value = await homeRepo.getTestimoni();
       var list = value;
 
-      emit(state.copyWith(testimoni: list, loadingBanner: false));
+      emit(state.copyWith(testimoni: list, loadingTestimoni: false));
     } catch (e) {
-      emit(state.copyWith(loadingBanner: false));
+      rethrow;
       //
+    }
+  }
+
+  Future<void> _onSetFcm(SetFcm event,Emitter<HomeState> emit) async {
+    try {
+      if (Platform.isIOS) {
+        await Future<void>.delayed(
+          const Duration(
+            seconds: 3,
+          ),
+        );
+        await FirebaseMessaging.instance.getAPNSToken();
+      }
+      final token = await FirebaseMessaging.instance.getToken();
+
+      await homeRepo.setFcm(token ?? '');
+      debugPrint("Set FCM Success");
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> setDelete(Emitter<HomeState> emit) async {
+    try {
+      final token = await FirebaseMessaging.instance.getToken();
+
+      await homeRepo.setFcm(token ?? '');
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
@@ -93,5 +131,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _onSetProfileNull(
       SetProfileNull event, Emitter<HomeState> emit) {
     emit(state.setProfileNull());
+  }
+
+  FutureOr<void> _onGetMessageHome(GetMessageHome event, Emitter<HomeState> emit) async {
+    try {
+      MessageHomeModel? data = await homeRepo.getMessageHome();
+      emit(state.copyWith(message: data));
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      emit(state.copyWith(loadingMessage: false));
+    }
   }
 }

@@ -70,6 +70,31 @@ class DetailEventList extends StatelessWidget {
                 ],
               ),
               const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.calendar_month,
+                      size: 15,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 15,
+                    child: Text(
+                      date,
+                      style: const TextStyle(
+                        fontSize: fontSizeExtraSmall
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
                 height: 20,
               ),
               Text(

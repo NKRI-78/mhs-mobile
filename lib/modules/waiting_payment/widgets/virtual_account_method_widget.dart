@@ -75,6 +75,40 @@ class VirtualAccountMethodWidget extends StatelessWidget {
           height: 8,
         ),
         const Text(
+          "Biaya Pendaftaran",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Text('Rp ${NumberFormat('#,##0.00', 'ID').format(payment.amount ?? 0)}',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        const Text(
+          "Biaya Layanan",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Text('Rp ${NumberFormat('#,##0.00', 'ID').format(int.parse(payment.paymentFee.toString()) ?? 0)}',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        const Text(
           "Total Pembayaran",
           style: TextStyle(
             fontSize: 16,
@@ -86,7 +120,7 @@ class VirtualAccountMethodWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Rp ${NumberFormat('#,##0.00', 'ID').format(payment.amount ?? 0)}',
+                'Rp ${NumberFormat('#,##0.00', 'ID').format(payment.totalAmount ?? 0)}',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

@@ -16,7 +16,7 @@ class CardNews extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.width * .3,
+        height: MediaQuery.of(context).size.width * .4,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: Colors.white,

@@ -6,13 +6,13 @@ final class ListPresentationState extends Equatable {
   final List<DocumentData> document;
   final int nextPageNews;
   final Pagination? presentationPagination;
-  final bool loadingModul;
+  final bool loadingPresentation;
 
   const ListPresentationState({
     this.document = const [],
     this.nextPageNews = 1,
     this.presentationPagination,
-    this.loadingModul = false,
+    this.loadingPresentation = false,
   });
 
   List<GalleryItemModel> get presentationImage => document.map((e) => GalleryItemModel(id: e.id.toString(), imageUrl: e.fileUrl ?? "", index: document.indexOf(e), title: e.title ?? "")).toList();
@@ -22,20 +22,20 @@ final class ListPresentationState extends Equatable {
     document,
     nextPageNews,
     presentationPagination,
-    loadingModul
+    loadingPresentation
   ];
 
   ListPresentationState copyWith({
     List<DocumentData>? document,
     int? nextPageNews,
     Pagination? presentationPagination,
-    bool? loadingModul,
+    bool? loadingPresentation,
   }) {
     return ListPresentationState(
       document: document ?? this.document,
       nextPageNews: nextPageNews ?? this.nextPageNews,
       presentationPagination: presentationPagination ?? this.presentationPagination,
-      loadingModul: loadingModul ?? this.loadingModul,
+      loadingPresentation: loadingPresentation ?? this.loadingPresentation,
     );
   }
 }

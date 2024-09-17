@@ -57,6 +57,7 @@ const String imageDefault = "assets/images/no_image.png";
 const String circleTop = "assets/images/circle_background_top.png";
 const String circleDown = "assets/images/circle_background_bottom.png";
 const String circleDownMenu = "assets/icons/circle-down-menu.png";
+const String completedSuccessfully = "assets/icons/completed-successfully.png";
 const String circleFull = "assets/images/circle_background_full.png";
 const String inovatifLogo = "assets/images/logo-inovatif.png";
 const String bottomInfo = "assets/images/bottom_info.png";

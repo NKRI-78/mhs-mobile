@@ -7,6 +7,7 @@ class NewStudentModel {
   final String parentPhone;
   final String outfitSize;
   final String height;
+  final String gender;
 
   NewStudentModel(
       {required this.fullname,
@@ -16,5 +17,7 @@ class NewStudentModel {
       required this.phone,
       required this.parentPhone,
       required this.outfitSize,
-      required this.height});
+      required this.height,
+      required this.gender,
+  });
 }

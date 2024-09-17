@@ -5,7 +5,6 @@ import 'package:mhs_mobile/repositories/partnership_repository/models/partnershi
 import 'package:mhs_mobile/repositories/partnership_repository/partnership_repository.dart';
 
 part 'partnership_state.dart';
-part 'partnership_cubit.g.dart';
 
 class PartnershipCubit extends Cubit<PartnershipState> {
   PartnershipCubit() : super(const PartnershipState());
@@ -18,14 +17,13 @@ class PartnershipCubit extends Cubit<PartnershipState> {
 
   Future<void> fetchPartnership() async {
     try {
+      emit(state.copyWith(loadingPartnership: true));
       var value = await partnership.getPartnership();
-      var list = value;
-
-      emit(state.copyWith(partnership: list, loadingModul: false));
+      emit(state.copyWith(partnership: value));
     } catch (e) {
       rethrow;
     } finally {
-      emit(state.copyWith(loadingModul: false));
+      emit(state.copyWith(loadingPartnership: false));
     }
   }
 }

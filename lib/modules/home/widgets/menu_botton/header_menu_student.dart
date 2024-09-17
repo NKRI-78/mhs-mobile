@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/router/builder.dart';
 
@@ -45,6 +46,14 @@ class HeaderMenuStudent extends StatelessWidget {
                   ),
                 ],
               )),
+        ),
+        const SizedBox(
+          height: 50,
+          child: VerticalDivider(
+            color: whiteColor,
+            thickness: 2,
+            width: 2,
+          ),
         ),
         Expanded(
           flex: 2,

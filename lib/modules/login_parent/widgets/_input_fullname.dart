@@ -14,7 +14,7 @@ class _InputFullname extends StatelessWidget {
           var cubit = context.read<LoginParentCubit>();
           cubit.copyState(cubit.state.copyWith(fullname: p0));
         },
-        hintText: "",
+        hintText: "Nama Lengkap",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Nama Lengkap wajib di isi",
         textInputType: TextInputType.emailAddress,

@@ -21,7 +21,7 @@ class LoginStudentCubit extends Cubit<LoginStudentState> {
   Future<void> submit(BuildContext context) async {
     try {
       emit(state.copyWith(loading: true));
-      await repo.loginExistingStudent(fullname: state.fullname, nisn: state.nis);
+      await repo.loginExistingStudent(nisn: state.nis);
       if (context.mounted) {
         if (getIt.isRegistered<HomeBloc>()) {
           getIt<HomeBloc>().add(HomeInitialData());

@@ -1,12 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/api_url.dart';
 import 'package:mhs_mobile/misc/client.dart';
+import 'package:mhs_mobile/misc/http_client.dart';
+import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
+import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/message_home_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_channel_model.dart';
@@ -16,7 +21,11 @@ class HomeRepository {
   Uri get testimoni => Uri.parse('${MyApi.baseUrl}/api/v1/testimoni/dummy');
   Uri get newUri => Uri.parse('${MyApi.baseUrl}/api/v1/news');
   Uri get profileUri => Uri.parse('${MyApi.baseUrl}/api/v1/profile');
+  Uri get messageHome => Uri.parse('${MyApi.baseUrl}/api/v1/caption/by-user-role');
   String get studentUrl => '${MyApi.baseUrl}/api/v1/student';
+  String get profile => '${MyApi.baseUrl}/api/v1/profile';
+
+  final http = getIt<BaseNetworkClient>();
 
   Future<List<BannerModel>> getBanners() async {
     try {
@@ -34,6 +43,28 @@ class HomeRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       } else {
         throw "Error";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> setFcm(String token) async {
+    try {
+      debugPrint('FCM : $token');
+      final res = await http.post(Uri.parse('$profile/set-fcm-token'), body: {
+        'fcm_token': token
+      }, headers: {
+        HttpHeaders.authorizationHeader:
+            'Bearer ${getIt<AppBloc>().state.token}'
+      });
+      debugPrint('Bearer ${getIt<AppBloc>().state.token}');
+      debugPrint('Data FCM  : ${res.body}');
+
+      if (res.statusCode == 200) {
+        return;
+      } else {
+        throw "error api";
       }
     } catch (e) {
       rethrow;
@@ -80,6 +111,22 @@ class HomeRepository {
     }
   }
 
+  Future<MessageHomeModel> getMessageHome() async {
+    try {
+      final res = await MyClient().get(messageHome);
+
+      debugPrint(res.body);
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return MessageHomeModel.fromJson(json);
+      } else {
+        throw "error api";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<PaginationModel<NewsModel>> getNews() async {
     try {
       var res = await MyClient().get(newUri);
@@ -117,6 +164,7 @@ class HomeRepository {
         "parentPhone": student.parentPhone,
         "outfitSize": student.outfitSize,
         "height": student.height,
+        "gender": student.gender,
         "channel_id": payment.id?.toString(),
       });
 

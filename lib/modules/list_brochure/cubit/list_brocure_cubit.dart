@@ -20,14 +20,13 @@ class ListBrocureCubit extends Cubit<ListBrocureState> {
 
   Future<void> fetchBrochure() async {
     try {
+      emit(state.copyWith(loadingBrocuhure: true));
       var value = await document.getDocument("Brochure");
       var list = value;
 
       emit(state.copyWith(document: list, loadingBrocuhure: false));
     } catch (e) {
       rethrow;
-    } finally {
-      emit(state.copyWith(loadingBrocuhure: false));
     }
   }
 }

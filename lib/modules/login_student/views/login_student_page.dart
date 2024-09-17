@@ -85,10 +85,6 @@ class LoginStudentView extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: _InputFullname(),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
                 child: _InputNis(),
               ),
               const Padding(

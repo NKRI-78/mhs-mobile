@@ -67,6 +67,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
           factory: $NewsDetailRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: 'privacy',
+          factory: $PrivacyRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'gallery-image',
           factory: $GalleryImageViewWrapperRouteExtension._fromState,
         ),
@@ -77,6 +81,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
             GoRouteData.$route(
               path: 'presentation-detail',
               factory: $PresentationShowPdfRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'presentation-fullscreen',
+              factory: $FullScreenPresentationRouteExtension._fromState,
             ),
           ],
         ),
@@ -98,6 +106,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
               path: 'brochure-detail',
               factory: $BrochureShowPdfRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: 'brochure-full-screen',
+              factory: $FullScreenBrochureRouteExtension._fromState,
+            ),
           ],
         ),
         GoRouteData.$route(
@@ -111,6 +123,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'profile',
           factory: $ProfileRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'notifikasi',
+          factory: $NotificationRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: 'show-more-testimoni',
@@ -151,6 +167,20 @@ RouteBase get $homeRoute => GoRouteData.$route(
             GoRouteData.$route(
               path: 'login',
               factory: $LoginRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'forgot-password',
+                  factory: $ForgotPasswordRouteExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'forgot-password-otp',
+                  factory: $ForgotPasswordOtpRouteExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'forgot-password-change',
+                  factory: $ForgotPasswordChangeRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -224,6 +254,23 @@ extension $NewsDetailRouteExtension on NewsDetailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $PrivacyRouteExtension on PrivacyRoute {
+  static PrivacyRoute _fromState(GoRouterState state) => PrivacyRoute();
+
+  String get location => GoRouteData.$location(
+        '/privacy',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $GalleryImageViewWrapperRouteExtension
     on GalleryImageViewWrapperRoute {
   static GalleryImageViewWrapperRoute _fromState(GoRouterState state) =>
@@ -282,6 +329,24 @@ extension $PresentationShowPdfRouteExtension on PresentationShowPdfRoute {
           'url': url,
           'title': title,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $FullScreenPresentationRouteExtension on FullScreenPresentationRoute {
+  static FullScreenPresentationRoute _fromState(GoRouterState state) =>
+      FullScreenPresentationRoute();
+
+  String get location => GoRouteData.$location(
+        '/presentation/presentation-fullscreen',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -378,6 +443,24 @@ extension $BrochureShowPdfRouteExtension on BrochureShowPdfRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $FullScreenBrochureRouteExtension on FullScreenBrochureRoute {
+  static FullScreenBrochureRoute _fromState(GoRouterState state) =>
+      FullScreenBrochureRoute();
+
+  String get location => GoRouteData.$location(
+        '/brochure/brochure-full-screen',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $PartnershipRouteExtension on PartnershipRoute {
   static PartnershipRoute _fromState(GoRouterState state) => PartnershipRoute();
 
@@ -424,6 +507,24 @@ extension $ProfileRouteExtension on ProfileRoute {
 
   String get location => GoRouteData.$location(
         '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NotificationRouteExtension on NotificationRoute {
+  static NotificationRoute _fromState(GoRouterState state) =>
+      NotificationRoute();
+
+  String get location => GoRouteData.$location(
+        '/notifikasi',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -606,6 +707,72 @@ extension $LoginRouteExtension on LoginRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ForgotPasswordRouteExtension on ForgotPasswordRoute {
+  static ForgotPasswordRoute _fromState(GoRouterState state) =>
+      ForgotPasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/register/login/forgot-password',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ForgotPasswordOtpRouteExtension on ForgotPasswordOtpRoute {
+  static ForgotPasswordOtpRoute _fromState(GoRouterState state) =>
+      ForgotPasswordOtpRoute(
+        email: state.uri.queryParameters['email']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/register/login/forgot-password-otp',
+        queryParams: {
+          'email': email,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ForgotPasswordChangeRouteExtension on ForgotPasswordChangeRoute {
+  static ForgotPasswordChangeRoute _fromState(GoRouterState state) =>
+      ForgotPasswordChangeRoute(
+        email: state.uri.queryParameters['email']!,
+        otp: state.uri.queryParameters['otp']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/register/login/forgot-password-change',
+        queryParams: {
+          'email': email,
+          'otp': otp,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ChooseRoleRouteExtension on ChooseRoleRoute {
   static ChooseRoleRoute _fromState(GoRouterState state) => ChooseRoleRoute();
 
@@ -686,6 +853,7 @@ extension $NewStudentPaymentRouteExtension on NewStudentPaymentRoute {
         parentPhone: state.uri.queryParameters['parent-phone']!,
         outfitSize: state.uri.queryParameters['outfit-size']!,
         height: state.uri.queryParameters['height']!,
+        gender: state.uri.queryParameters['gender']!,
       );
 
   String get location => GoRouteData.$location(
@@ -699,6 +867,7 @@ extension $NewStudentPaymentRouteExtension on NewStudentPaymentRoute {
           'parent-phone': parentPhone,
           'outfit-size': outfitSize,
           'height': height,
+          'gender': gender,
         },
       );
 

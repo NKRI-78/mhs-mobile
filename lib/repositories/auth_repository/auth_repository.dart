@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:mhs_mobile/misc/api_url.dart';
 import 'package:mhs_mobile/misc/http_client.dart';
 import 'package:mhs_mobile/misc/injections.dart';
-import 'package:mhs_mobile/repositories/auth_repository/models/club/club.dart';
+import 'package:mhs_mobile/repositories/auth_repository/models/user/generation_open.dart';
 
 import 'package:mhs_mobile/repositories/auth_repository/models/user/user.dart';
 
@@ -32,6 +32,7 @@ enum VerifyEmailType { sendingOtp, verified }
 
 class AuthRepository {
   String get v1 => '${MyApi.baseUrl}/api/v1/auth';
+  String get generation => '${MyApi.baseUrl}/api/v1/school-generation/open';
   final httpBase = getIt<BaseNetworkClient>(); 
 
   Future<LoggedIn> login(
@@ -66,14 +67,15 @@ class AuthRepository {
     }
   }
 
+
+
   Future<void> loginExistingStudent(
-      {required String fullname, required String nisn}) async {
+      {required String nisn}) async {
     try {
       final res = await httpBase.post(Uri.parse('$v1/verify-existing-student'), body: {
-        'fullname': fullname,
         'nisn': nisn,
       });
-      debugPrint("Fullname : $fullname Nisn : $nisn");
+      debugPrint("Nisn : $nisn");
       debugPrint(res.body);
 
       final json = jsonDecode(res.body);
@@ -146,18 +148,17 @@ class AuthRepository {
     }
   }
 
-  Future<List<ClubModel>> getClubList() async {
+  Future<GenerationOpenModel> getGenerationOpen() async {
     try {
-      final res = await http.get(Uri.parse('$v1/get-club-list'));
+      final res = await httpBase.get(Uri.parse(generation));
 
       debugPrint(res.body);
-
       final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        final list = json['data'] as List;
-        return list.map((e) => ClubModel.fromJson(e)).toList();
+        return GenerationOpenModel.fromJson(json);
+      } else {
+        throw "error api";
       }
-      return [];
     } catch (e) {
       rethrow;
     }
@@ -188,5 +189,71 @@ class AuthRepository {
       rethrow;
     }
     return null;
+  }
+
+  Future<void> forgotPasswordSendOTP(String email) async {
+    try {
+      final res = await http.post(Uri.parse('$v1/forgot-password'),body: {
+        'email': email,
+        'step': "SENDING_OTP",
+      });
+      debugPrint("email : $email");
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> forgotPasswordVerifyOTP(String email, String otp) async {
+    try {
+      final res = await http.post(Uri.parse('$v1/forgot-password'),body: {
+        'email': email,
+        'step': "VERIFICATION_OTP",
+        'otp': otp,
+      });
+      debugPrint("email : $email");
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> forgotPasswordChangePass(String email, String otp, String password) async {
+    try {
+      final res = await http.post(Uri.parse('$v1/forgot-password'),body: {
+        'email': email,
+        'step': "CHANGE_PASSWORD",
+        'otp': otp,
+        'password': password,
+      });
+      debugPrint("email : $email");
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

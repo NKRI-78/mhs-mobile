@@ -5,30 +5,30 @@ part of 'partnership_cubit.dart';
 final class PartnershipState extends Equatable {
   final List<PartnershipData> partnership;
   final int nextPagePartnership;
-  final bool loadingModul;
+  final bool loadingPartnership;
 
   const PartnershipState({
     this.partnership = const [],
     this.nextPagePartnership = 1,
-    this.loadingModul = false,
+    this.loadingPartnership = true,
   });
 
   @override
   List<Object?> get props => [
         partnership,
         nextPagePartnership,
-        loadingModul
+        loadingPartnership
       ];
 
   PartnershipState copyWith({
     List<PartnershipData>? partnership,
     int? nextPagePartnership,
-    bool? loadingModul,
+    bool? loadingPartnership,
   }) {
     return PartnershipState(
       partnership: partnership ?? this.partnership,
       nextPagePartnership: nextPagePartnership ?? this.nextPagePartnership,
-      loadingModul: loadingModul ?? this.loadingModul,
+      loadingPartnership: loadingPartnership ?? this.loadingPartnership,
     );
   }
 }

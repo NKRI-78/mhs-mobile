@@ -20,14 +20,13 @@ class ListPresentationCubit extends Cubit<ListPresentationState> {
 
   Future<void> fetchPresentation() async {
     try {
+      emit(state.copyWith(loadingPresentation: true));
       var value = await document.getDocument("Presentation");
       var list = value;
 
-      emit(state.copyWith(document: list, loadingModul: false));
+      emit(state.copyWith(document: list, loadingPresentation: false));
     } catch (e) {
       rethrow;
-    } finally {
-      emit(state.copyWith(loadingModul: false));
     }
   }
 }

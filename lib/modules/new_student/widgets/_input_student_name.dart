@@ -8,11 +8,13 @@ class _InputStudentName extends StatelessWidget {
     return BlocBuilder<NewStudentCubit, NewStudentState>(
       builder: (context, state) {
         return CustomTextField(
-          labelText: 'Nama siswa',
+          labelText: 'Nama Siswa',
           onChanged: (value) {
             context.read<NewStudentCubit>().copyToState(fullname: value);
           },
-          hintText: "",
+          isName: true,
+          isCapital: true,
+          hintText: "Nama Siswa",
           fillColor: whiteColor.withOpacity(0.10),
           emptyText: "Masukan nama anda",
           textInputType: TextInputType.text,

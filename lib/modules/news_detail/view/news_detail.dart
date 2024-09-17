@@ -51,7 +51,7 @@ class NewsDetailView extends StatelessWidget {
                     image: data?.imageUrl ?? "", 
                     radius: 0, 
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

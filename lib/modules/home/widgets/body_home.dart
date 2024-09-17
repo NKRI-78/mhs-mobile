@@ -11,6 +11,7 @@ import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/footer-address.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/bottom_menu.dart';
+import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_parent.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_student.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/menu_student.dart';
 import 'package:mhs_mobile/modules/home/widgets/menus_widget.dart';
@@ -45,7 +46,7 @@ class BodyHome extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.only(top: 36, bottom: 16),
+                  padding: const EdgeInsets.only(top: 25, bottom: 16),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadiusDirectional.only(
                           topStart: Radius.circular(20),
@@ -54,7 +55,7 @@ class BodyHome extends StatelessWidget {
                   child: DefaultTextStyle(
                     style: const TextStyle(color: Colors.black),
                     child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 13),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       children: const [
@@ -74,14 +75,16 @@ class BodyHome extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: roleId == "STUDENT"
                         ? const HeaderMenuStudent()
-                        : waitingPaymentNewStudent != null ?
+                        : roleId == "PARENT" ? const HeaderMenuParent() : waitingPaymentNewStudent != null ?
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: greenColor
+                              backgroundColor: greenColor,
+                      
+                              padding: const EdgeInsets.symmetric(vertical: 15)
                             ),
                             child: const Text("Menunggu Pembayaran"),
                             onPressed: () {
-                              WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
+                              // WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
                             },
                           ) : isWaitingAprovalAdmin
                             ? BottomMenu(
@@ -90,7 +93,7 @@ class BodyHome extends StatelessWidget {
                               )
                             : isLogin
                                 ? BottomMenu(
-                                    title: 'Pilih Akun Anda untuk',
+                                    title: 'Pilih Akun Anda',
                                     onPressed: () {
                                       ChooseRoleRoute().go(context);
                                     },
@@ -108,12 +111,13 @@ class BodyHome extends StatelessWidget {
                                             },
                                             child: const Center(
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 20),
+                                                padding: EdgeInsets.symmetric(vertical: 15),
                                                 child: Text(
                                                   "Gabung Bersama Kami",
                                                   style: TextStyle(
                                                     color: whiteColor,
-                                                    fontSize: fontSizeDefault,
+                                                    height: 1,
+                                                    fontSize: fontSizeLarge,
                                                     fontWeight: FontWeight.bold
                                                   ),
                                                 ),

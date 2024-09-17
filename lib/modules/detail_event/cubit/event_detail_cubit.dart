@@ -21,11 +21,9 @@ class EventDetailCubit extends Cubit<EventDetailState> {
       emit(state.copyWith(loading: true));
       final event = await repo.getEventDetail(idEvent.toString());
       debugPrint("id event fetch $idEvent");
-      emit(state.copyWith(event: event, idEvent: idEvent.toString()));
+      emit(state.copyWith(event: event, idEvent: idEvent.toString(), loading: false));
     } catch (e) {
       rethrow;
-    } finally {
-      emit(state.copyWith(loading: false));
     }
   }
 

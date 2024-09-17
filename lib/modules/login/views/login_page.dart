@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/login/cubit/login_cubit.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
 import 'package:mhs_mobile/widgets/textfield/textfield.dart';
 
@@ -91,6 +93,22 @@ class LoginView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: _FieldPassword(),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    ForgotPasswordRoute().go(context);
+                  },
+                  child: const Text(
+                    "Lupa Password ? ",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: redColor,
+                      fontSize: fontSizeLarge
+                    ),
+                  ),
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),

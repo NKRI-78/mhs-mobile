@@ -1,58 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/home/model/app_bar_menu_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
+
 
 class MenusWidget extends StatelessWidget {
   const MenusWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            MenuWidget(
-              title: 'Acara',
-              icon: "icon_calendar_event", 
-              onTap: () { 
-                EventRoute().go(context);
-              },
-            ),
-            MenuWidget(
-              title: 'Kemitraan',
-              icon: "Handshake", 
-              onTap: () { 
-                PartnershipRoute().go(context);
-              },
-            ),
-            MenuWidget(
-              title: 'Media',
-              icon: "icon_gallery", 
-              onTap: () { 
-                MediaRoute().go(context); 
-              },
-            ),
-            MenuWidget(
-              title: 'Presentasi',
-              icon: "Presentation", 
-              onTap: () { 
-                ListPresentationRoute().go(context);
-              },
-            ),
-            MenuWidget(
-              title: 'Brosur',
-              icon: "Magazine", 
-              onTap: () { 
-                ListBrochureRoute().go(context);
-               },
-            ),
-          ],
-        ),
+    List<AppbarMenuModel> listMenu = [
+      AppbarMenuModel(
+        title: 'Event',
+        icon: "icon_calendar_event", 
+        onTap: () { 
+          EventRoute().go(context);
+        },
       ),
-    );
+      AppbarMenuModel(
+        title: 'Partnership',
+        icon: "Handshake", 
+        onTap: () { 
+          PartnershipRoute().go(context);
+        },
+      ),
+      AppbarMenuModel(
+        title: 'Media',
+        icon: "icon_gallery", 
+        onTap: () { 
+          MediaRoute().go(context); 
+        },
+      ),
+      AppbarMenuModel(
+        title: 'Presentasi',
+        icon: "Presentation", 
+        onTap: () { 
+          ListPresentationRoute().go(context);
+        },
+      ),
+      AppbarMenuModel(
+        title: 'Brosur',
+        icon: "Magazine", 
+        onTap: () { 
+          ListBrochureRoute().go(context);
+        },
+      ),
+    ];
+    return GridView.builder(
+    shrinkWrap: true,
+    physics: const ScrollPhysics(),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      mainAxisSpacing: 1.0,
+      crossAxisSpacing: 1.0,
+      crossAxisCount: 5,
+    ),
+    itemCount: listMenu.length,
+    itemBuilder: (context, index) {
+      final data = listMenu[index];
+      return MenuWidget(
+        title: data.title,
+        icon: data.icon, 
+        onTap: data.onTap,
+      );
+    });
   }
 }
 
@@ -64,40 +75,40 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Container(
-              height: 51,
-              width: 51,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: redColor,
-              ),
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.only(
-                bottom: 4,
-              ),
-              child: Image.asset(
-                "assets/icons/$icon.png",
-                width: 5,
-                height: 5,
-                scale: 0.5,
-              ),
+    var size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 51,
+            width: 51,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: redColor,
             ),
-            Text(
-              title,
-              style: GoogleFonts.inter().copyWith(
-                color: primaryColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            )
-          ],
-        ),
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(
+              bottom: 5,
+            ),
+            child: Image.asset(
+              "assets/icons/$icon.png",
+              width: 5,
+              height: 5,
+              scale: 0.5,
+            ),
+          ),
+          Text(
+            title,
+            style: GoogleFonts.inter().copyWith(
+              color: primaryColor.withOpacity(0.80),
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
       ),
     );
   }

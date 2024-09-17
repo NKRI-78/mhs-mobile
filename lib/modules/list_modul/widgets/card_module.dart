@@ -50,30 +50,14 @@ class CardModul extends StatelessWidget {
                   flex: 5,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          document.title ?? "",
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          DateUntil.formatDateDocument(DateTime.parse(document.createdAt ?? "")),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6000000238418579),
-                            fontSize: 11,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      document.title ?? "",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 13,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

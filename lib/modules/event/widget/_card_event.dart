@@ -88,17 +88,17 @@ class CardEvent extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        maxLines: 2,
+                        maxLines: 1,
                         style: const TextStyle(
                           color: blackColor,
-                          fontSize: fontSizeLarge,
+                          fontSize: fontSizeSmall,
                           fontWeight: FontWeight.bold,
                           overflow: TextOverflow.visible
                         ),
                       ),
                       Text(
                         deskription,
-                        maxLines: 3,
+                        maxLines: 2,
                         style: const TextStyle(
                           color: blackColor,
                           fontSize: fontSizeExtraSmall,

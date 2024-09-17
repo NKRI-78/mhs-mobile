@@ -3,10 +3,10 @@ part of '../view/choose_role_page.dart';
 
 const List<String> _list = [
     'Siswa',
-    'Parent',
-    'Alumni',
+    // 'Alumni',
+    // 'Orang Tua',
   ];
-SingleSelectController selectController = SingleSelectController(_list);
+String? selectedValue;
 
 class _SelectRoleWidgets extends StatelessWidget {
   const _SelectRoleWidgets();
@@ -15,36 +15,79 @@ class _SelectRoleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
       builder: (context, st) {
-        return SizedBox(
-          height: 100,
-          child:  CustomDropdown(
-            decoration: CustomDropdownDecoration(
-              expandedFillColor:  whiteColor,
-              closedFillColor: whiteColor,
-              closedBorder: Border.all(width: 1, color: whiteColor),
-              expandedBorder: Border.all(width: 1, color: whiteColor),
-              listItemStyle: const TextStyle(
-                color: blackColor
+        return DropdownButtonFormField2(
+            isExpanded: true,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(vertical: 16),
+              filled: true,
+              fillColor: whiteColor.withOpacity(0.10),
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              headerStyle: const TextStyle(
-                color: blackColor
-              ),
-              expandedSuffixIcon: const Icon(Icons.keyboard_arrow_up_sharp, color: blackColor,),
-              closedSuffixIcon: const Icon(Icons.keyboard_arrow_down_sharp, color: blackColor,),
             ),
-            // controller: selectController,
-            // excludeSelected: false,
-            // hideSelectedFieldWhenExpanded: false,
-            hintText: 'Select Role',
-            items: _list,
-            initialItem: _list[0],
+            barrierColor: blackColor.withOpacity(0.4),
+            hint: const Text(
+              'Masuk Sebagai',
+              style: TextStyle(
+                fontSize: 14,
+                color: whiteColor
+              ),
+            ),
+            items: _list
+            .map((item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: whiteColor
+                    ),
+                  ),
+                ))
+            .toList(),
+            validator: (value) {
+              if (value == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: primaryColor,
+                    content: Text(
+                      "Pilih Role Anda",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              }
+              return null;
+            },
             onChanged: (value) {
               var cubit = context.read<ChooseRoleCubit>();
               cubit.copyState(cubit.state.copyWith(roleSelect: value));
               print('changing value to: $value');
             },
-          ),
-        );
+            onSaved: (value) {
+              selectedValue = value.toString();
+            },
+            buttonStyleData: const ButtonStyleData(
+              padding: EdgeInsets.only(right: 8),
+            ),
+            iconStyleData: const IconStyleData(
+              icon: Icon(
+                Icons.arrow_drop_down,
+                color: whiteColor,
+              ),
+              iconSize: 24,
+            ),
+            dropdownStyleData: const DropdownStyleData(
+              decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+            menuItemStyleData: const MenuItemStyleData(
+              overlayColor: MaterialStatePropertyAll(whiteColor),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+            ),
+          );
       }
     );
   }

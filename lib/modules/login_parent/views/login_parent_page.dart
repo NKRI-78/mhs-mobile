@@ -77,7 +77,7 @@ class LoginStudentView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  "Login Parent",
+                  "Masuk Orang Tua",
                   style: TextStyle(
                     color: whiteColor,
                     fontWeight: FontWeight.w600,

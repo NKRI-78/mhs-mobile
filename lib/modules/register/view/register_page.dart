@@ -88,7 +88,6 @@ class RegisterView extends StatelessWidget {
                         child: _BottomButon(),
                       ),
                       RichText(
-                            
                         text: TextSpan(
                           children: [
                             const TextSpan(text: "Sudah Punya Akun ? "),

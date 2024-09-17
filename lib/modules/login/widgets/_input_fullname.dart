@@ -13,7 +13,7 @@ class _InputFullname extends StatelessWidget {
           var cubit = context.read<LoginCubit>();
           cubit.copyState(cubit.state.copyWith(email: p0));
         },
-        hintText: "",
+        hintText: "Email/No. Telepon",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Email/No. Telepon wajib di isi",
         textInputType: TextInputType.emailAddress,

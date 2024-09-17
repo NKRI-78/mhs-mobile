@@ -26,19 +26,21 @@ class _InputBirthdayState extends State<_InputBirthday> {
             context: context,
             // locale: const Locale("id"),
             firstDate: DateTime(DateTime.now().year - 100),
-            lastDate: DateTime(DateTime.now().year - 10, 
+            lastDate: DateTime(DateTime.now().year + 10, 
             DateTime.now().month,
             DateTime.now().day));
 
         if (date != null && context.mounted) {
-          context
-              .read<NewStudentCubit>()
-              .copyToState(birthDate: date.toString());
-          controller.text = DateFormat(
-            'yMMMMd',
-          ).format(date);
+          context.read<NewStudentCubit>().copyToState(birthDate: date.toString());
+          controller.text = DateUntil.formatBirthday(date);
           setState(() {});
         }
+      },
+      validator: (value) {
+        if (value == null) {
+          return 'Masukkan Tanggal Lahir Anda';
+        }
+        return null;
       },
       decoration: InputDecoration(
         fillColor: whiteColor.withOpacity(0.10),
@@ -57,6 +59,7 @@ class _InputBirthdayState extends State<_InputBirthday> {
           fontSize: fontSizeLarge,
           fontWeight: FontWeight.w500,
         ),
+        hintText: "Tanggal Lahir",
         labelText: 'Tanggal Lahir',
         labelStyle: const TextStyle(
           fontSize: fontSizeLarge,

@@ -10,7 +10,7 @@ class HeaderHome extends StatelessWidget {
         bool isLogin = state.isLogin;
         return SizedBox(
           width: double.infinity,
-          height: isLogin ? 230 : 200,
+          height: isLogin ? 190 : 150,
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, st) {
               int roleId = st.profile?.data.roleId ?? 0;
@@ -22,7 +22,7 @@ class HeaderHome extends StatelessWidget {
               return Stack(
                 children: [
                   Positioned(
-                    top: isLogin ? 30 : 70,
+                    top: isLogin ? 5 : 30,
                     left: 20,
                     right: 20,
                     child: Row(
@@ -48,7 +48,7 @@ class HeaderHome extends StatelessWidget {
                                 isLogin ? (st.profile?.data.student == null ? nameUser : nameStudent) : "Metro Hotel School",
                                 style: const TextStyle(
                                   color: whiteColor,
-                                  fontSize: 23,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -57,16 +57,17 @@ class HeaderHome extends StatelessWidget {
                                 color: greyInputColor.withOpacity(0.5),
                                 endIndent: 30,
                               ),
-                              roleId == 3 ? const Text(
-                                "Motivasi adalah hal yang membuat Anda memulai. Kebiasaan adalah hal yang membuat Anda terus maju...",
+                              roleId == 3 || roleId == 4 || roleId == 5 ? Text(
+                                st.message?.data.messageHome ?? "-",
                                 maxLines: 3,
-                                style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
                                   color: whiteColor,
                                   fontSize: fontSizeSmall,
                                   fontWeight: FontWeight.w600
                                 ),
                               ) : waitAdmin ? const Text(
-                                "Your’e Success to choose you account for, Please wait for approval... ",
+                                "Anda berhasil memilih akun Anda, Harap tunggu persetujuan...",
                                 maxLines: 3,
                                 style: TextStyle(
                                   color: whiteColor,
@@ -89,29 +90,62 @@ class HeaderHome extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                logoMhs,
-                              ),
-                              isLogin
-                              ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: whiteColor.withOpacity(0.4),
-                                  shape: const CircleBorder()
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  logoMhs,
                                 ),
-                                  onPressed: () {
-                                    z.toggle!();
-                                  },
-                                  child: const Icon(
-                                    Iconsax.element_3,
-                                    size: 20,
-                                  )
+                                isLogin
+                                ? Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Stack(
+                                    fit: StackFit.loose,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: whiteColor.withOpacity(0.4),
+                                          shape: const CircleBorder()
+                                        ),
+                                          onPressed: () {
+                                            z.toggle!();
+                                          },
+                                          child: const Icon(
+                                            Iconsax.element_3,
+                                            size: 20,
+                                          )
+                                        ),
+                                      // Align(
+                                      //   alignment: Alignment.topRight,
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.only(right: 8),
+                                      //     child:Container(
+                                      //       width: 20,
+                                      //       height: 20,
+                                      //       decoration: BoxDecoration(
+                                      //         color: redColor,
+                                      //         borderRadius: BorderRadius.circular(20)
+                                      //       ),
+                                      //       child: const Text(
+                                      //         "0",
+                                      //         textAlign: TextAlign.center,
+                                      //         style: TextStyle(
+                                      //           color: whiteColor
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
                                 )
-                              : const SizedBox.shrink()
-                            ],
+                                : const SizedBox.shrink()
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -125,4 +159,4 @@ class HeaderHome extends StatelessWidget {
       }
     );
   }
-}
+} 

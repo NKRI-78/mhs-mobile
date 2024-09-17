@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
@@ -23,6 +24,15 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
     emit(newState);
   }
 
+  Future<void> onRefresh() async{
+    var value = await homeRepo.getNews();
+    var list = value.list;
+    var pagination = value.pagination;
+
+    emit(state.copyWith(news: list, nextPageNews: pagination.next, newsPagination: pagination),);
+    newsRefreshCtrl.refreshCompleted();
+  }
+
   Future<void> fetchNews() async {
     try {
       var value = await homeRepo.getNews();
@@ -34,6 +44,23 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
       rethrow;
     } finally {
       emit(state.copyWith(loadingNews: false));
+    }
+  }
+
+  FutureOr<void> loadMoreNews() async {
+    try {
+      var value = await homeRepo.getNews();
+      var list = value.list;
+      var pagination = value.pagination;
+      
+      emit(state.copyWith(
+        news: [...state.news, ...list], 
+        nextPageNews: pagination.next, 
+        newsPagination: pagination));
+    } catch (e) {
+      debugPrint("error news $e");
+    } finally {
+      newsRefreshCtrl.loadComplete();
     }
   }
 }

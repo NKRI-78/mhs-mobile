@@ -4,7 +4,6 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/show_more_testimoni/cubit/show_more_testimoni_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_testimoni/widgets/testimoni_card.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
-import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
@@ -40,14 +39,14 @@ class ShowMoreTestimoniView extends StatelessWidget {
                 isPrimary: false,
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
                 sliver: SliverGrid.builder(
                   itemCount: st.testimoni.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 80,
+                    mainAxisSpacing: 60,
                     crossAxisSpacing: 20.0,
-                    childAspectRatio: 1.2
+                    childAspectRatio: 1.3
                   ), 
                   itemBuilder: (context, index) {
                     final data = st.testimoni[index];

@@ -7,9 +7,11 @@ class HomeState extends Equatable {
   final List<BannerModel>? banners;
   final List<TestimoniData>? testimoni;
   final ProfileModel? profile;
+  final MessageHomeModel? message;
   final bool loadingBanner;
   final bool loadingNew;
   final bool loadingProfile;
+  final bool loadingMessage;
   final bool loadingTestimoni;
 
   const HomeState({
@@ -18,10 +20,12 @@ class HomeState extends Equatable {
     this.banners = const [],
     this.testimoni = const [],
     this.profile,
+    this.message,
     this.loadingBanner = true,
-    this.loadingNew = true,
+    this.loadingNew = false,
     this.loadingProfile = true,
-    this.loadingTestimoni = true,
+    this.loadingMessage = true,
+    this.loadingTestimoni = false,
   });
 
   @override
@@ -31,9 +35,11 @@ class HomeState extends Equatable {
         banners,
         testimoni,
         profile,
+        message,
         loadingBanner,
         loadingNew,
         loadingProfile,
+        loadingMessage,
         loadingTestimoni,
       ];
 
@@ -43,20 +49,24 @@ class HomeState extends Equatable {
     List<BannerModel>? banners,
     List<TestimoniData>? testimoni,
     ProfileModel? profile,
+    MessageHomeModel? message,
     bool? loadingBanner,
     bool? loadingNew,
     bool? loadingProfile,
+    bool? loadingMessage,
     bool? loadingTestimoni,
   }) {
     return HomeState(
       paginationNews: paginationNews ?? this.paginationNews,
       news: news ?? this.news,
       profile: profile ?? this.profile,
+      message: message ?? this.message,
       testimoni: testimoni ?? this.testimoni,
       banners: banners ?? this.banners,
       loadingBanner: loadingBanner ?? this.loadingBanner,
       loadingNew: loadingNew ?? this.loadingNew,
       loadingProfile: loadingProfile ?? this.loadingProfile,
+      loadingMessage: loadingMessage ?? this.loadingMessage,
       loadingTestimoni: loadingTestimoni ?? this.loadingTestimoni,
     );
   }

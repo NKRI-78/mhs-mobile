@@ -54,21 +54,21 @@ class ProfileData {
       this.waitingPaymentNewStudent});
 
   ProfileData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    username = json['username'];
-    email = json['email'];
-    phone = json['phone'];
+    id = json['id'] ?? 0;
+    name = json['name'] ?? "";
+    username = json['username'] ?? "";
+    email = json['email'] ?? "";
+    phone = json['phone'] ?? "";
     fcm = json['fcm'] ?? "";
-    verifiedEmail = json['verifiedEmail'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    verifiedEmail = json['verifiedEmail'] ?? "";
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
     deletedAt = json['deletedAt'] ?? "";
-    roleId = json['RoleId'];
+    roleId = json['RoleId'] ?? 0;
     profile = json['Profile'] != null ? Profile.fromJson(json['Profile']) : null;
     role = json['Role'] != null ? Role.fromJson(json['Role']) : null;
     student = json['student'] != null ? Student.fromJson(json['student']) : null;
-    isWaitingAprovalAdmin = json['isWaitingAprovalAdmin'];
+    isWaitingAprovalAdmin = json['isWaitingAprovalAdmin'] ?? false;
     waitingPaymentNewStudent = json['waitingPaymentNewStudent'] != null
     ? WaitingPaymentNewStudent.fromJson(
         json['waitingPaymentNewStudent'])
@@ -159,17 +159,17 @@ class WaitingPaymentNewStudent {
   String? paymentMethod;
   String? paymentName;
   String? paymentCode;
-  Null paymentFee;
-  Null paymentLogo;
-  Null paymentUrl;
+  String? paymentFee;
+  String? paymentLogo;
+  String? paymentUrl;
   String? paymentPlatform;
-  Null paymentGuideUrl;
-  Null paymentNoVa;
+  String? paymentGuideUrl;
+  String? paymentNoVa;
   int? amount;
   String? status;
   String? createdAt;
   String? updatedAt;
-  Null deletedAt;
+  String? deletedAt;
   int? userId;
   PaymentGetOneOrder? paymentGetOneOrder;
 
@@ -201,18 +201,18 @@ class WaitingPaymentNewStudent {
     paymentMethod = json['paymentMethod'];
     paymentName = json['paymentName'];
     paymentCode = json['paymentCode'];
-    paymentFee = json['paymentFee'];
+    paymentFee = json['paymentFee'] ?? "";
     paymentLogo = json['paymentLogo'];
     paymentUrl = json['paymentUrl'];
-    paymentPlatform = json['paymentPlatform'];
-    paymentGuideUrl = json['paymentGuideUrl'];
-    paymentNoVa = json['paymentNoVa'];
-    amount = json['amount'];
-    status = json['status'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    deletedAt = json['deletedAt'];
-    userId = json['UserId'];
+    paymentPlatform = json['paymentPlatform'] ?? "";
+    paymentGuideUrl = json['paymentGuideUrl'] ?? "";
+    paymentNoVa = json['paymentNoVa'] ?? "";
+    amount = json['amount'] ?? 0;
+    status = json['status'] ?? "";
+    createdAt = json['createdAt'] ?? "";
+    updatedAt = json['updatedAt'] ?? "";
+    deletedAt = json['deletedAt'] ?? "";
+    userId = json['UserId'] ?? 0;
     paymentGetOneOrder = json['PaymentGetOneOrder'] != null
         ? PaymentGetOneOrder.fromJson(json['PaymentGetOneOrder'])
         : null;
@@ -417,30 +417,30 @@ class Student {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nisn'] = this.nisn;
-    data['fullname'] = this.fullname;
-    data['birthDate'] = this.birthDate;
-    data['gender'] = this.gender;
-    data['originSchool'] = this.originSchool;
-    data['address'] = this.address;
-    data['phone'] = this.phone;
-    data['parentName'] = this.parentName;
-    data['parentJob'] = this.parentJob;
-    data['parentPhone'] = this.parentPhone;
-    data['programSchool'] = this.programSchool;
-    data['height'] = this.height;
-    data['outfitSize'] = this.outfitSize;
-    data['status'] = this.status;
-    data['statusMessage'] = this.statusMessage;
-    data['photo'] = this.photo;
-    data['classYear'] = this.classYear;
-    data['end'] = this.end;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['deletedAt'] = this.deletedAt;
-    data['UserId'] = this.userId;
-    data['ParentId'] = this.parentId;
+    data['id'] = id;
+    data['nisn'] = nisn;
+    data['fullname'] = fullname;
+    data['birthDate'] = birthDate;
+    data['gender'] = gender;
+    data['originSchool'] = originSchool;
+    data['address'] = address;
+    data['phone'] = phone;
+    data['parentName'] = parentName;
+    data['parentJob'] = parentJob;
+    data['parentPhone'] = parentPhone;
+    data['programSchool'] = programSchool;
+    data['height'] = height;
+    data['outfitSize'] = outfitSize;
+    data['status'] = status;
+    data['statusMessage'] = statusMessage;
+    data['photo'] = photo;
+    data['classYear'] = classYear;
+    data['end'] = end;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['deletedAt'] = deletedAt;
+    data['UserId'] = userId;
+    data['ParentId'] = parentId;
     return data;
   }
 }

@@ -4,6 +4,8 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/list_modul/cubit/list_modul_cubit.dart';
 import 'package:mhs_mobile/modules/list_modul/widgets/card_module.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class ListModulPage extends StatelessWidget {
   const ListModulPage({super.key});
@@ -34,7 +36,10 @@ class ListModulView extends StatelessWidget {
                 title: "Modul", 
                 isCircle: true,
               ),
-              SliverList(
+              st.loadingModul ? const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator.adaptive()),
+                ) : st.document.isEmpty ? const SliverFillRemaining(
+                  child: Center(child: EmptyPage(msg: "Tidak ada modul"))) : SliverList(
                 delegate: SliverChildListDelegate([
                   ListView(
                     padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

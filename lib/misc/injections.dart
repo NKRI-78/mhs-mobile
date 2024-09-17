@@ -6,6 +6,7 @@ import 'package:mhs_mobile/modules/event/bloc/event_bloc.dart';
 import 'package:mhs_mobile/modules/login/cubit/login_cubit.dart';
 import 'package:mhs_mobile/modules/login_student/cubit/login_student_cubit.dart';
 import 'package:mhs_mobile/modules/news_detail/cubit/detail_news_cubit.dart';
+import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/repositories/app_repository/app_repository.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
@@ -21,6 +22,7 @@ class MyInjection {
     /// Blocs
     getIt.registerLazySingleton<AppBloc>(() => AppBloc());
     getIt.registerLazySingleton<EventBloc>(() => EventBloc());
+    getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
 
     //Cubit
     getIt.registerLazySingleton<EventDetailCubit>(() => EventDetailCubit());

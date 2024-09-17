@@ -1,12 +1,14 @@
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/new_student/cubit/new_student_cubit.dart';
+import 'package:mhs_mobile/modules/new_student/models/gender_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
+import 'package:mhs_mobile/widgets/extension/date_util.dart';
 import 'package:mhs_mobile/widgets/textfield/textfield.dart';
 
 part '../widgets/_input_student_name.dart';
@@ -18,6 +20,7 @@ part '../widgets/_input_number_phone_parent.dart';
 part '../widgets/_input_clothes_size.dart';
 part '../widgets/_input_height.dart';
 part '../widgets/_bottom_button.dart';
+part '../widgets/_input_gender.dart';
 
 final GlobalKey<FormState> _formRegister = GlobalKey<FormState>();
 
@@ -79,6 +82,10 @@ class NewStudentView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _InputSchoolFrom(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: _InputGender(),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),

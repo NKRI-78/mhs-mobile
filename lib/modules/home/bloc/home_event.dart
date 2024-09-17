@@ -12,4 +12,8 @@ class SetProfileNull extends HomeEvent {}
 
 class GetProfile extends HomeEvent {}
 
+class GetMessageHome extends HomeEvent {}
+
 class GetTestimoni extends HomeEvent {}
+
+class SetFcm extends HomeEvent {}

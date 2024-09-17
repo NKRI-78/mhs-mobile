@@ -10,7 +10,8 @@ class _InputSchoolFrom extends StatelessWidget {
       onChanged: (value) {
         context.read<NewStudentCubit>().copyToState(originSchool: value);
       },
-      hintText: "",
+      hintText: "Asal Sekolah",
+      isCapital: true,
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan asal sekolah anda",
       textInputAction: TextInputAction.next,

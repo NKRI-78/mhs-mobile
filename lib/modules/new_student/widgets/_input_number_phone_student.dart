@@ -11,7 +11,8 @@ class _InputNumberPhoneStudent extends StatelessWidget {
         context.read<NewStudentCubit>().copyToState(phone: value);
       },
       isPhoneNumber: true,
-      hintText: "",
+      maxLength: 13,
+      hintText: "No HP Calon Siswa",
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan No hp calon siswa anda",
       textInputType: TextInputType.number,

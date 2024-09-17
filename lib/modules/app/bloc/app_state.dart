@@ -15,6 +15,10 @@ final class AppState extends Equatable {
 
   bool get isLogin => token != '' && user != null;
 
+  bool get isAlreadyLogin => user != null && token.isNotEmpty;
+
+  bool get userEmpty => token.isEmpty;
+
   @override
   List<Object?> get props => [alreadyShowBeginingTour, user, token];
 

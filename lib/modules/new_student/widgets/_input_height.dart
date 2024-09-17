@@ -13,7 +13,7 @@ class _InputHeight extends StatelessWidget {
           context.read<NewStudentCubit>().copyToState(height: value);
         },
         isPhoneNumber: true,
-        hintText: "",
+        hintText: "Tinggi Badan",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Masukan tinggi badan anda",
         textInputType: TextInputType.number,

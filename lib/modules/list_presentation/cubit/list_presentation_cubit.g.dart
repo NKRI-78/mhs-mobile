@@ -18,7 +18,7 @@ ListPresentationState _$ListPresentationStateFromJson(
           ? null
           : Pagination.fromJson(
               json['presentationPagination'] as Map<String, dynamic>),
-      loadingModul: json['loadingModul'] as bool? ?? false,
+      loadingPresentation: json['loadingPresentation'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ListPresentationStateToJson(
@@ -27,5 +27,5 @@ Map<String, dynamic> _$ListPresentationStateToJson(
       'document': instance.document,
       'nextPageNews': instance.nextPageNews,
       'presentationPagination': instance.presentationPagination,
-      'loadingModul': instance.loadingModul,
+      'loadingPresentation': instance.loadingPresentation,
     };

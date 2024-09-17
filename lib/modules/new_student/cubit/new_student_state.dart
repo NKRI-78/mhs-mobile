@@ -10,6 +10,7 @@ class NewStudentState extends Equatable {
   final String parentPhone;
   final String outfitSize;
   final String height;
+  final String gender;
 
   const NewStudentState(
       {this.fullname = '',
@@ -18,8 +19,10 @@ class NewStudentState extends Equatable {
       this.parentName = '',
       this.phone = '',
       this.parentPhone = '',
-      this.outfitSize = 'S',
-      this.height = ''});
+      this.outfitSize = '',
+      this.height = '',
+      this.gender = '',
+    });
 
   NewStudentModel get toModel => NewStudentModel(
       fullname: fullname,
@@ -29,7 +32,7 @@ class NewStudentState extends Equatable {
       phone: phone,
       parentPhone: parentPhone,
       outfitSize: outfitSize,
-      height: height);
+      height: height, gender: gender);
 
   @override
   List<Object?> get props => [
@@ -41,6 +44,7 @@ class NewStudentState extends Equatable {
         parentPhone,
         outfitSize,
         height,
+        gender,
       ];
 
   NewStudentState copyWith({
@@ -52,6 +56,7 @@ class NewStudentState extends Equatable {
     String? parentPhone,
     String? outfitSize,
     String? height,
+    String? gender
   }) {
     return NewStudentState(
       fullname: fullname ?? this.fullname,
@@ -62,6 +67,7 @@ class NewStudentState extends Equatable {
       parentPhone: parentPhone ?? this.parentPhone,
       outfitSize: outfitSize ?? this.outfitSize,
       height: height ?? this.height,
+      gender: gender ?? this.gender,
     );
   }
 }

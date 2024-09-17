@@ -8,12 +8,12 @@ class _InputNis extends StatelessWidget {
     return BlocBuilder<LoginStudentCubit, LoginStudentState>(
       builder: (context, state) {
         return CustomTextField(
-          labelText: 'NIS ( Nomor Induk Siswa )',
+          labelText: 'NPM (Nomor Pokok Mahasiswa)',
           onChanged: (value) {
             var cubit = context.read<LoginStudentCubit>();
             cubit.copyState(cubit.state.copyWith(nis: value));
           },
-          hintText: "",
+          hintText: "NPM (Nomor Pokok Mahasiswa)",
           fillColor: whiteColor.withOpacity(0.10),
           emptyText: "Masukan NIS anda",
           textInputType: TextInputType.number,

@@ -6,6 +6,8 @@ import 'package:mhs_mobile/repositories/home_repository/home_repository.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 
 part 'show_more_testimoni_state.dart';
+part 'show_more_testimoni_cubit.g.dart';
+
 class ShowMoreTestimoniCubit extends Cubit<ShowMoreTestimoniState> {
   ShowMoreTestimoniCubit() : super(const ShowMoreTestimoniState());
 

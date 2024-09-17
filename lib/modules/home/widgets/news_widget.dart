@@ -5,6 +5,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NewsWidget extends StatelessWidget {
@@ -18,6 +19,7 @@ class NewsWidget extends StatelessWidget {
           previous.loadingNew != current.loadingNew,
       builder: (context, state) {
         return ListView(
+          padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: [
@@ -50,77 +52,15 @@ class NewsWidget extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            if (state.loadingNew)
-              Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width * .3,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.1),
-                        blurRadius: 5,
-                        spreadRadius: 2,
-                        offset: const Offset(3, 3),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: double.infinity,
-                        color: Colors.grey,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                '',
-                                style: GoogleFonts.roboto().copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                maxLines: 3,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                '',
-                                style: GoogleFonts.roboto().copyWith(
-                                  fontSize: 11,
-                                  color:
-                                      const Color(0xff000000).withOpacity(.5),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            else
-              ListView(
+            state.loadingNew ? const LoadingPage(height: .20,) : ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: state.news
                 .map((e) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: NewWidget(
-                        news: e,
-                      ),
+                    news: e,
+                  ),
                 ))
                 .toList(),
               ),
@@ -144,7 +84,7 @@ class NewWidget extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.width * .3,
+        height: MediaQuery.of(context).size.width * .4,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -165,7 +105,7 @@ class NewWidget extends StatelessWidget {
               height: double.infinity,
               child: Image.network(
                 news.imageUrl ?? '',
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             Expanded(

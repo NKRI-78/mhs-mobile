@@ -16,7 +16,7 @@ class MenuScreenHome extends StatelessWidget {
     return BlocBuilder<AppBloc, AppState>(builder: (context, st) {
       bool isLogin = st.isLogin;
       return BlocBuilder<HomeBloc, HomeState>(builder: (context, st) {
-        int roleId = st.profile?.data.roleId ?? 0;
+        String roleId = st.profile?.data.role?.slug ?? "";
         return Scaffold(
             backgroundColor: primaryColor,
             body: Stack(
@@ -46,9 +46,13 @@ class MenuScreenHome extends StatelessWidget {
                           children: [
                             isLogin ? MenuButton(
                               text: 'Notifikasi',
-                              onPressed: () {},
+                              onPressed: () {
+                                z.close?.call()?.then(
+                                  (value) => NotificationRoute().go(context),
+                                );
+                              },
                             ) : const SizedBox.shrink(),
-                            isLogin ? MenuButton(
+                            roleId == "STUDENT" || roleId == "PARENT" ? MenuButton(
                               text: 'Profile',
                               onPressed: () {
                                 z.close?.call()?.then(
@@ -62,7 +66,11 @@ class MenuScreenHome extends StatelessWidget {
                             ) : const SizedBox.shrink(),
                             MenuButton(
                               text: 'Kebijakan Privasi',
-                              onPressed: () {},
+                              onPressed: () {
+                                z.close?.call()?.then(
+                                      (value) => PrivacyRoute().go(context),
+                                    );
+                              },
                             ),
                             // MenuButton(
                             //   text: 'Tutup',
@@ -131,15 +139,41 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child: TextButton(
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style: const TextStyle(
-                color: whiteColor,
-                fontSize: fontSizeExtraLarge,
-                fontWeight: FontWeight.bold),
-          )),
+      child: Stack(
+        alignment: Alignment.center,
+        fit: StackFit.loose,
+        clipBehavior: Clip.none,
+        children: [
+          TextButton(
+              onPressed: onPressed,
+              child: Text(
+                text,
+                style: const TextStyle(
+                    color: whiteColor,
+                    fontSize: fontSizeExtraLarge,
+                    fontWeight: FontWeight.bold),
+              )),
+          // text == "Notifikasi" ? Positioned(
+          //   left: 95,
+          //   top: 5,
+          //   child: Container(
+          //     width: 20,
+          //     height: 20,
+          //     decoration: BoxDecoration(
+          //       color: redColor,
+          //       borderRadius: BorderRadius.circular(20)
+          //     ),
+          //     child: const Text(
+          //       "0",
+          //       textAlign: TextAlign.center,
+          //       style: TextStyle(
+          //         color: whiteColor
+          //       ),
+          //     ),
+          //   ),
+          // ) : Container()
+        ],
+      ),
     );
   }
 }

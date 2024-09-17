@@ -35,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final bool isBorderRadius;
   final bool readOnly;
   final bool isEnabled;
+  final bool isCapital;
   final int? maxLength;
 
   final void Function(String)? onChanged;
@@ -67,6 +68,7 @@ class CustomTextField extends StatefulWidget {
     this.isBorderRadius = false,
     this.readOnly = false,
     this.isEnabled = true,
+    this.isCapital = false,
     this.maxLength,
     this.isPhoneNumber = false,
   });
@@ -103,7 +105,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       },
       onChanged: widget.onChanged,
       enableInteractiveSelection: true,
-      textCapitalization: !widget.isEmail ? TextCapitalization.sentences : TextCapitalization.none,
+      textCapitalization: widget.isCapital ? TextCapitalization.words : TextCapitalization.none,
       enabled: widget.isEnabled,
       textInputAction: widget.textInputAction,
       obscureText: widget.isPassword ? obscureText : false,
@@ -123,7 +125,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9 ]')),
             ]
           : widget.isName
-              ? [
+              ?  [
                   // UpperCaseTextFormatter(), 
                   FilteringTextInputFormatter.singleLineFormatter,
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))

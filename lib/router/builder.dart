@@ -7,9 +7,14 @@ import 'package:mhs_mobile/modules/begining_tour/view/begining_tour_page.dart';
 import 'package:mhs_mobile/modules/choose_role/view/choose_role_page.dart';
 import 'package:mhs_mobile/modules/detail_event/view/event_detail_page.dart';
 import 'package:mhs_mobile/modules/event/view/event_page.dart';
+import 'package:mhs_mobile/modules/forgot_password/view/forgot_password_page.dart';
+import 'package:mhs_mobile/modules/forgot_password_change/view/forgot_password_change_page.dart';
+import 'package:mhs_mobile/modules/forgot_password_otp/view/forgot_password_otp_page.dart';
 import 'package:mhs_mobile/modules/home/view/home_page.dart';
+import 'package:mhs_mobile/modules/list_brochure/view/fullscreen_brochure_page.dart';
 import 'package:mhs_mobile/modules/list_brochure/view/list_brochure_page.dart';
 import 'package:mhs_mobile/modules/list_modul/view/list_modul_page.dart';
+import 'package:mhs_mobile/modules/list_presentation/view/fullscreen_presentation_page.dart';
 import 'package:mhs_mobile/modules/list_presentation/view/list_presentation_page.dart';
 import 'package:mhs_mobile/modules/login/views/login_page.dart';
 import 'package:mhs_mobile/modules/login_parent/views/login_parent_page.dart';
@@ -19,7 +24,9 @@ import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student/view/new_student_page.dart';
 import 'package:mhs_mobile/modules/new_student_payment/view/new_student_payment_page.dart';
 import 'package:mhs_mobile/modules/news_detail/view/news_detail.dart';
+import 'package:mhs_mobile/modules/notification/view/notification_page.dart';
 import 'package:mhs_mobile/modules/partnership/view/partnership_page.dart';
+import 'package:mhs_mobile/modules/privacypolicy/view/privacy_page.dart';
 import 'package:mhs_mobile/modules/profile/view/profile.dart';
 import 'package:mhs_mobile/modules/register/view/register_page.dart';
 import 'package:mhs_mobile/modules/register_otp/view/register_otp_page.dart';
@@ -51,19 +58,25 @@ class SplashScreenRoute extends GoRouteData {
   path: '/',
   routes: [
     TypedGoRoute<NewsDetailRoute>(path: 'news-detail'),
+    TypedGoRoute<PrivacyRoute>(path: 'privacy'),
     TypedGoRoute<GalleryImageViewWrapperRoute>(path: 'gallery-image'),
     TypedGoRoute<ListPresentationRoute>(path: 'presentation',routes: [
       TypedGoRoute<PresentationShowPdfRoute>(path: 'presentation-detail'),
+      TypedGoRoute<FullScreenPresentationRoute>(path: 'presentation-fullscreen'),
     ]),
     TypedGoRoute<ListModulRoute>(path: 'modul',routes: [
       TypedGoRoute<ModulShowPdfRoute>(path: 'modul-detail'),
     ]),
     TypedGoRoute<ListBrochureRoute>(path: 'brochure' ,routes: [
       TypedGoRoute<BrochureShowPdfRoute>(path: 'brochure-detail'),
+      TypedGoRoute<FullScreenBrochureRoute>(path: 'brochure-full-screen'),
     ]),
     TypedGoRoute<PartnershipRoute>(path: 'partnership'),
     TypedGoRoute<WebViewRoute>(path: 'webview'),
     TypedGoRoute<ProfileRoute>(path: 'profile'),
+    TypedGoRoute<NotificationRoute>(path: 'notifikasi', routes: [
+
+    ]),
     TypedGoRoute<ShowMoreTestimoniRoute>(path: 'show-more-testimoni'),
     TypedGoRoute<ShowMoreNewsRoute>(path: 'show-more-news', routes: [
       TypedGoRoute<SMNewsDetailRoute>(path: 'sm-news-detail'),
@@ -77,7 +90,17 @@ class SplashScreenRoute extends GoRouteData {
         path: 'register-otp',
       ),
       TypedGoRoute<LoginRoute>(
-        path: 'login',
+        path: 'login', routes: [
+          TypedGoRoute<ForgotPasswordRoute>(
+            path: 'forgot-password',
+          ),
+          TypedGoRoute<ForgotPasswordOtpRoute>(
+            path: 'forgot-password-otp',
+          ),
+          TypedGoRoute<ForgotPasswordChangeRoute>(
+            path: 'forgot-password-change',
+          ),
+        ]
       ),
     ]),
     TypedGoRoute<ChooseRoleRoute>(
@@ -104,6 +127,51 @@ class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+
+class PrivacyRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PrivacyPage();
+  }
+}
+
+class ForgotPasswordRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ForgotPasswordPage();
+  }
+}
+
+class NotificationRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const NotificationPage();
+  }
+}
+
+
+class ForgotPasswordOtpRoute extends GoRouteData {
+  final String email;
+
+  ForgotPasswordOtpRoute({required this.email,});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ForgotPasswordOtpPage(email: email,);
+  }
+}
+class ForgotPasswordChangeRoute extends GoRouteData {
+
+  final String email;
+  final String otp;
+
+  ForgotPasswordChangeRoute({required this.email, required this.otp});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ForgotPasswordChangePage(email: email, otp: otp,);
   }
 }
 
@@ -200,6 +268,12 @@ class ListPresentationRoute extends GoRouteData {
     return const ListPresentationPage();
   }
 }
+class FullScreenBrochureRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FullScreenBrochurePage();
+  }
+}
 
 class GalleryImageViewWrapperRoute extends GoRouteData {
   final int initialIndex;
@@ -266,6 +340,13 @@ class ShowMoreTestimoniRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ShowMoreTestimoniPage();
+  }
+}
+
+class FullScreenPresentationRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FullScreenPresentationPage();
   }
 }
 
@@ -337,6 +418,7 @@ class NewStudentPaymentRoute extends GoRouteData {
   final String parentPhone;
   final String outfitSize;
   final String height;
+  final String gender;
 
   NewStudentPaymentRoute(
       {required this.fullname,
@@ -346,7 +428,9 @@ class NewStudentPaymentRoute extends GoRouteData {
       required this.phone,
       required this.parentPhone,
       required this.outfitSize,
-      required this.height});
+      required this.height,
+      required this.gender
+    });
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -359,7 +443,9 @@ class NewStudentPaymentRoute extends GoRouteData {
           phone: phone,
           parentPhone: parentPhone,
           outfitSize: outfitSize,
-          height: height),
+          height: height,
+          gender: gender
+        ),
     );
   }
 }

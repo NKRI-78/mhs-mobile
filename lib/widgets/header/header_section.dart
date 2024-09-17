@@ -21,6 +21,9 @@ class HeaderSection extends StatelessWidget {
           color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
         ),
       ),
+      pinned: true,
+      toolbarHeight: 30,
+      expandedHeight: 40,
       leading: InkWell(
         onTap: () {
           Navigator.pop(context);
@@ -38,6 +41,11 @@ class HeaderSection extends StatelessWidget {
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(isCircle ? 70 : 0))
           ),
         ),
+      ),
+      bottom: PreferredSize(
+        // Add this code
+        preferredSize: const Size.fromHeight(-30), // Add this code
+        child: Container(), // Add this code
       ),
     );
   }

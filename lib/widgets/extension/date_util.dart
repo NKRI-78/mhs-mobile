@@ -45,9 +45,22 @@ class DateUntil {
     initializeDateFormatting("id");
      return DateFormat.yMMMMd("id").format(formatDate);
   }
+
   static String formatDateDocument(DateTime formatDate) {
     initializeDateFormatting("id");
      return '${DateFormat.yMMMMd("id").format(formatDate)} | ${DateFormat.Hm("id").format(formatDate)}';
+  }
+
+  static String formatBirthday(DateTime formatDate) {
+    initializeDateFormatting("id");
+     return DateFormat.yMMMMd("id").format(formatDate);
+  }
+  static String formatyMMMd(String formatDate) {
+    DateTime dateParse = DateTime.parse(formatDate);
+    final result =
+        DateTime(dateParse.year, dateParse.month, dateParse.day);
+    initializeDateFormatting("id");
+     return DateFormat.yMMMMd("id").format(result);
   }
 
   static String getDate(DateTime dateTime) {

@@ -7,6 +7,7 @@ import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/images/image_circle.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MediaPage extends StatelessWidget {
   const MediaPage({super.key});
@@ -40,7 +41,10 @@ class MediaView extends StatelessWidget {
               ),
               SliverPadding(
                 padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 100),
-                sliver: SliverGrid.builder(
+                sliver: st.loadingMedia ? const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator.adaptive()),
+                ) : st.media.isEmpty ? const SliverFillRemaining(
+                  child: Center(child: EmptyPage(msg: "Tidak ada partnership"))) :  SliverGrid.builder(
                   itemCount: st.media.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
@@ -55,42 +59,48 @@ class MediaView extends StatelessWidget {
                       debugPrint("Kepanggil ?");
                       const EmptyPage(msg: "Media kosong");
                     }
-                    return st.loadingMedia ? const LoadingPage() : Container(
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Stack(
-                        fit: StackFit.loose,
-                        clipBehavior: Clip.none,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(data.name ?? "",
-                                maxLines: 2,
-                                softWrap: true,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: whiteColor,
-                                  fontSize: fontSizeDefault,
-                                  fontWeight: FontWeight.w500
+                    return st.loadingMedia ? const LoadingPage() : 
+                    InkWell(
+                      onTap: () {
+                        openLink(data.linkUrl ?? "-", context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Stack(
+                          fit: StackFit.loose,
+                          clipBehavior: Clip.none,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(data.name ?? "",
+                                  maxLines: 2,
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: whiteColor,
+                                    fontSize: fontSizeDefault,
+                                    fontWeight: FontWeight.w500
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            right: 50,
-                            left: 50,
-                            top: -50,
-                            child: ImageCircle(
-                              image: data.imgUrl ?? "", 
-                              radius: 45,
-                            ),
-                          )
-                        ],
+                            Positioned(
+                              right: 50,
+                              left: 50,
+                              top: -50,
+                              child: ImageCircle(
+                                image: data.imgUrl ?? "", 
+                                radius: 45,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -100,6 +110,23 @@ class MediaView extends StatelessWidget {
           ),
         );
       }
+    );
+  }
+}
+
+Future<void> openLink(String url, BuildContext context) async {
+  final uri = Uri.parse(url);
+
+  if (!await launchUrl(uri)) {
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: redColor,
+        content: Text(
+          'Link tidak ditemukan',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
     );
   }
 }

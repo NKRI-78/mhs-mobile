@@ -10,41 +10,45 @@ class TestimoniCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Container(
       decoration: BoxDecoration(
         color: testimoniColor,
         borderRadius: BorderRadius.circular(16)
       ),
-      width: 200,
-      height: 170,
+      width: 210,
+      height: 120,
       child: Stack(
         fit: StackFit.loose,
         clipBehavior: Clip.none,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Padding(
-              padding: const EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(testimoni.name ?? "",
-                    maxLines: 2,
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: blackColor,
-                      fontSize: fontSizeExtraSmall,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   SizedBox(
                     width: double.infinity,
                     child: Text(testimoni.message ?? "",
-                      maxLines: 4,
+                      maxLines: 2,
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: blackColor.withOpacity(0.80),
                       fontSize: fontSizeExtraSmall,
@@ -61,7 +65,7 @@ class TestimoniCard extends StatelessWidget {
             top: -50,
             child: ImageCircle(
               image: testimoni.imageUrl ?? "", 
-              radius: 50,
+              radius: 45,
             ),
           )
         ],

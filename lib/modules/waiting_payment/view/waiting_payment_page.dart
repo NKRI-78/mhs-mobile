@@ -5,6 +5,8 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/qr_method_widget.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/virtual_account_method_widget.dart';
+import 'package:mhs_mobile/widgets/images/image_card.dart';
+import 'package:mhs_mobile/widgets/pages/page_success_payment.dart';
 
 class WaitingPaymentPage extends StatelessWidget {
   final String id;
@@ -72,10 +74,10 @@ class WaitingPaymentView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      state.payment?.status == "WAITING_FOR_PAYMENT" ? "Menunggu Pembayaran" : "Pembayaran Berhasil",
+                      state.payment?.status == "WAITING_FOR_PAYMENT" ? "Menunggu Pembayaran" : state.payment?.status == "expire" ? "Pembayaran Kedaluwarsa" : "Pembayaran Berhasil",
                       style: TextStyle(
                         fontSize: 16,
-                        color: state.payment?.status == "WAITING_FOR_PAYMENT" ? Colors.red : greenColor,
+                        color: state.payment?.status == "WAITING_FOR_PAYMENT" || state.payment?.status == "expire"  ? Colors.red : greenColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -90,25 +92,43 @@ class WaitingPaymentView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                      state.payment?.paymentName ?? "-",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ImageCard(
+                            image: state.payment?.paymentLogo ?? "-", 
+                            radius: 20,
+                            width: 50,
+                            height: 50,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            state.payment?.paymentName ?? "-",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
+                    state.payment?.status == "WAITING_FOR_PAYMENT" ? const Text(
                       "Batas akhir pembayaran",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
-                    Text(
+                    ) :  Container(),
+                    state.payment?.status == "WAITING_FOR_PAYMENT" ? Text(
                       DateFormat().format(
                         DateTime.parse(state.payment!.createdAt!).add(
                           const Duration(
@@ -120,20 +140,16 @@ class WaitingPaymentView extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
+                    ) : Container(),
                     const SizedBox(
                       height: 8,
                     ),
-                    const Divider(
-                      color: Colors.grey,
-                    ),
-                    state.payment?.paymentMethod == 'VIRTUAL_ACCOUNT' ?
+                    state.payment?.status == "PAID" ? const PageSuccessPayment(msg: "Terima kasih anda sudah melakukan pembayaran pendaftaran siswa baru di Metro Hotel School")
+                    : state.payment?.paymentMethod == 'VIRTUAL_ACCOUNT' ?
                       VirtualAccountMethodWidget(
                         payment: state.payment!,
                       ) : QrMethodWidget(payment: state.payment!),
-                    const Divider(
-                      color: Colors.grey,
-                    )
+                    
                   ],
                 ),
               ),

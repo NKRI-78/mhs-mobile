@@ -19,6 +19,7 @@ class NewStudentPaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("Ukuran baju : ${student.outfitSize}");
+    debugPrint("Gender : ${student.gender}");
     return BlocProvider<NewStudentPaymentCubit>(
       create: (context) =>
           NewStudentPaymentCubit(student: student)..getPaymentChannel(),
