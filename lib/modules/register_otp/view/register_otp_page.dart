@@ -195,28 +195,28 @@ class _RegisterOtpViewState extends State<RegisterOtpView> {
                           const SizedBox(
                             height: 250,
                           ),
-                          BlocBuilder<RegisterOtpCubit, RegisterOtpState>(
-                              builder: (context, state) {
-                            return Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 47,
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Ubah Email',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }),
+                          // BlocBuilder<RegisterOtpCubit, RegisterOtpState>(
+                          //     builder: (context, state) {
+                          //   return Align(
+                          //     alignment: Alignment.bottomCenter,
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.start,
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         SizedBox(
+                          //           width: double.infinity,
+                          //           height: 47,
+                          //           child: ElevatedButton(
+                          //             onPressed: () {},
+                          //             child: const Text(
+                          //               'Ubah Email',
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   );
+                          // }),
                           const SizedBox(
                             height: 50,
                           ),

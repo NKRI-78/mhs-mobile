@@ -4,7 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/firebase_options.dart';
+import 'package:mhs_mobile/misc/injections.dart';
+import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
+import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
+import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/router/router.dart';
 
 class FirebaseMessagingMisc {
   static Future<void> init() async {
@@ -20,7 +26,7 @@ class FirebaseMessagingMisc {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       await Future.delayed(const Duration(seconds: 2));
-      debugPrint("Test comment id${message.data['type']}");
+      debugPrint("Test comment id${message.data['title']}");
       debugPrint("Data notif: ${message.data}");
     });
   }
@@ -116,6 +122,7 @@ void showFlutterNotification(RemoteMessage message) async {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
 
+
   if (notification != null && android != null && !kIsWeb) {
     debugPrint("Channel name : ${notification.title}");
     flutterLocalNotificationsPlugin.show(
@@ -134,6 +141,19 @@ void showFlutterNotification(RemoteMessage message) async {
         ),
         payload: json.encode(message.data));
   }
+  if (getIt.isRegistered<HomeBloc>()) {
+    getIt<HomeBloc>().add(HomeInitialData());
+  }
+  if (GoRouter.of(myNavigatorKey.currentContext!).routeInformationProvider.value.uri.path ==
+    '/waiting-payment' || GoRouter.of(myNavigatorKey.currentContext!).routeInformationProvider.value.uri.path ==
+    '/notifikasi/waiting-payment-notif') {
+    if (getIt.isRegistered<WaitingPaymentCubit>()) {
+      getIt<WaitingPaymentCubit>().init();
+    }
+    await Future.delayed(const Duration(seconds: 3));
+    HomeRoute().go(myNavigatorKey.currentContext!);
+  }
+  // debugPrint("Link page : ${GoRouter.of(myNavigatorKey.currentContext!).routeInformationProvider.value.uri.path}");
 }
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.

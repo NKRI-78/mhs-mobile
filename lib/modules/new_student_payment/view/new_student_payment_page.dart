@@ -7,7 +7,9 @@ import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student_payment/cubit/new_student_payment_cubit.dart';
 import 'package:mhs_mobile/modules/new_student_payment/widgets/select_payment_channel.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:mhs_mobile/widgets/images/image_card.dart';
 
 class NewStudentPaymentPage extends StatelessWidget {
   const NewStudentPaymentPage({
@@ -18,7 +20,7 @@ class NewStudentPaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Ukuran baju : ${student.outfitSize}");
+    debugPrint("Ukuran baju : ${student.birthDate}");
     debugPrint("Gender : ${student.gender}");
     return BlocProvider<NewStudentPaymentCubit>(
       create: (context) =>
@@ -57,17 +59,35 @@ class NewStudentPaymentView extends StatelessWidget {
                             color: greyColor, 
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(20),
                           child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "Total",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: fontSizeLarge
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Total Pembayaran",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: fontSizeLarge
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    "Detail",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11,
+                                      color: primaryColor
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
                               ),
                               Text(
                                 "Rp. 200.000",
@@ -106,6 +126,20 @@ class NewStudentPaymentView extends StatelessWidget {
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
+                                    state.channel?.logo == null ? 
+                                    const Icon(
+                                      Icons.account_balance,
+                                      size: 50,
+                                    ) :
+                                    ImageCard(
+                                      image: state.channel?.logo ?? "", 
+                                      height: 50,
+                                      width: 50,
+                                      radius: 10
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
                                     Expanded(
                                       child: Text(
                                         state.channel != null
@@ -147,12 +181,7 @@ class NewStudentPaymentView extends StatelessWidget {
                           : () async {
                               var cubit = context.read<NewStudentPaymentCubit>();
                               if (state.channel == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text("Silahkan pilih metode pembayaran"),
-                                  ),
-                                );
+                                ShowSnackbar.snackbar(context, "Silahkan pilih metode pembayaran", '', errorColor);
                               } else {
                                 try {
                                   var paymentNumber = await cubit.checkout();
@@ -163,11 +192,7 @@ class NewStudentPaymentView extends StatelessWidget {
                                   }
                                 } catch (e) {
                                   if (context.mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(e.toString()),
-                                      ),
-                                    );
+                                    ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
                                   }
                                 }
                               }

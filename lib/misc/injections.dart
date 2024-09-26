@@ -7,11 +7,13 @@ import 'package:mhs_mobile/modules/login/cubit/login_cubit.dart';
 import 'package:mhs_mobile/modules/login_student/cubit/login_student_cubit.dart';
 import 'package:mhs_mobile/modules/news_detail/cubit/detail_news_cubit.dart';
 import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
+import 'package:mhs_mobile/modules/profile/cubit/profile_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/repositories/app_repository/app_repository.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/repositories/event_repository/event_repository.dart';
 import 'package:mhs_mobile/repositories/news_repository/news_repository.dart';
+import 'package:mhs_mobile/repositories/profile_repository/profile_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -28,6 +30,7 @@ class MyInjection {
     getIt.registerLazySingleton<EventDetailCubit>(() => EventDetailCubit());
     getIt.registerLazySingleton<DetailNewsCubit>(() => DetailNewsCubit());
     getIt.registerLazySingleton<ShowMoreNewsCubit>(() => ShowMoreNewsCubit());
+    getIt.registerLazySingleton<ProfileCubit>(() => ProfileCubit());
     getIt.registerLazySingleton<LoginCubit>(() => LoginCubit());
     getIt.registerLazySingleton<LoginStudentCubit>(() => LoginStudentCubit());
 
@@ -41,6 +44,7 @@ class MyInjection {
     getIt.registerLazySingleton<EventRepository>(() => EventRepository());
     getIt.registerLazySingleton<NewsRepository>(() => NewsRepository());
     getIt.registerLazySingleton<AppRepository>(() => AppRepository());
+    getIt.registerLazySingleton<ProfileRepository>(() => ProfileRepository());
     
   }
 }

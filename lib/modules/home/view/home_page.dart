@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:iconsax/iconsax.dart';
@@ -50,6 +49,7 @@ class HomeView extends StatelessWidget {
       style: DrawerStyle.defaultStyle,
       menuBackgroundColor: primaryColor,
       menuScreen: const MenuScreenHome(),
-      mainScreen: const BodyHome());
+      mainScreen: const BodyHome()
+    );
   }
 }

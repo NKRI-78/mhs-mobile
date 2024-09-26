@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mhs_mobile/misc/theme.dart';
 
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student_payment/cubit/new_student_payment_cubit.dart';
 import 'package:mhs_mobile/modules/new_student_payment/widgets/select_payment_channel.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class NewStudentPaymentPage extends StatelessWidget {
   const NewStudentPaymentPage({
@@ -111,6 +113,8 @@ class NewStudentPaymentView extends StatelessWidget {
                         children: [
                           const Icon(
                             Iconsax.bank,
+                            size: 20,
+                            color: blackColor,
                           ),
                           Expanded(
                             child: Text(
@@ -147,12 +151,8 @@ class NewStudentPaymentView extends StatelessWidget {
                         : () async {
                             var cubit = context.read<NewStudentPaymentCubit>();
                             if (state.channel == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("Silahkan pilih metode pembayaran"),
-                                ),
-                              );
+                              ShowSnackbar.snackbar(context, "Silahkan pilih metode pembayaran", '',
+                              errorColor);
                             } else {
                               try {
                                 var paymentNumber = await cubit.checkout();
@@ -162,11 +162,8 @@ class NewStudentPaymentView extends StatelessWidget {
                                 }
                               } catch (e) {
                                 if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(e.toString()),
-                                    ),
-                                  );
+                                  ShowSnackbar.snackbar(context, e.toString(), '',
+                                  errorColor);
                                 }
                               }
                             }

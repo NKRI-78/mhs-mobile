@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_model.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class VirtualAccountMethodWidget extends StatelessWidget {
   const VirtualAccountMethodWidget({super.key, required this.payment});
@@ -43,8 +44,7 @@ class VirtualAccountMethodWidget extends StatelessWidget {
                   await Clipboard.setData(
                       ClipboardData(text: payment.data?['vaNumber'] ?? ''));
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Berhasil Copy nomor VA')));
+                    ShowSnackbar.snackbar(context, "Berhasil copy nomor VA", '', successColor);
                   }
                 } catch (e) {
                   ///
@@ -99,7 +99,7 @@ class VirtualAccountMethodWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        Text('Rp ${NumberFormat('#,##0.00', 'ID').format(int.parse(payment.paymentFee.toString()) ?? 0)}',
+        Text('Rp ${NumberFormat('#,##0.00', 'ID').format(int.parse(payment.paymentFee.toString()))}',
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -133,8 +133,7 @@ class VirtualAccountMethodWidget extends StatelessWidget {
                   await Clipboard.setData(
                       ClipboardData(text: payment.amount?.toString() ?? '0'));
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Berhasil copy total pembayaran')));
+                    ShowSnackbar.snackbar(context, 'Berhasil copy total pembayaran', '', successColor);
                   }
                 } catch (e) {
                   ///

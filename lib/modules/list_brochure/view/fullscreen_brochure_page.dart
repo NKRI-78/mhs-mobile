@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/list_brochure/cubit/list_brocure_cubit.dart';
-import 'package:mhs_mobile/modules/list_presentation/cubit/list_presentation_cubit.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -30,7 +27,6 @@ class FullScreenPresentationView extends StatefulWidget {
 class _FullScreenPresentationViewState extends State<FullScreenPresentationView> {
   late final PageController _controller =
       PageController(initialPage: 0);
-  int _currentPage = 0;
   bool isScale = false;
   int zoom = 0;
 
@@ -40,10 +36,8 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
     //   DeviceOrientation.landscapeRight,
     //   DeviceOrientation.landscapeLeft,
     // ]);
-    _currentPage = 2;
     _controller.addListener(() {
       setState(() {
-        _currentPage = _controller.page?.toInt() ?? 0;
       });
     });
     super.initState();
@@ -57,14 +51,12 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
     //   DeviceOrientation.portraitUp,
     //   DeviceOrientation.portraitDown,
     // ]);
-    bool isScale = false;
     _controller.dispose();
     super.dispose();
   }
 
   void onPageChanged(int index) {
     setState(() {
-      _currentPage = index; 
       isScale = false;
     });
   }
@@ -178,24 +170,19 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: IconButton(
-                        onPressed: (){
-                          Navigator.of(context).pop();
-                        }, 
-                        icon: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: redColor.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Icon(
-                            Icons.fullscreen_exit,
-                            size: 50,
-                            color: whiteColor.withOpacity(0.5),
-                          ),
-                        )
+                      child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        backgroundColor: redColor.withOpacity(0.01)
                       ),
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      }, 
+                      child: const Icon(
+                        Icons.fullscreen_exit,
+                        size: 30,
+                      )
+                    ),
                     )
                   )
                 ],

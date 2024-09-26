@@ -22,19 +22,41 @@ class _InputBirthdayState extends State<_InputBirthday> {
       controller: controller,
       readOnly: true,
       onTap: () async {
-        var date = await showDatePicker(
-            context: context,
-            // locale: const Locale("id"),
-            firstDate: DateTime(DateTime.now().year - 100),
-            lastDate: DateTime(DateTime.now().year + 10, 
-            DateTime.now().month,
-            DateTime.now().day));
-
-        if (date != null && context.mounted) {
-          context.read<NewStudentCubit>().copyToState(birthDate: date.toString());
-          controller.text = DateUntil.formatBirthday(date);
-          setState(() {});
-        }
+       var date = await  showCupertinoModalPopup<DateTime?>(
+          // backgroundColor: whiteColor.withOpacity(0.5),
+          context: context, 
+          builder: (ctx) {
+            final size = MediaQuery.of(ctx).size;
+           return Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
+              height: size.height * 0.27,
+             child: CupertinoDatePicker(
+              dateOrder: DatePickerDateOrder.dmy,
+              initialDateTime: DateTime(DateTime.now().year - 10, 
+                DateTime.now().month,
+                DateTime.now().day
+              ),
+              minimumDate: DateTime(DateTime.now().year - 100),
+              maximumDate: DateTime(DateTime.now().year - 10, 
+                DateTime.now().month,
+                DateTime.now().day
+              ),
+              use24hFormat: true,
+              mode: CupertinoDatePickerMode.date, 
+              onDateTimeChanged: (DateTime date) {  
+                context.read<NewStudentCubit>().copyToState(birthDate: date.toString());
+                controller.text = DateUntil.formatBirthday(date);
+              },
+            ),
+           );
+          },
+        );
       },
       validator: (value) {
         if (value == null) {
@@ -67,13 +89,13 @@ class _InputBirthdayState extends State<_InputBirthday> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        // enabledBorder: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(8.0),
-        //   borderSide: const BorderSide(
-        //       color: whiteColor,
-        //       width: 1.0,
-        //       ),
-        // ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+              color: whiteColor,
+              width: 1.0,
+              ),
+        ),
       ),
     );
   }

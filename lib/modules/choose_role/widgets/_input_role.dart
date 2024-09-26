@@ -47,22 +47,14 @@ class _SelectRoleWidgets extends StatelessWidget {
             .toList(),
             validator: (value) {
               if (value == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    backgroundColor: primaryColor,
-                    content: Text(
-                      "Pilih Role Anda",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
+                ShowSnackbar.snackbar(context, "Pilih Role Anda", '', errorColor);
               }
               return null;
             },
             onChanged: (value) {
               var cubit = context.read<ChooseRoleCubit>();
               cubit.copyState(cubit.state.copyWith(roleSelect: value));
-              print('changing value to: $value');
+              // print('changing value to: $value');
             },
             onSaved: (value) {
               selectedValue = value.toString();

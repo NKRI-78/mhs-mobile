@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/login_parent/cubit/login_parent_cubit.dart';
-import 'package:mhs_mobile/modules/login_student/cubit/login_student_cubit.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
 import 'package:mhs_mobile/widgets/textfield/textfield.dart';
 

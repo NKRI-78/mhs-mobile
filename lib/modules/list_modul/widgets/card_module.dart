@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/document_repository/models/document_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
-import 'package:mhs_mobile/widgets/extension/date_util.dart';
 
 class CardModul extends StatelessWidget {
   const CardModul({super.key, required this.document});

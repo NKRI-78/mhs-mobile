@@ -1,7 +1,7 @@
 part of '../view/begining_tour_page.dart';
 
 class _TextList extends StatelessWidget {
-  const _TextList({super.key, required this.tour});
+  const _TextList({required this.tour});
 
   final BeginingTour tour;
 

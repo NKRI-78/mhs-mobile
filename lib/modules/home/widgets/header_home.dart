@@ -13,7 +13,7 @@ class HeaderHome extends StatelessWidget {
           height: isLogin ? 190 : 150,
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, st) {
-              int roleId = st.profile?.data.roleId ?? 0;
+              String roleId = st.profile?.data.role?.slug ?? "USER";
               String nameStudent = st.profile?.data.student?.fullname ?? "-" ;
               String nameUser = st.profile?.data.name ?? "" ;
               bool waitAdmin = st.profile?.data.isWaitingAprovalAdmin ?? false ;
@@ -57,7 +57,7 @@ class HeaderHome extends StatelessWidget {
                                 color: greyInputColor.withOpacity(0.5),
                                 endIndent: 30,
                               ),
-                              roleId == 3 || roleId == 4 || roleId == 5 ? Text(
+                              roleId == "STUDENT" ? Text(
                                 st.message?.data.messageHome ?? "-",
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -67,7 +67,7 @@ class HeaderHome extends StatelessWidget {
                                   fontWeight: FontWeight.w600
                                 ),
                               ) : waitAdmin ? const Text(
-                                "Anda berhasil memilih akun Anda, Harap tunggu persetujuan...",
+                                "Anda berhasil melakukan pendaftaran siswa baru, Harap menunggu persetujuan admin",
                                 maxLines: 3,
                                 style: TextStyle(
                                   color: whiteColor,
@@ -77,7 +77,6 @@ class HeaderHome extends StatelessWidget {
                               ) : isLogin ?
                                 const Text(
                                     "Anda berada di Beranda Publik, untuk Menyelesaikan Akun, klik tombol di bawah ini",
-                                    maxLines: 2,
                                     style: TextStyle(
                                       color: whiteColor,
                                       fontSize: fontSizeSmall,

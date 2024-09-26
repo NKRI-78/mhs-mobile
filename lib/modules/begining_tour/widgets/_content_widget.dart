@@ -47,7 +47,7 @@ class _ContentWidget extends StatelessWidget {
               left: 0,
               right: 0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,7 +68,6 @@ class _ContentWidget extends StatelessWidget {
                           flex: 5,
                           child: Text(
                             tour.description,
-                            maxLines: 4,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,

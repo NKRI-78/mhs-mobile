@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/list_brochure/cubit/list_brocure_cubit.dart';
 import 'package:mhs_mobile/modules/list_brochure/view/fullscreen_brochure_page.dart';
-import 'package:mhs_mobile/modules/list_brochure/widgets/card_brochure.dart';
-import 'package:mhs_mobile/modules/list_presentation/model/gallery_item_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
-import 'package:mhs_mobile/widgets/header/header_section.dart';
-import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 import 'package:photo_view/photo_view.dart';
@@ -37,16 +32,13 @@ class ListBrochureView extends StatefulWidget {
 class _ListBrochureViewState extends State<ListBrochureView> {
   late final PageController _controller =
       PageController(initialPage: 0);
-  int _currentPage = 0;
   bool isScale = false;
   int zoom = 0;
 
   @override
   void initState() {
-    _currentPage = 0;
     _controller.addListener(() {
       setState(() {
-        _currentPage = _controller.page?.toInt() ?? 0;
       });
     });
     super.initState();
@@ -60,7 +52,6 @@ class _ListBrochureViewState extends State<ListBrochureView> {
 
   void onPageChanged(int index) {
     setState(() {
-      _currentPage = index; 
     });
   }
 
@@ -79,7 +70,7 @@ class _ListBrochureViewState extends State<ListBrochureView> {
                 appBar: AppBar(
                 backgroundColor:primaryColor,
                 shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(70)),
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(0)),
                 ),
                 title: const Text(
                   "Brosur", 
@@ -108,7 +99,8 @@ class _ListBrochureViewState extends State<ListBrochureView> {
               ),
               floatingActionButton: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero
+                  padding: EdgeInsets.zero,
+                  backgroundColor: redColor.withOpacity(0.01)
                 ),
                 onPressed: (){
                   FullScreenBrochureRoute().go(context);

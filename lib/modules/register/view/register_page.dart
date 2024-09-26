@@ -6,6 +6,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/register/cubit/register_cubit.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 import 'package:mhs_mobile/widgets/textfield/textfield.dart';
 
 part '../widgets/_bottom_button.dart';

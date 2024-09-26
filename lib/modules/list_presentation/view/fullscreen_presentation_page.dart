@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/list_presentation/cubit/list_presentation_cubit.dart';
@@ -29,7 +28,6 @@ class FullScreenPresentationView extends StatefulWidget {
 class _FullScreenPresentationViewState extends State<FullScreenPresentationView> {
   late final PageController _controller =
       PageController(initialPage: 0);
-  int _currentPage = 0;
   bool isScale = false;
   int zoom = 0;
 
@@ -39,10 +37,8 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    _currentPage = 2;
     _controller.addListener(() {
       setState(() {
-        _currentPage = _controller.page?.toInt() ?? 0;
       });
     });
     super.initState();
@@ -62,7 +58,6 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
 
   void onPageChanged(int index) {
     setState(() {
-      _currentPage = index; 
       isScale = false;
     });
   }
@@ -175,6 +170,7 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
                   isScale == true || zoom >= 1 ? Container() : Align(
                     alignment: Alignment.bottomRight,
                     child: IconButton(
+                      color: redColor.withOpacity(0.1),
                       onPressed: (){
                         Navigator.of(context).pop();
                       }, 
@@ -182,7 +178,7 @@ class _FullScreenPresentationViewState extends State<FullScreenPresentationView>
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: redColor.withOpacity(0.5),
+                          color: blackColor.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Icon(

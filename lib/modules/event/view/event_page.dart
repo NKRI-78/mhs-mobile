@@ -1,8 +1,6 @@
 import 'dart:collection';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -13,7 +11,6 @@ import 'package:mhs_mobile/modules/event/widget/_card_event.dart';
 import 'package:mhs_mobile/repositories/event_repository/models/event_model.dart';
 import 'package:mhs_mobile/widgets/extension/date_util.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
-import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 import 'package:table_calendar/table_calendar.dart';
 

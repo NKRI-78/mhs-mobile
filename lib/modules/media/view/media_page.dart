@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/helper.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/media/cubit/media_cubit.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
-import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/images/image_circle.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MediaPage extends StatelessWidget {
   const MediaPage({super.key});
@@ -62,7 +61,7 @@ class MediaView extends StatelessWidget {
                     return st.loadingMedia ? const LoadingPage() : 
                     InkWell(
                       onTap: () {
-                        openLink(data.linkUrl ?? "-", context);
+                        Helper.openLink(url: data.linkUrl ?? "-", context: context);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -94,9 +93,20 @@ class MediaView extends StatelessWidget {
                               right: 50,
                               left: 50,
                               top: -50,
-                              child: ImageCircle(
-                                image: data.imgUrl ?? "", 
-                                radius: 45,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 80,
+                                    height: 80,
+                                    child: AspectRatio(
+                                      aspectRatio: 1/1, child: ImageCircle(
+                                      image: data.imgUrl ?? "", 
+                                      radius: 45,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             )
                           ],
@@ -110,23 +120,6 @@ class MediaView extends StatelessWidget {
           ),
         );
       }
-    );
-  }
-}
-
-Future<void> openLink(String url, BuildContext context) async {
-  final uri = Uri.parse(url);
-
-  if (!await launchUrl(uri)) {
-    // ignore: use_build_context_synchronously
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        backgroundColor: redColor,
-        content: Text(
-          'Link tidak ditemukan',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
     );
   }
 }

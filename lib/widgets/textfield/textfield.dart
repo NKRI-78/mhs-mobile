@@ -89,6 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       minLines: widget.maxLines,
       maxLines: widget.maxLines,

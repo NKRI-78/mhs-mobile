@@ -71,6 +71,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
           factory: $PrivacyRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: 'no-connection',
+          factory: $NoConnectionRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'gallery-image',
           factory: $GalleryImageViewWrapperRouteExtension._fromState,
         ),
@@ -127,6 +131,16 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'notifikasi',
           factory: $NotificationRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'detail-notifikasi',
+              factory: $DetailNotifRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'waiting-payment-notif',
+              factory: $WaitingPaymentNotifRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'show-more-testimoni',
@@ -149,6 +163,16 @@ RouteBase get $homeRoute => GoRouteData.$route(
             GoRouteData.$route(
               path: 'event-detail',
               factory: $EventDetailRouteExtension._fromState,
+            ),
+          ],
+        ),
+        GoRouteData.$route(
+          path: 'setting',
+          factory: $SettingRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'change-password',
+              factory: $ChangePasswordRouteExtension._fromState,
             ),
           ],
         ),
@@ -212,6 +236,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'waiting-payment',
           factory: $WaitingPaymentRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'payment-message',
+          factory: $PaymentMessageRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -259,6 +287,28 @@ extension $PrivacyRouteExtension on PrivacyRoute {
 
   String get location => GoRouteData.$location(
         '/privacy',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NoConnectionRouteExtension on NoConnectionRoute {
+  static NoConnectionRoute _fromState(GoRouterState state) => NoConnectionRoute(
+        msg: state.uri.queryParameters['msg']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/no-connection',
+        queryParams: {
+          'msg': msg,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -537,6 +587,61 @@ extension $NotificationRouteExtension on NotificationRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $DetailNotifRouteExtension on DetailNotifRoute {
+  static DetailNotifRoute _fromState(GoRouterState state) => DetailNotifRoute(
+        state.uri.queryParameters['type']!,
+        state.uri.queryParameters['title']!,
+        state.uri.queryParameters['description']!,
+        int.parse(state.uri.queryParameters['notifiable-id']!),
+        state.uri.queryParameters['read-at']!,
+        id: int.parse(state.uri.queryParameters['id']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/notifikasi/detail-notifikasi',
+        queryParams: {
+          'type': type,
+          'title': title,
+          'description': description,
+          'notifiable-id': notifiableId.toString(),
+          'read-at': readAt,
+          'id': id.toString(),
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $WaitingPaymentNotifRouteExtension on WaitingPaymentNotifRoute {
+  static WaitingPaymentNotifRoute _fromState(GoRouterState state) =>
+      WaitingPaymentNotifRoute(
+        id: state.uri.queryParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/notifikasi/waiting-payment-notif',
+        queryParams: {
+          'id': id,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ShowMoreTestimoniRouteExtension on ShowMoreTestimoniRoute {
   static ShowMoreTestimoniRoute _fromState(GoRouterState state) =>
       ShowMoreTestimoniRoute();
@@ -622,6 +727,41 @@ extension $EventDetailRouteExtension on EventDetailRoute {
         queryParams: {
           'id-event': idEvent.toString(),
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SettingRouteExtension on SettingRoute {
+  static SettingRoute _fromState(GoRouterState state) => SettingRoute();
+
+  String get location => GoRouteData.$location(
+        '/setting',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ChangePasswordRouteExtension on ChangePasswordRoute {
+  static ChangePasswordRoute _fromState(GoRouterState state) =>
+      ChangePasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/setting/change-password',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -891,6 +1031,29 @@ extension $WaitingPaymentRouteExtension on WaitingPaymentRoute {
         '/waiting-payment',
         queryParams: {
           'id': id,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PaymentMessageRouteExtension on PaymentMessageRoute {
+  static PaymentMessageRoute _fromState(GoRouterState state) =>
+      PaymentMessageRoute(
+        msg: state.uri.queryParameters['msg']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/payment-message',
+        queryParams: {
+          'msg': msg,
         },
       );
 

@@ -24,7 +24,7 @@ class JoinButton extends StatelessWidget {
           child: joined || isExpired ? Container(
           width: double.infinity,
           height: 70,
-          color: joined ? primaryColor : redColor,
+          color: joined ? primaryColor : errorColor,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
           child: Text(joined ? "Anda telah bergabung dengan event ini" : "Event ini telah berakhir", 
           textAlign: TextAlign.center,

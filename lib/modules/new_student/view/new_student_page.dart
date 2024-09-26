@@ -1,8 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/new_student/cubit/new_student_cubit.dart';
 import 'package:mhs_mobile/modules/new_student/models/gender_model.dart';
@@ -124,22 +124,9 @@ class NewStudentView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: Text(
-                          "Biaya Formulir Pendaftaran sebesar Rp 200.000 dapat di Bayarkan melalui VA yang akan keluar ketika melanjutkan ke Pembayaran.",
+                          "Biaya Formulir Pendaftaran sebesar Rp 200.000 dapat di Bayarkan menggunakan metode pembayaran yang sudah kami sediakan",
                           style: TextStyle(
                             color: whiteColor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "(Kirim bukti pembayaran via Whatsapp)",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: whiteColor,
-                            ),
                           ),
                         ),
                       ),

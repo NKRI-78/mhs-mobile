@@ -31,7 +31,7 @@ class FileStorage {
     final path = await localPath;
     debugPrint('Filename : $path/MHS-MOBILE/$filename');
     final snackBar = SnackBar(
-      backgroundColor: isExistFile ? redColor : greenColor,
+      backgroundColor: isExistFile ? errorColor : greenColor,
       duration: const Duration(seconds: 5),
       content: Text(
         "${isExistFile ? 'File sudah ada di ' : 'File berhasil diunduh, File disimpan di '} $path/MHS-MOBILE/$filename",
@@ -47,7 +47,7 @@ class FileStorage {
                 ? ShowSnackbar.snackbar(
                     context, "Berhasil membuka file", '', greenColor)
                 : ShowSnackbar.snackbar(
-                    context, result.message, '', redColor);
+                    context, result.message, '', errorColor);
           });
         },
       ),

@@ -5,6 +5,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/forgot_password/cubit/forgot_password_state.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit() : super(ForgotPasswordState());
@@ -16,30 +17,14 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       emit(state.copyWith(loading: true));
       await repo.forgotPasswordSendOTP(state.email);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: successColor,
-            content: Text(
-              'Silahkan cek email',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
+        ShowSnackbar.snackbar(context, "Silahkan cek email", '', successColor);
         ForgotPasswordOtpRoute(email: state.email).push(context);
       }
     } catch (e) {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', successColor);
     } finally {
       emit(state.copyWith(loading: false));
     }

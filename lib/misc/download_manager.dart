@@ -1,14 +1,19 @@
 import 'dart:typed_data';
 
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mhs_mobile/misc/file_storage.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
+import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
 import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
 
 class DownloadHelper {
   static Future<void> downloadDoc(
@@ -66,6 +71,24 @@ class DownloadHelper {
     } else {
       if (context.mounted) {
         await FileStorage.getFileFromAsset(filename, context, isExistFile);
+      }
+    }
+  }
+
+  static void downloadWidget(GlobalKey key, String fileName, BuildContext context) async {
+    try {  
+      final RenderRepaintBoundary boundary = key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      final ui.Image image = await boundary.toImage();
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      var pngBytes = byteData!.buffer.asUint8List();
+
+      await FileStorage.saveFile(pngBytes, fileName);
+      if (context.mounted) {
+        await FileStorage.getFileFromAsset(fileName, context, false);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
       }
     }
   }

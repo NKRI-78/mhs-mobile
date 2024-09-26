@@ -361,6 +361,9 @@ class Student {
   String? deletedAt;
   int? userId;
   int? parentId;
+  int? schoolGenerationId;
+  int? generationRegistrationId;
+  SchoolGeneration? schoolGeneration;
 
   Student(
       {this.id,
@@ -386,7 +389,10 @@ class Student {
       this.updatedAt,
       this.deletedAt,
       this.userId,
-      this.parentId});
+      this.parentId,
+      this.schoolGenerationId,
+      this.generationRegistrationId,
+      this.schoolGeneration});
 
   Student.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
@@ -413,10 +419,15 @@ class Student {
     deletedAt = json['deletedAt'] ?? "-";
     userId = json['UserId'] ?? 0;
     parentId = json['ParentId'] ?? 0;
+    schoolGenerationId = json['SchoolGenerationId'];
+    generationRegistrationId = json['GenerationRegistrationId'];
+    schoolGeneration = json['SchoolGeneration'] != null
+        ? SchoolGeneration.fromJson(json['SchoolGeneration'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['nisn'] = nisn;
     data['fullname'] = fullname;
@@ -441,6 +452,30 @@ class Student {
     data['deletedAt'] = deletedAt;
     data['UserId'] = userId;
     data['ParentId'] = parentId;
+    data['SchoolGenerationId'] = schoolGenerationId;
+    data['GenerationRegistrationId'] = generationRegistrationId;
+    if (schoolGeneration != null) {
+      data['SchoolGeneration'] = schoolGeneration!.toJson();
+    }
+    return data;
+  }
+}
+
+class SchoolGeneration {
+  String? years;
+  String? generation;
+
+  SchoolGeneration({this.years, this.generation});
+
+  SchoolGeneration.fromJson(Map<String, dynamic> json) {
+    years = json['years'];
+    generation = json['generation'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['years'] = years;
+    data['generation'] = generation;
     return data;
   }
 }

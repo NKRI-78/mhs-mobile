@@ -14,12 +14,13 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
     // Listen to connectivity changes
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       // Determine if there is an internet connection
-      bool network = true;
+      bool network = false;
       _connectionStatus = result;
       if(result.contains(ConnectivityResult.none)){
         network = false;
       }
       debugPrint("Status Network $_connectionStatus");
+      debugPrint("Status Network $network");
       // Add the ConnectivityChanged event
       add(ConnectivityChanged(network));
     });

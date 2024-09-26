@@ -70,19 +70,19 @@ class NotifData {
     String type;
     int notifiableId;
     dynamic readAt;
-    DateTime createdAt;
-    DateTime updatedAt;
-    User user;
+    String createdAt;
+    String updatedAt;
+    User? user;
 
     NotifData({
         required this.data,
-        required this.id,
+        this.id = 0,
         required this.type,
         required this.notifiableId,
         required this.readAt,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.user,
+        this.createdAt = "",
+        this.updatedAt = "",
+        this.user = null,
     });
 
     factory NotifData.fromJson(Map<String, dynamic> json) => NotifData(
@@ -91,8 +91,8 @@ class NotifData {
         type: json["type"],
         notifiableId: json["notifiableId"],
         readAt: json["readAt"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: json["createdAt"],
+        updatedAt: json["updatedAt"],
         user: User.fromJson(json["User"]),
     );
 
@@ -102,9 +102,9 @@ class NotifData {
         "type": type,
         "notifiableId": notifiableId,
         "readAt": readAt,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "User": user.toJson(),
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
+        "User": user?.toJson(),
     };
 }
 

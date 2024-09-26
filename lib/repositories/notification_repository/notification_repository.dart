@@ -48,7 +48,7 @@ class NotificationRepository {
      final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
         var listdata = json['data']['data'];
-        debugPrint("List data notif : $listdata");
+        debugPrint("List data notif transaksi : $listdata");
         var pagination = Pagination.fromJson(json['data']);
         var list = (json['data']['data'] as List)
             .map((e) => PaymentData.fromJson(e))

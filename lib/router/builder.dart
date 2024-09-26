@@ -4,8 +4,11 @@ import 'package:galleryimage/gallery_item_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/begining_tour/view/begining_tour_page.dart';
+import 'package:mhs_mobile/modules/change_password/view/change_password_page.dart';
 import 'package:mhs_mobile/modules/choose_role/view/choose_role_page.dart';
+import 'package:mhs_mobile/modules/connectivity/view/connectivity_page.dart';
 import 'package:mhs_mobile/modules/detail_event/view/event_detail_page.dart';
+import 'package:mhs_mobile/modules/detail_notification/view/detail_notification_page.dart';
 import 'package:mhs_mobile/modules/event/view/event_page.dart';
 import 'package:mhs_mobile/modules/forgot_password/view/forgot_password_page.dart';
 import 'package:mhs_mobile/modules/forgot_password_change/view/forgot_password_change_page.dart';
@@ -30,12 +33,15 @@ import 'package:mhs_mobile/modules/privacypolicy/view/privacy_page.dart';
 import 'package:mhs_mobile/modules/profile/view/profile.dart';
 import 'package:mhs_mobile/modules/register/view/register_page.dart';
 import 'package:mhs_mobile/modules/register_otp/view/register_otp_page.dart';
+import 'package:mhs_mobile/modules/settings/view/settings_page.dart';
 import 'package:mhs_mobile/modules/show_more_news/view/show_more_news.dart';
 import 'package:mhs_mobile/modules/show_more_testimoni/view/show_more_testimoni.dart';
 import 'package:mhs_mobile/modules/show_pdf/view/show_pdf.dart';
 import 'package:mhs_mobile/modules/splash_screen/views/splash_screen.dart';
 import 'package:mhs_mobile/modules/waiting_payment/view/waiting_payment_page.dart';
 import 'package:mhs_mobile/modules/webview/view/webview.dart';
+import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
+import 'package:mhs_mobile/widgets/pages/page_message_payment.dart';
 part 'builder.g.dart';
 
 @TypedGoRoute<BeginingTourRoute>(path: '/begining')
@@ -59,6 +65,7 @@ class SplashScreenRoute extends GoRouteData {
   routes: [
     TypedGoRoute<NewsDetailRoute>(path: 'news-detail'),
     TypedGoRoute<PrivacyRoute>(path: 'privacy'),
+    TypedGoRoute<NoConnectionRoute>(path: 'no-connection'),
     TypedGoRoute<GalleryImageViewWrapperRoute>(path: 'gallery-image'),
     TypedGoRoute<ListPresentationRoute>(path: 'presentation',routes: [
       TypedGoRoute<PresentationShowPdfRoute>(path: 'presentation-detail'),
@@ -75,7 +82,8 @@ class SplashScreenRoute extends GoRouteData {
     TypedGoRoute<WebViewRoute>(path: 'webview'),
     TypedGoRoute<ProfileRoute>(path: 'profile'),
     TypedGoRoute<NotificationRoute>(path: 'notifikasi', routes: [
-
+      TypedGoRoute<DetailNotifRoute>(path: 'detail-notifikasi'),
+      TypedGoRoute<WaitingPaymentNotifRoute>(path: 'waiting-payment-notif'),
     ]),
     TypedGoRoute<ShowMoreTestimoniRoute>(path: 'show-more-testimoni'),
     TypedGoRoute<ShowMoreNewsRoute>(path: 'show-more-news', routes: [
@@ -83,6 +91,9 @@ class SplashScreenRoute extends GoRouteData {
     ]),
     TypedGoRoute<EventRoute>(path: 'event' , routes: [
       TypedGoRoute<EventDetailRoute>(path: 'event-detail'),
+    ]),
+    TypedGoRoute<SettingRoute>(path: "setting", routes: [
+      TypedGoRoute<ChangePasswordRoute>(path: "change-password"),
     ]),
     TypedGoRoute<MediaRoute>(path: 'media'),
     TypedGoRoute<RegisterRoute>(path: 'register', routes: [
@@ -120,13 +131,30 @@ class SplashScreenRoute extends GoRouteData {
         ),
       ],
     ),
-    TypedGoRoute<WaitingPaymentRoute>(path: 'waiting-payment')
+    TypedGoRoute<WaitingPaymentRoute>(path: 'waiting-payment'),
+    TypedGoRoute<PaymentMessageRoute>(path: 'payment-message')
   ],
 )
 class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+class NoConnectionRoute extends GoRouteData {
+  final String msg;
+
+  NoConnectionRoute({required this.msg});
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return NoConnectivityScreen(msg: msg,);
+  }
+}
+
+class SettingRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SettingPage();
   }
 }
 
@@ -141,6 +169,13 @@ class ForgotPasswordRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ForgotPasswordPage();
+  }
+}
+
+class ChangePasswordRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ChangePasswordPage();
   }
 }
 
@@ -259,6 +294,16 @@ class EventRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EventPage();
+  }
+}
+class PaymentMessageRoute extends GoRouteData {
+  final String msg;
+
+  PaymentMessageRoute({required this.msg});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PageMessagePayment(msg: msg,);
   }
 }
 
@@ -458,6 +503,40 @@ class WaitingPaymentRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) {
     return WaitingPaymentPage(
       id: id,
+    );
+  }
+}
+
+class WaitingPaymentNotifRoute extends GoRouteData {
+  final String id;
+
+  WaitingPaymentNotifRoute({required this.id});
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return WaitingPaymentPage(
+      id: id,
+    );
+  }
+}
+class DetailNotifRoute extends GoRouteData {
+  final String type;
+  final String title;
+  final String description;
+  final int id;
+  final int notifiableId;
+  final String readAt;
+
+  DetailNotifRoute(this.type, this.title, this.description, this.notifiableId, this.readAt, {required this.id});
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return DetailNotificationPage(
+      notifData: NotifData(
+        data: DatumData(title: title, description: description), 
+        id: id, 
+        type: type, 
+        notifiableId: notifiableId, 
+        readAt: readAt, 
+      ),
     );
   }
 }

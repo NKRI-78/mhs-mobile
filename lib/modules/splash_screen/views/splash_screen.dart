@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
-import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_bloc.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/scaffold_splash.dart';
 

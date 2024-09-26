@@ -7,6 +7,7 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part 'login_parent_state.dart';
 
@@ -34,15 +35,7 @@ class LoginParentCubit extends Cubit<LoginPaarentState> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
       rethrow;
     } finally {
       emit(state.copyWith(loading: false));

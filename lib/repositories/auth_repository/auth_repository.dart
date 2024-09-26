@@ -157,10 +157,10 @@ class AuthRepository {
       if (res.statusCode == 200) {
         return GenerationOpenModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 

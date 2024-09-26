@@ -23,15 +23,15 @@ class ForgotPasswordChangeCubit extends Cubit<ForgotPasswordChangeState> {
     debugPrint("Password $password Confirm Password $passwordConfirm");
     if (password.length < 8) {
       ShowSnackbar.snackbar(context, "Kata Sandi minimal 8 character", '',
-          redColor);
+          errorColor);
       return false;
     } else if (passwordConfirm.length < 8) {
       ShowSnackbar.snackbar(context, "Konfirmasi Kata Sandi minimal 8 character", '',
-          redColor);
+          errorColor);
       return false;
     } else if (passwordConfirm != password) {
       ShowSnackbar.snackbar(context, "Kata Sandi tidak cocok", '',
-          redColor);
+          errorColor);
       return false;
     }
 
@@ -51,15 +51,7 @@ class ForgotPasswordChangeCubit extends Cubit<ForgotPasswordChangeState> {
       if(isClear){
         await repo.forgotPasswordChangePass(email, otp, state.password);
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: successColor,
-              content: Text(
-                'Password berhasil diubah',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          );
+          ShowSnackbar.snackbar(context, "Password berhasil diubah", '', successColor);
           LoginRoute().go(context);
         }
       }
@@ -67,15 +59,7 @@ class ForgotPasswordChangeCubit extends Cubit<ForgotPasswordChangeState> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
     } finally {
       emit(state.copyWith(loading: false));
     }

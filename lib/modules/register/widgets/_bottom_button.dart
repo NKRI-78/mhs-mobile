@@ -26,9 +26,7 @@ class _BottomButon extends StatelessWidget {
                         RegisterOtpRoute(email: email).go(context);
                       } catch (e) {
                         if (!context.mounted) return;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(e.toString()))
-                        );
+                        ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
                       }
                       // RegisterOtpRoute(email: "example@example.com").go(context);
                     },

@@ -38,9 +38,11 @@ var baseTheme = ThemeData(
 );
 
 const redColor = Color(0xffFC0102);
+const errorColor = Color(0xFF0DBE49);
 const primaryColor = Color(0xff124AA0);
 const yellowColor = Color(0xffFACF24);
 const whiteColor = Color(0xffFFFFFF);
+const greyDescColor = Color(0xff8C8C8C);
 const greyColor = Color(0xffE8EDF6);
 const successColor = Color(0xFF512DA8);
 const greenColor = Color(0xFF0DBE49);

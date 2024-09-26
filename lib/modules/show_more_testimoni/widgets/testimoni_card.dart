@@ -68,10 +68,23 @@ class TestimoniCard extends StatelessWidget {
               right: 0,
               left: 0,
               top: -50,
-              child: ImageCircle(
-                image: testimoni.imageUrl ?? "", 
-                radius: 45,
-              ),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: AspectRatio(
+                    aspectRatio: 1/1, child: ImageCircle(
+                    image: testimoni.imageUrl ?? "", 
+                    radius: 45,
+                    ),
+                  ),
+                )
+              )
+             ],
+            ),
             )
           ],
         ),

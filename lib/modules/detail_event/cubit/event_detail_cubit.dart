@@ -4,6 +4,7 @@ import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/event_repository/event_repository.dart';
 import 'package:mhs_mobile/repositories/event_repository/models/event_detail_model.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part 'event_detail_state.dart';
 
@@ -31,15 +32,6 @@ class EventDetailCubit extends Cubit<EventDetailState> {
     await repo.jointEvent(
       idEvent: idEvent
     );
-    // ignore: use_build_context_synchronously
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        backgroundColor: primaryColor,
-        content: Text(
-          "Anda Berhasil Join",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
+    ShowSnackbar.snackbar(context, "Anda Berhasil Join", '', successColor);
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ImageCard extends StatelessWidget {
   final String image;
@@ -19,26 +18,7 @@ class ImageCard extends StatelessWidget {
       height: height,
       fit: fit,
       placeholder: (BuildContext context, String val) {
-        return SizedBox(
-          width: width,
-          height: height,
-          child: Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[200]!,
-            child: Card(
-              margin: EdgeInsets.zero,
-              color: whiteColor,
-              elevation: 4.0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(radius),
-                  color: whiteColor
-                ),
-              ),
-            ),
-          ),
-        );
+        return const SizedBox.shrink();
       },
       errorWidget: (BuildContext context, String text, dynamic _) {
         return Container(

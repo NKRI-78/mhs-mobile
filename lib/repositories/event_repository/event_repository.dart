@@ -47,7 +47,7 @@ class EventRepository {
       if (res.statusCode == 200) {
         return EventDetailModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
       rethrow;

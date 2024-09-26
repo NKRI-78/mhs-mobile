@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/widgets/images/image_circle.dart';
@@ -15,7 +17,7 @@ class TestimoniCard extends StatelessWidget {
         color: testimoniColor,
         borderRadius: BorderRadius.circular(16)
       ),
-      width: 210,
+      width: 200,
       height: 120,
       child: Stack(
         fit: StackFit.loose,
@@ -63,9 +65,22 @@ class TestimoniCard extends StatelessWidget {
             right: 0,
             left: 0,
             top: -50,
-            child: ImageCircle(
-              image: testimoni.imageUrl ?? "", 
-              radius: 45,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: AspectRatio(
+                    aspectRatio: 1/1, child: ImageCircle(
+                    image: testimoni.imageUrl ?? "", 
+                    radius: 45,
+                    ),
+                  ),
+                )
+              )
+             ],
             ),
           )
         ],

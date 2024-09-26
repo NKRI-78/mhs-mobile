@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
-import 'package:mhs_mobile/misc/theme.dart';
 
 class TabBarNotif extends StatelessWidget {
   const TabBarNotif({super.key,});
@@ -17,7 +16,6 @@ class TabBarNotif extends StatelessWidget {
           initialIndex: state.tabIndex,
           child: TabBar(
             automaticIndicatorColorAdjustment: true,
-            indicatorColor: redColor,
             dividerColor: Colors.transparent,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
@@ -32,8 +30,8 @@ class TabBarNotif extends StatelessWidget {
             },
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             tabs: const [
-              TextWithBadge(title: 'Informasi', index: 1,),
-              TextWithBadge(title: 'Payment', index: 2,),
+              TextWithBadge(title: 'Pembayaran',),
+              TextWithBadge(title: 'Informasi',),
             ],
           ),
         );
@@ -43,10 +41,9 @@ class TabBarNotif extends StatelessWidget {
 }
 
 class TextWithBadge extends StatelessWidget {
-  const TextWithBadge({super.key, required this.title, required this.index});
+  const TextWithBadge({super.key, required this.title});
 
   final String title;
-  final int index;
 
   @override
   Widget build(BuildContext context) {

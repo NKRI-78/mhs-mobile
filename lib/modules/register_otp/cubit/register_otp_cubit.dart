@@ -6,6 +6,7 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part 'register_otp_state.dart';
 
@@ -29,15 +30,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
         if (getIt.isRegistered<HomeBloc>()) {
           getIt<HomeBloc>().add(HomeInitialData());
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: successColor,
-            content: Text(
-              'Verify berhasil, selamat datang di MHS-Mobile.',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
+        ShowSnackbar.snackbar(context, 'Verifikasi berhasil, selamat datang di MHS-Mobile.', '', successColor);
 
         // getIt<AppBloc>().add(SetUserData(user: loggedIn.user, token: loggedIn.token));
         app.add(SetAuthenticated(user: user, token: user.token ?? ''));
@@ -47,15 +40,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
     } finally {
       emit(state.copyWith(loading: false));
     }
@@ -70,15 +55,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
     } finally {
       emit(state.copyWith(loading: false));
     }
@@ -94,15 +71,7 @@ class RegisterOtpCubit extends Cubit<RegisterOtpState> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
     } finally {
       emit(state.copyWith(loading: false));
     }

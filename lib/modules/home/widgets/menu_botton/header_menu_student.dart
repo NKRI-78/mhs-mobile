@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class HeaderMenuStudent extends StatelessWidget {
   const HeaderMenuStudent({super.key});
@@ -65,7 +64,9 @@ class HeaderMenuStudent extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(20),
                           topRight: Radius.circular(20)))),
-              onPressed: () {},
+              onPressed: () {
+                ShowSnackbar.snackbar(context, "Fitur ini belum tersedia...", '', errorColor);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

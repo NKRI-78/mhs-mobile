@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/helper.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/partnership/cubit/partnership_cubit.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
-import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 
 class PartnershipPage extends StatelessWidget {
@@ -52,22 +52,20 @@ class PartnershipView extends StatelessWidget {
                     crossAxisSpacing: 1.0,
                   ),  
                   itemBuilder: (context, index) {
-                    if (st.partnership.isEmpty) {
-                      return const SizedBox.expand(
-                        child: Center(
-                          child: Text(
-                            "Kosong Bro"
-                          ),
-                        ),
-                      );
-                    }
                     return Container(
                       width: double.infinity,
                       // color: redColor,
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      child: ImageCard(image: st.partnership[index].fileUrl ?? "-", fit: BoxFit.contain,
-                      radius: 0, 
-                      width: double.infinity
+                      child: InkWell(
+                        onTap: () {
+                          Helper.openLink(url: st.partnership[index].description ?? "-", context: context);
+                        },
+                        child: ImageCard(
+                          image: st.partnership[index].fileUrl ?? "-", 
+                          fit: BoxFit.contain,
+                          radius: 0, 
+                          width: double.infinity
+                        ),
                       ),
                     );
                   },

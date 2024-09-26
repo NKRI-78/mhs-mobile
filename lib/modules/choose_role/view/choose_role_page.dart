@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/choose_role/cubit/choose_role_cubit.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/custom_background_scaffold.dart';
-import 'package:mhs_mobile/widgets/extension/date_util.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part '../widgets/_input_role.dart';
 
@@ -84,15 +86,7 @@ class ChooseRoleView extends StatelessWidget {
                       } else if(st.roleSelect == "Orang Tua"){
                         LoginParentRoute().go(context);
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: redColor,
-                            content: Text(
-                              'Login yang anda pilih belum tersedia',
-                              style: TextStyle(color: whiteColor),
-                            ),
-                          ),
-                        );
+                        ShowSnackbar.snackbar(context,"Pilih Role Anda", '', errorColor);
                       }
                       // LoginRoute().push(context);
                     },
@@ -148,15 +142,48 @@ class ChooseRoleView extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           if(st.generation?.data == null){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                backgroundColor: redColor,
-                                content: Text(
-                                  'Pendaftaran Siswa Baru Belum Dibuka',
-                                  style: TextStyle(color: whiteColor),
-                                ),
-                              ),
-                            );
+                          Timer? timer = Timer(const Duration(milliseconds: 3000), (){
+                            Navigator.of(context, rootNavigator: true).pop();
+                          });
+                          showDialog(
+                            barrierColor: blackColor.withOpacity(0.5),
+                              context: context,
+                              builder: (BuildContext builderContext) {
+                                return AlertDialog(
+                                  scrollable: true,
+                                  backgroundColor: primaryColor,
+                                  content: SingleChildScrollView(
+                                    child: SizedBox(
+                                      width: 800,
+                                      height: 350,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/registration-image.png",
+                                            width: double.infinity,
+                                            height: 250,
+                                          ),
+                                          const Text(
+                                            "Pendaftaran Siswa Baru Belum Dibuka",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: whiteColor,
+                                              fontSize: fontSizeExtraLarge
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                              );
+                              }
+                            ).then((value){
+                              // dispose the timer in case something else has triggered the dismiss.
+                              timer?.cancel();
+                              timer = null;
+                            });
                           }else {
                             NewStudentRoute().push(context);
                           }

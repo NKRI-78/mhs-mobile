@@ -33,13 +33,6 @@ class MenusWidget extends StatelessWidget {
         },
       ),
       AppbarMenuModel(
-        title: 'Presentasi',
-        icon: "Presentation", 
-        onTap: () { 
-          ListPresentationRoute().go(context);
-        },
-      ),
-      AppbarMenuModel(
         title: 'Brosur',
         icon: "Magazine", 
         onTap: () { 
@@ -51,9 +44,9 @@ class MenusWidget extends StatelessWidget {
     shrinkWrap: true,
     physics: const ScrollPhysics(),
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      mainAxisSpacing: 1.0,
-      crossAxisSpacing: 1.0,
-      crossAxisCount: 5,
+      mainAxisSpacing: 10.0,
+      crossAxisSpacing: 10.0,
+      crossAxisCount: 4,
     ),
     itemCount: listMenu.length,
     itemBuilder: (context, index) {
@@ -75,7 +68,7 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    // var size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onTap,
       child: Column(

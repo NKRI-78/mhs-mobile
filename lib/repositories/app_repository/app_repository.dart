@@ -20,7 +20,7 @@ class AppRepository {
       if (res.statusCode == 200) {
         return ProfileModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
       rethrow;

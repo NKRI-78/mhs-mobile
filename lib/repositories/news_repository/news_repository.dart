@@ -20,7 +20,7 @@ class NewsRepository {
       if (res.statusCode == 200) {
         return DetailNewsModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
       rethrow;

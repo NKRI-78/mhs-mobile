@@ -49,7 +49,10 @@ class FooterAddress extends StatelessWidget {
               ),
             ),
             onPressed: (){
-              Helper.openLink(url: "https://www.google.com/maps/place/Transmart+Carrefour+Lampung/@-5.383134,105.2799704,17z/data=!3m1!4b1!4m12!1m6!3m5!1s0x2e40db3c4414f651:0x7b30897d4b9117dc!2sTransmart+Carrefour+Lampung!8m2!3d-5.3831393!4d105.2821591!3m4!1s0x2e40db3c4414f651:0x7b30897d4b9117dc!8m2!3d-5.3831393!4d105.2821591");
+              Helper.openLink(
+                url: "https://www.google.com/maps/place/METRO+HOTEL+SCHOOL/@-5.3838085,105.2826569,19z/data=!4m14!1m7!3m6!1s0x2e40dbfa660eb40d:0x57cb3bdb262e151!2sTransmart+Carrefour+Bandar+Lampung!8m2!3d-5.383467!4d105.2821746!16s%2Fg%2F11ghrd61bs!3m5!1s0x2e40dbfcf24a5771:0x150647e37a9bc91f!8m2!3d-5.3838617!4d105.2826479!16s%2Fg%2F11q2kfxkfy?entry=ttu&g_ep=EgoyMDI0MDkyMi4wIKXMDSoASAFQAw%3D%3D",
+                context: context
+              );
             }, 
             child: const Text(
               "Buka Peta",

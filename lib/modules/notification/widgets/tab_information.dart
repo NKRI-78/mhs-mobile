@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/modal.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/extension/date_util.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
@@ -22,67 +26,75 @@ class TabInformation extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final data = state.notif?[index];
               return InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Container(
-                    color: data?.data == null ? whiteColor.withOpacity(0.09) : null,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Row(
-                            children: [
-                              const Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.info_outline,
-                                ),
+                onTap: () {
+                  DetailNotifRoute(
+                    data?.type ?? "", 
+                    data?.data.title ?? "", 
+                    data?.data.description ?? "", 
+                    data?.notifiableId ?? 0, 
+                    data?.readAt ?? "", 
+                    id: data?.id ?? 0
+                  ).go(context);
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: const BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.all(Radius.circular(13))
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Expanded(
+                        flex: 1,
+                        child: Icon(
+                          Icons.info_outline,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                               data?.data.title ?? "",
+                              maxLines: 2,
+                              style: const TextStyle(
+                                color: blackColor,
+                                fontSize: fontSizeSmall,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w400
                               ),
-                              Expanded(
-                                flex: 5,
-                                child: Text(
-                                   data?.data.title ?? "",
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                    color: blackColor,
-                                    fontSize: fontSizeSmall,
-                                    fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                              )
-                            ],
+                            ),
+                            Text(
+                               data?.data.description ?? "",
+                              maxLines: 2,
+                              style: const TextStyle(
+                                color: greyDescColor,
+                                fontSize: fontSizeSmall,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          DateUntil.formatDate(DateTime.parse(data?.createdAt ?? "")),
+                          style: const TextStyle(
+                            color: blackColor,
+                            fontSize: fontSizeSmall,
+                            fontWeight: FontWeight.w400
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            children: [
-                              // Text(
-                              //   textAlign: TextAlign.center,
-                              //   data?.type ?? "",
-                              //   style: const TextStyle(
-                              //     color: blackColor,
-                              //     fontSize: fontSizeSmall,
-                              //     fontWeight: FontWeight.w400
-                              //   ),
-                              // ),
-                              Text(
-                                textAlign: TextAlign.center,
-                                DateUntil.formatDate(data?.createdAt ?? DateTime.now()),
-                                style: const TextStyle(
-                                  color: blackColor,
-                                  fontSize: fontSizeSmall,
-                                  fontWeight: FontWeight.w400
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               );

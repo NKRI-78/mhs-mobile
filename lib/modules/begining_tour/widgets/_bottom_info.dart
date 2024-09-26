@@ -1,5 +1,6 @@
 part of '../view/begining_tour_page.dart';
 
+// ignore: unused_element
 class _BottomInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,6 @@ import 'package:mhs_mobile/modules/notification/widgets/tab_bar_notif_widget.dar
 import 'package:mhs_mobile/modules/notification/widgets/tab_information.dart';
 import 'package:mhs_mobile/modules/notification/widgets/tab_transaction.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
-import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -26,7 +25,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: greyColor,
       body: CustomScrollView(
         shrinkWrap: true,
         physics: const ScrollPhysics(),
@@ -47,9 +46,9 @@ class NotificationView extends StatelessWidget {
                     previous.tabIndex != current.tabIndex,
                 builder: (context, state) {
                   if (state.tabIndex == 0) {
-                    return const TabInformation();
-                  } else {
                     return const TabTransaction();
+                  } else {
+                    return const TabInformation();
                   }
                 },
               )

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
+import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 
 class GeneralModal {
@@ -119,6 +120,47 @@ class GeneralModal {
     });
   }
 
+  // static Future<void> showNotif ({
+  //   required BuildContext context,
+  //   required NotifData data,
+  // }) async {
+  //   showCupertinoModalPopup(
+  //     context: context,
+  //     barrierColor: blackColor.withOpacity(0.50),
+  //     builder: (_) {
+  //       final size = MediaQuery.of(_).size;
+  //       return widget(
+  //         child: Container(
+  //             decoration: const BoxDecoration(
+  //                 color: primaryColor,
+  //                 borderRadius: BorderRadius.only(
+  //                   topLeft: Radius.circular(12),
+  //                   topRight: Radius.circular(12),
+  //                 ),
+  //               ),
+  //               height: size.height * 0.27,
+  //             child: Column(
+  //               children: [
+  //                 DetailCheckIn(
+  //                   label: 'Judul',
+  //                   text: data.data.title,
+  //                 ),
+  //                 DetailCheckIn(
+  //                   label: 'Deskripsi',
+  //                   text: data.data.description,
+  //                 ),
+  //                 DetailCheckIn(
+  //                   label: 'Tipe',
+  //                   text: data.type,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //       );
+  //     },
+  //   );
+  // }
+
   static Future<void> showTestimoni({
     required BuildContext context,
     required TestimoniData testimoni,
@@ -129,62 +171,115 @@ class GeneralModal {
       barrierDismissible: true,
       barrierColor: blackColor.withOpacity(0.50),
       builder: (BuildContext context) {
-        return CustomDialog(
-          minWidth: 100,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-          backgroundColor: whiteColor,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: ImageCard(
-                      image: testimoni.imageUrl ?? "", 
-                      radius: 50,
-                      height: 300,
-                      width: double.infinity,
-                    ),
-                  ),
+        return AlertDialog(
+            scrollable: true,
+            insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+            contentPadding: EdgeInsets.zero,
+            backgroundColor: whiteColor,
+            content: SingleChildScrollView(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    testimoni.name ?? "",
-                    style: const TextStyle(
-                      color: blackColor,
-                      fontSize: fontSizeLarge,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2, bottom: 15, right: 15, left: 15),
-                  child: SizedBox(
-                    height: 100,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      child: Text(
-                        testimoni.message ?? "",
-                        style: const TextStyle(
-                          color: blackColor,
-                          fontSize: fontSizeDefault,
+                width: 370,
+                height: 580,
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: ImageCard(
+                          image: testimoni.imageUrl ?? "", 
+                          radius: 50,
+                          height: 400,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Text(
+                        testimoni.name ?? "",
+                        style: const TextStyle(
+                          color: blackColor,
+                          fontSize: fontSizeLarge,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2, bottom: 15, right: 15, left: 15),
+                      child: SizedBox(
+                        height: 100,
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            testimoni.message ?? "",
+                            style: const TextStyle(
+                              color: blackColor,
+                              fontSize: fontSizeDefault,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
         );
       },
-      animationType: DialogTransitionType.fade,
-      curve: Curves.fastOutSlowIn,
+      animationType: DialogTransitionType.scale,
+      curve: Curves.fastEaseInToSlowEaseOut,
       duration: const Duration(seconds: 1),
+    );
+  }
+}
+
+class DetailCheckIn extends StatelessWidget {
+  const DetailCheckIn({
+    super.key,
+    required this.label,
+    required this.text,
+  });
+
+  final String label;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: whiteColor,
+                fontSize: fontSizeDefault,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: whiteColor,
+                fontSize: fontSizeDefault,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

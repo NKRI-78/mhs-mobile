@@ -12,11 +12,6 @@ import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-List<String> listOfUrls= [
-  "http://157.245.193.49:3099/mhs/file/3_0-1725350045035.jpg",
-  "http://157.245.193.49:3099/mhs/image/presentasi/7_0-1725350317007.jpg",
-];
-
 
 class ListPresentationPage extends StatelessWidget {
   const ListPresentationPage({super.key});
@@ -122,7 +117,8 @@ class _ListPresentationViewState extends State<ListPresentationView> {
               ),
               floatingActionButton: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero
+                  padding: EdgeInsets.zero,
+                  backgroundColor: redColor.withOpacity(0.01)
                 ),
                 onPressed: (){
                   FullScreenPresentationRoute().go(context);

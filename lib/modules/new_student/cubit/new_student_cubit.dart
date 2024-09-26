@@ -20,23 +20,23 @@ class NewStudentCubit extends Cubit<NewStudentState> {
   }) {
     if (phone.length < 10) {
       ShowSnackbar.snackbar(context, "No Hp Minimal 10 Angka", '',
-          redColor);
+          errorColor);
       return false;
     } else if (parentPhone.length < 10) {
       ShowSnackbar.snackbar(context, "No Hp Orang Tua Minimal 10 Angka", '',
-          redColor);
+          errorColor);
       return false;
     } else if (gender == "") {
       ShowSnackbar.snackbar(context, "Jenis Kelamin Anda Belum di pilih", '',
-          redColor);
+          errorColor);
       return false;
     } else if (outfitSize == "") {
       ShowSnackbar.snackbar(context, "Ukuran Baju Anda Belum di pilih", '',
-          redColor);
+          errorColor);
       return false;
     } else if (birthDate == "") {
       ShowSnackbar.snackbar(context, "Tanggal Lahir Anda Belum di pilih", '',
-          redColor);
+          errorColor);
       return false;
     }
 

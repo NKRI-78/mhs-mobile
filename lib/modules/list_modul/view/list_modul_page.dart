@@ -5,7 +5,6 @@ import 'package:mhs_mobile/modules/list_modul/cubit/list_modul_cubit.dart';
 import 'package:mhs_mobile/modules/list_modul/widgets/card_module.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
-import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class ListModulPage extends StatelessWidget {
   const ListModulPage({super.key});

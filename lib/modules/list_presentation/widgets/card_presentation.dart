@@ -15,14 +15,11 @@ class CardPresentation extends StatefulWidget {
 class _CardPresentationState extends State<CardPresentation> {
   late final PageController _controller =
       PageController(initialPage: 0);
-  int _currentPage = 0;
 
   @override
   void initState() {
-    _currentPage = 0;
     _controller.addListener(() {
       setState(() {
-        _currentPage = _controller.page?.toInt() ?? 0;
       });
     });
     super.initState();

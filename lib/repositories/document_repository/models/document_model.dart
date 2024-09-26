@@ -9,14 +9,14 @@ class DocumenModel {
     if (json['data'] != null) {
       data = <DocumentData>[];
       json['data'].forEach((v) {
-        data!.add(new DocumentData.fromJson(v));
+        data!.add(DocumentData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -56,15 +56,15 @@ class DocumentData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['type'] = this.type;
-    data['uploadDate'] = this.uploadDate;
-    data['fileUrl'] = this.fileUrl;
-    data['description'] = this.description;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['type'] = type;
+    data['uploadDate'] = uploadDate;
+    data['fileUrl'] = fileUrl;
+    data['description'] = description;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

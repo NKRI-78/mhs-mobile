@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -7,6 +6,7 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class MenuScreenHome extends StatelessWidget {
   const MenuScreenHome({super.key});
@@ -60,16 +60,20 @@ class MenuScreenHome extends StatelessWidget {
                                     );
                               },
                             ) : const SizedBox.shrink(),
-                            isLogin ? MenuButton(
-                              text: 'Pengaturan',
-                              onPressed: () {},
-                            ) : const SizedBox.shrink(),
+                            // isLogin ? MenuButton(
+                            //   text: 'Pengaturan',
+                            //   onPressed: () {
+                            //     z.close?.call()?.then(
+                            //       (value) => SettingRoute().go(context),
+                            //     );
+                            //   },
+                            // ) : const SizedBox.shrink(),
                             MenuButton(
                               text: 'Kebijakan Privasi',
                               onPressed: () {
                                 z.close?.call()?.then(
-                                      (value) => PrivacyRoute().go(context),
-                                    );
+                                  (value) => PrivacyRoute().go(context),
+                                );
                               },
                             ),
                             // MenuButton(
@@ -94,15 +98,7 @@ class MenuScreenHome extends StatelessWidget {
                                     z.close?.call()?.then(
                                           (value) => HomeRoute().go(context),
                                         );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        backgroundColor: successColor,
-                                        content: Text(
-                                          'Berhasil keluar',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    );
+                                    ShowSnackbar.snackbar(context, "Berhasil Keluar", '', successColor);
                                   },
                                   child: const Text(
                                     "Keluar",

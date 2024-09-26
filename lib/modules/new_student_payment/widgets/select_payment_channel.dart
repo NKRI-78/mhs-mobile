@@ -17,6 +17,7 @@ class SelectPaymentChannel extends StatelessWidget {
           children: state.channels
               .map(
                 (e) => ListTile(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   title: Text(e.name ?? ""),
                   onTap: () {
                     context.read<NewStudentPaymentCubit>().setPaymentChannel(e);
@@ -32,15 +33,15 @@ class SelectPaymentChannel extends StatelessWidget {
                     width: 50,
                     radius: 10
                   ),
-                  subtitle: Text(
-                    (e.paymentType ?? "").replaceAll(
-                      "_",
-                      " ",
-                    ),
-                    style: const TextStyle(
-                      fontSize: 10,
-                    ),
-                  ),
+                  // subtitle: Text(
+                  //   (e.paymentType ?? "").replaceAll(
+                  //     "_",
+                  //     " ",
+                  //   ),
+                  //   style: const TextStyle(
+                  //     fontSize: 10,
+                  //   ),
+                  // ),
                   trailing: const Icon(Iconsax.arrow_right),
                 ),
               )

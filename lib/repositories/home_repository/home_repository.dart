@@ -24,6 +24,7 @@ class HomeRepository {
   Uri get messageHome => Uri.parse('${MyApi.baseUrl}/api/v1/caption/by-user-role');
   String get studentUrl => '${MyApi.baseUrl}/api/v1/student';
   String get profile => '${MyApi.baseUrl}/api/v1/profile';
+  String get changePasswordUser => '${MyApi.baseUrl}/api/v1/auth/change-password';
 
   final http = getIt<BaseNetworkClient>();
 
@@ -45,7 +46,7 @@ class HomeRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -64,10 +65,10 @@ class HomeRepository {
       if (res.statusCode == 200) {
         return;
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -89,7 +90,7 @@ class HomeRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -102,7 +103,7 @@ class HomeRepository {
       if (res.statusCode == 200) {
         return ProfileModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
       // print(e);
@@ -120,7 +121,7 @@ class HomeRepository {
       if (res.statusCode == 200) {
         return MessageHomeModel.fromJson(json);
       } else {
-        throw "error api";
+        throw "Ada masalah pada server";
       }
     } catch (e) {
       rethrow;
@@ -178,6 +179,42 @@ class HomeRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       } else {
         throw "Error";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> setDeleteFcm() async {
+    try {
+      final res = await http.post(Uri.parse('$profile/delete-fcm-token'));
+
+      debugPrint('Status FCM  : ${res.body}');
+
+      if (res.statusCode == 200) {
+        return;
+      } else {
+        throw "error api";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> changePassword({String password = ''}) async {
+    try {
+      final res = await http.post(Uri.parse(changePasswordUser), body: {
+        'password': password,
+      });
+
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
       rethrow;

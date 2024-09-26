@@ -16,7 +16,6 @@ class _InputGender extends StatelessWidget {
         name: "Perempuan"
       )
     ];
-    String? selectedValue;
     return DropdownButtonFormField2(
           isExpanded: true,
           decoration: InputDecoration(
@@ -57,7 +56,6 @@ class _InputGender extends StatelessWidget {
             context.read<NewStudentCubit>().copyToState(gender: value);
           },
           onSaved: (value) {
-            selectedValue = value.toString();
           },
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.only(right: 8),

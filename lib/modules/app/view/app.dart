@@ -5,9 +5,6 @@ import 'package:mhs_mobile/misc/firebase_messangging.dart';
 import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
-import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_bloc.dart';
-import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_state.dart';
-import 'package:mhs_mobile/modules/connectivity/view/connectivity_page.dart';
 import 'package:mhs_mobile/router/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,15 +13,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AppBloc>(
-          create: (BuildContext context) => AppBloc(),
-        ),
-        BlocProvider<ConnectivityBloc>(
-          create: (BuildContext context) => ConnectivityBloc(),
-        ),
-      ], child: const AppView(),
+    return BlocProvider<AppBloc>.value(
+      value: getIt<AppBloc>(),
+      child: const AppView(),
     );
   }
 }
@@ -49,24 +40,16 @@ class _AppViewState extends State<AppView> {
       FirebaseMessagingMisc.init();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, st) {
-        return  BlocBuilder<ConnectivityBloc, ConnectivityState>(
-          builder: (context, network) {
-            if (network is ConnectivityInitial) {
-              return const NoConnectivityScreen(msg: 'Checking connectivity...');
-            } else if (network is ConnectivityFailure) {
-              return const NoConnectivityScreen(msg: 'Tidak Ada Koneksi Internet, Nyalakan Internet Anda',);
-            }
-            return MaterialApp.router(
-              theme: baseTheme.copyWith(
-                textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
-              ),
-              routerConfig: router,
-            );
-          }
+        return MaterialApp.router(
+          theme: baseTheme.copyWith(
+            textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
+          ),
+          routerConfig: router,
         );
       }
     );

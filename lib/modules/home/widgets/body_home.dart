@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -9,11 +7,10 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
-import 'package:mhs_mobile/modules/home/widgets/footer-address.dart';
+import 'package:mhs_mobile/modules/home/widgets/footer_address.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/bottom_menu.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_parent.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_student.dart';
-import 'package:mhs_mobile/modules/home/widgets/menu_botton/menu_student.dart';
 import 'package:mhs_mobile/modules/home/widgets/menus_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/news_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/testimoni_widget.dart';
@@ -40,8 +37,8 @@ class BodyHome extends StatelessWidget {
                 getIt<HomeBloc>().add(HomeInitialData());
               },
               child: ListView(children: [
-                        const HeaderHome(),
-                        Stack(
+              const HeaderHome(),
+              Stack(
               clipBehavior: Clip.none,
               children: [
                 Container(
@@ -84,7 +81,7 @@ class BodyHome extends StatelessWidget {
                             ),
                             child: const Text("Menunggu Pembayaran"),
                             onPressed: () {
-                              // WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
+                              WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
                             },
                           ) : isWaitingAprovalAdmin
                             ? BottomMenu(

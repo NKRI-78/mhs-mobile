@@ -14,6 +14,7 @@ final class ShowMoreTestimoniState extends Equatable {
     this.loadingTestimoni = false,
   });
 
+  @override
   List<Object?> get props => [
         testimoni,
         nextPageTestimoni,

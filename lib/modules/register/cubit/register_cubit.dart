@@ -2,9 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
-import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
-import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part 'register_state.dart';
 

@@ -5,6 +5,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/qr_method_widget.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/virtual_account_method_widget.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_success_payment.dart';
 
@@ -93,7 +94,7 @@ class WaitingPaymentView extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,8 +102,8 @@ class WaitingPaymentView extends StatelessWidget {
                           ImageCard(
                             image: state.payment?.paymentLogo ?? "-", 
                             radius: 20,
-                            width: 50,
-                            height: 50,
+                            width: 30,
+                            height: 30,
                           ),
                           const SizedBox(
                             width: 10,
@@ -131,8 +132,10 @@ class WaitingPaymentView extends StatelessWidget {
                     state.payment?.status == "WAITING_FOR_PAYMENT" ? Text(
                       DateFormat().format(
                         DateTime.parse(state.payment!.createdAt!).add(
-                          const Duration(
+                          state.payment?.paymentMethod == "GOPAY" ? const Duration(
                             days: 1,
+                          ) : const Duration(
+                            minutes: 15,
                           ),
                         ),
                       ),
@@ -141,15 +144,41 @@ class WaitingPaymentView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ) : Container(),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    state.payment?.status == "PAID" ? const PageSuccessPayment(msg: "Terima kasih anda sudah melakukan pembayaran pendaftaran siswa baru di Metro Hotel School")
+                    state.payment?.status == "PAID" ? const PageSuccessPayment(
+                      msg: "Terima kasih anda sudah melakukan pembayaran pendaftaran siswa baru di Metro Hotel School"
+                    )
                     : state.payment?.paymentMethod == 'VIRTUAL_ACCOUNT' ?
-                      VirtualAccountMethodWidget(
-                        payment: state.payment!,
-                      ) : QrMethodWidget(payment: state.payment!),
-                    
+                    VirtualAccountMethodWidget(
+                      payment: state.payment!,
+                    ) : QrMethodWidget(payment: state.payment!),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                      ),
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      }, 
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 13),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.home,
+                              size: 20,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Kembali ke Home"
+                            )
+                          ],
+                        ),
+                      )
+                    )
                   ],
                 ),
               ),

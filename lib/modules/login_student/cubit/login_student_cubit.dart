@@ -6,6 +6,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 part 'login_student_state.dart';
 
@@ -26,30 +27,14 @@ class LoginStudentCubit extends Cubit<LoginStudentState> {
         if (getIt.isRegistered<HomeBloc>()) {
           getIt<HomeBloc>().add(HomeInitialData());
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            "Verifikasi berhasil",
-            style: TextStyle(color: primaryColor),
-          ),
-        ),
-      );
+        ShowSnackbar.snackbar(context, "Verifikasi Berhasil", '', successColor);
         HomeRoute().go(context);
       }
     } catch (e) {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: redColor,
-          content: Text(
-            e.toString(),
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
       rethrow;
     } finally {
       emit(state.copyWith(loading: false));

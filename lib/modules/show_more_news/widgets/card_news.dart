@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
 
@@ -16,7 +17,7 @@ class CardNews extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.width * .4,
+        height: MediaQuery.of(context).size.width * .41,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -64,8 +65,34 @@ class CardNews extends StatelessWidget {
                         color: const Color(0xff000000).withOpacity(.5),
                         fontWeight: FontWeight.w400,
                       ),
-                      maxLines: 3,
+                      maxLines: 5,
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        SMNewsDetailRoute(newsId: news.id ?? 0,).go(context);
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                              "Lihat selengkapnya",
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontSize: fontSizeOverExtraSmall,
+                                fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_right,
+                              size: 10,
+                              
+                            )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
