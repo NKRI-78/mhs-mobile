@@ -19,7 +19,7 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
       var payment = await paymentRepo.findPayment(id);
       emit(state.copyWith(loading: false, payment: payment));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -28,7 +28,7 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
       var payment = await paymentRepo.findPayment(id);
       emit(state.copyWith(loading: false, payment: payment));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 

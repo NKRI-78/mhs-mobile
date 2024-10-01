@@ -63,7 +63,7 @@ class AuthRepository {
       }
       throw json['message'] ?? "Terjadi kesalahan";
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -87,7 +87,7 @@ class AuthRepository {
       }
       throw json['message'] ?? "Terjadi kesalahan";
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -116,7 +116,7 @@ class AuthRepository {
       }
       throw json['message'] ?? "Terjadi kesalahan";
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -144,7 +144,7 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -186,7 +186,7 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
     return null;
   }
@@ -208,7 +208,7 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -230,7 +230,7 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -253,7 +253,7 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

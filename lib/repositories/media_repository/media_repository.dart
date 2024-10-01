@@ -26,7 +26,7 @@ class MediaRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

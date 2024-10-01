@@ -34,7 +34,7 @@ class EventRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -50,7 +50,7 @@ class EventRepository {
         throw "Ada masalah pada server";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -68,7 +68,7 @@ class EventRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

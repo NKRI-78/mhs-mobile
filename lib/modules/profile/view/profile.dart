@@ -67,7 +67,7 @@ class ProfileView extends StatelessWidget {
                                     width: double.infinity,
                                   ),
                                   Positioned(
-                                    top: 50,
+                                    top: 45,
                                     left: 20,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
@@ -79,7 +79,7 @@ class ProfileView extends StatelessWidget {
                                         aspectRatio: 1/1,
                                         child: Image.file(
                                           File(st.fileImage!.path),
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
                                     )
@@ -98,7 +98,7 @@ class ProfileView extends StatelessWidget {
                                   ),
                                   Positioned(
                                     left: 25,
-                                    bottom: st.profile?.data.student?.nisn != null ? 35 : 30,
+                                    bottom: st.profile?.data.student?.nisn != null ? 38 : 25,
                                     child: Text((nameStudent.isEmpty ? nameUser : nameStudent),
                                       maxLines: 2,
                                       softWrap: true,
@@ -113,7 +113,7 @@ class ProfileView extends StatelessWidget {
                                   ),
                                   st.profile?.data.student?.nisn != null ? Positioned(
                                     left: 25,
-                                    bottom: 10,
+                                    bottom: 20,
                                     child: Text("NPM : ${(st.profile?.data.student?.nisn ?? "-")}",
                                       maxLines: 2,
                                       softWrap: true,

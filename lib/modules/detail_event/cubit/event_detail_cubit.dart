@@ -24,7 +24,7 @@ class EventDetailCubit extends Cubit<EventDetailState> {
       debugPrint("id event fetch $idEvent");
       emit(state.copyWith(event: event, idEvent: idEvent.toString(), loading: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 

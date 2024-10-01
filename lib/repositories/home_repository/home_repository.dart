@@ -108,7 +108,7 @@ class HomeRepository {
     } catch (e) {
       // print(e);
       debugPrint(e.toString());
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -124,7 +124,7 @@ class HomeRepository {
         throw "Ada masalah pada server";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -148,7 +148,7 @@ class HomeRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -181,7 +181,7 @@ class HomeRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -197,7 +197,7 @@ class HomeRepository {
         throw "error api";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -217,7 +217,7 @@ class HomeRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_prevent_screen_capture/flutter_prevent_screen_capture.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
@@ -15,6 +19,16 @@ class ShowPdf extends StatefulWidget {
 }
 
 class _ShowPdfState extends State<ShowPdf> {
+  ///Define a streamSubscription in order to receive changes
+  late StreamSubscription<bool> _screenRecordsSubscription;
+
+  ///Get the instance of plugin for multiple use.
+  FlutterPreventScreenCapture preventScreenCapture = FlutterPreventScreenCapture();
+
+  ///is Recording is set to false initially.
+  bool isRecording = false;
+
+
   secureAndroid() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
@@ -22,15 +36,39 @@ class _ShowPdfState extends State<ShowPdf> {
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
   }
 
+  updateRecordStatus(bool record) {
+    isRecording = record;
+    setState(() {});
+  }
+
+Future<void> checkScreenRecord() async {
+    final recordStatus = await preventScreenCapture.checkScreenRecord();
+
+    debugPrint('Is screen being recorded: $recordStatus');
+
+    isRecording = recordStatus;
+    setState(() {});
+ }
+
   @override
   initState(){
-    secureAndroid();
+    if(Platform.isAndroid){
+      secureAndroid();
+    }else {
+      checkScreenRecord();
+    }
+    _screenRecordsSubscription =
+        preventScreenCapture.screenRecordsIOS.listen(updateRecordStatus);
     super.initState();
   }
 
   @override
   void dispose() {
-    unSecureAndroid();
+    if(Platform.isAndroid){
+      unSecureAndroid();
+    }else {
+      _screenRecordsSubscription.cancel();
+    }
     super.dispose();
   }
 

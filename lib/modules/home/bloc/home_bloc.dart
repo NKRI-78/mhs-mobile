@@ -27,6 +27,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetTestimoni>(_onGetTestimoni);
     on<GetMessageHome>(_onGetMessageHome);
     on<SetFcm>(_onSetFcm);
+    on<DeleteFcm>(_onDeleteFcm);
   }
 
   final homeRepo = HomeRepository();
@@ -82,7 +83,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(state.copyWith(testimoni: list, loadingTestimoni: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
       //
     }
   }
@@ -141,6 +142,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       debugPrint(e.toString());
     } finally {
       emit(state.copyWith(loadingMessage: false));
+    }
+  }
+
+  FutureOr<void> _onDeleteFcm(DeleteFcm event, Emitter<HomeState> emit) async {
+    try {
+      await homeRepo.setDeleteFcm();
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }

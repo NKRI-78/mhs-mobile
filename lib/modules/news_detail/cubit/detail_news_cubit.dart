@@ -20,7 +20,7 @@ class DetailNewsCubit extends Cubit<DetailNewsState> {
       final news = await repo.getDetailNews(newsId);
       emit(state.copyWith(news: news, idNews: newsId));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loading: false));
     }

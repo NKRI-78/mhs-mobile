@@ -5,7 +5,6 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/waiting_payment/cubit/waiting_payment_cubit.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/qr_method_widget.dart';
 import 'package:mhs_mobile/modules/waiting_payment/widgets/virtual_account_method_widget.dart';
-import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_success_payment.dart';
 

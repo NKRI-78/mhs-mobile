@@ -36,7 +36,7 @@ class NotificationRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
   Future<PaginationModel<PaymentData>> getTransaction() async {
@@ -61,7 +61,7 @@ class NotificationRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

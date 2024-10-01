@@ -26,7 +26,7 @@ class ListPresentationCubit extends Cubit<ListPresentationState> {
 
       emit(state.copyWith(document: list, loadingPresentation: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

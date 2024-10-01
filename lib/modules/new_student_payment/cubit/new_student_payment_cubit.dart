@@ -38,7 +38,7 @@ class NewStudentPaymentCubit extends Cubit<NewStudentPaymentState> {
       return paymentNumber;
     } catch (e) {
       emit(state.copyWith(loading: false));
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

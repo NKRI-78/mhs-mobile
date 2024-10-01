@@ -29,7 +29,7 @@ class PaymentRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -52,7 +52,7 @@ class PaymentRepository {
         throw "Error";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

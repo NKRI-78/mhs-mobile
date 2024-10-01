@@ -55,6 +55,7 @@ const testimoniColor = Color(0xFFE3FCFE);
 
 //images
 const String logoMhs = "assets/images/logo.png";
+const String logoMhsNoText = "assets/images/logo-no-text.png";
 const String imageDefault = "assets/images/no_image.png";
 const String circleTop = "assets/images/circle_background_top.png";
 const String circleDown = "assets/images/circle_background_bottom.png";
@@ -67,6 +68,7 @@ const String avatarDefault = "assets/images/default.jpg";
 
 //icons
 const String backIcon = "assets/icons/back-icon.png";
+const String logoutIcon = "assets/icons/shutdown-button.png";
 
 //Font Size
 const double fontSizeOverExtraSmall = 9.0;

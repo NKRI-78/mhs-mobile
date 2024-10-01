@@ -23,9 +23,10 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
         ) {
     on<NotificationInitial>(_onNotificationInitial);
     on<NotificationCopyState>(_onCopyState);
+    on<NotifcationRefreshInfo>(_onNotificationRefreshInfo);
   }
 
-  static RefreshController notifRefreshCtrl = RefreshController();
+  static RefreshController notifRefreshInfoCtrl = RefreshController();
   
   @override
   NotificationState? fromJson(Map<String, dynamic> json) {
@@ -62,7 +63,7 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
 
       emit(state.copyWith(notif: list, pagination: pagination, loading: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -74,7 +75,7 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
 
       emit(state.copyWith(payment: list, pagination: pagination, loading: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
   
@@ -84,4 +85,13 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
     return super.close();
   }
   
+
+  FutureOr<void> _onNotificationRefreshInfo(NotifcationRefreshInfo event, Emitter<NotificationState> emit) async {
+    var value = await repo.getNotif();
+    var list = value.list;
+    var pagination = value.pagination;
+
+    emit(state.copyWith(notif: list, pagination: pagination, loading: false));
+    notifRefreshInfoCtrl.refreshCompleted();
+  }
 }

@@ -20,7 +20,7 @@ class ChooseRoleCubit extends Cubit<ChooseRoleState> {
 
       emit(state.copyWith(generation: data));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

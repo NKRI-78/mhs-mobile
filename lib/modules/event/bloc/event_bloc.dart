@@ -50,7 +50,7 @@ class EventBloc extends HydratedBloc<EventEvent, EventState> {
         state.copyWith(event: data.list, nextPageEvent: data.paginate.next),
       );
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loading: false));
     }

@@ -240,6 +240,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'payment-message',
           factory: $PaymentMessageRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'update',
+          factory: $UpdateRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -1054,6 +1058,30 @@ extension $PaymentMessageRouteExtension on PaymentMessageRoute {
         '/payment-message',
         queryParams: {
           'msg': msg,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $UpdateRouteExtension on UpdateRoute {
+  static UpdateRoute _fromState(GoRouterState state) => UpdateRoute(
+        currentVersion: state.uri.queryParameters['current-version']!,
+        newVersion: state.uri.queryParameters['new-version']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/update',
+        queryParams: {
+          'current-version': currentVersion,
+          'new-version': newVersion,
         },
       );
 

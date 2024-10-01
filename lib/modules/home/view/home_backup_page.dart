@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_bloc.dart';
 import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_state.dart';
 import 'package:mhs_mobile/modules/connectivity/view/connectivity_page.dart';

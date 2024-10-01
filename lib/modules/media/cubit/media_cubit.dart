@@ -24,7 +24,7 @@ class MediaCubit extends Cubit<MediaState> {
 
       emit(state.copyWith(media: list, loadingMedia: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loadingMedia: false));
     }

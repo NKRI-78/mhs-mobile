@@ -71,7 +71,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       return state.email;
     } catch (e) {
       emit(state.copyWith(loading: false));
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

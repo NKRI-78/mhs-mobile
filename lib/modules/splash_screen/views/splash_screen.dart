@@ -8,6 +8,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/background/scaffold_splash.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 
 class SplashScreenPage extends StatelessWidget {
   const SplashScreenPage({super.key});
@@ -27,14 +28,18 @@ class SplashScreenView extends StatefulWidget {
 
 class _SplashScreenViewState extends State<SplashScreenView> {
 
-  void navigateScreen() {
+  void navigateScreen() async {
     final app = getIt<AppBloc>();
-    
+    NewVersionPlus newVersion = NewVersionPlus(androidId: 'com.inovatif78.mhs_mobile', iOSId: 'com.inovatif78.mhs-mobile');
+    final vs = await newVersion.getVersionStatus();
     if (mounted) {
       Future.delayed(Duration.zero, () {
-        app.state.alreadyShowBeginingTour
-            ? HomeRoute().go(context)
-            : BeginingTourRoute().go(context);
+         app.state.alreadyShowBeginingTour
+            ? vs?.canUpdate ?? false ? UpdateRoute(
+        currentVersion: vs?.localVersion ?? "", 
+        newVersion: vs?.storeVersion ?? ""
+      ).go(context) : HomeRoute().go(context)
+        : BeginingTourRoute().go(context);
       });
     }
   }

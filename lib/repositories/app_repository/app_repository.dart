@@ -23,7 +23,7 @@ class AppRepository {
         throw "Ada masalah pada server";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

@@ -26,7 +26,7 @@ class ListBrocureCubit extends Cubit<ListBrocureState> {
 
       emit(state.copyWith(document: list, loadingBrocuhure: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

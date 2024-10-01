@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
+import 'package:mhs_mobile/misc/modal.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
@@ -93,12 +94,16 @@ class MenuScreenHome extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10))),
                                   onPressed: () {
-                                    getIt<AppBloc>().add(SetUserLogout());
-                                    getIt<HomeBloc>().add(SetProfileNull());
-                                    z.close?.call()?.then(
-                                          (value) => HomeRoute().go(context),
-                                        );
-                                    ShowSnackbar.snackbar(context, "Berhasil Keluar", '', successColor);
+                                    GeneralModal.showConfirmModal(context: context, locationImage: logoutIcon, msg: "Apakah anda yakin ingin keluar ?", onPressed: () {
+                                      // getIt<HomeBloc>().add(DeleteFcm());
+                                      getIt<AppBloc>().add(SetUserLogout());
+                                      getIt<HomeBloc>().add(SetProfileNull());
+                                      z.close?.call()?.then(
+                                            (value) => HomeRoute().go(context),
+                                          );
+                                      Navigator.pop(context);
+                                      ShowSnackbar.snackbar(context, "Berhasil Keluar", '', successColor);
+                                    },);
                                   },
                                   child: const Text(
                                     "Keluar",

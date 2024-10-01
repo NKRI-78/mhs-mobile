@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/choose_role/cubit/choose_role_cubit.dart';
 import 'package:mhs_mobile/modules/new_student/cubit/new_student_cubit.dart';
 import 'package:mhs_mobile/modules/new_student/models/gender_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
@@ -29,9 +30,15 @@ class NewStudentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NewStudentCubit>(
-      create: (context) => NewStudentCubit(),
-      child: const NewStudentView(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ChooseRoleCubit>(
+          create: (BuildContext context) => ChooseRoleCubit()..fetchGeneration(),
+        ),
+        BlocProvider<NewStudentCubit>(
+          create: (BuildContext context) => NewStudentCubit(),
+        ),
+      ], child: const NewStudentView(),
     );
   }
 }
@@ -41,114 +48,119 @@ class NewStudentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBackgroundScaffold(
-        assets: BackgroundAssets.standart,
-        child: Form(
-          key: _formRegister,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CustomScrollView(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: [
-                SliverAppBar(
-                  toolbarHeight: 50,
-                  backgroundColor: Colors.transparent,
-                  leading: InkWell(
-                      onTap: () {
-                        GoRouter.of(context).pop();
-                      },
-                      child: Image.asset("assets/icons/back-icon.png")),
-                  title: const Text(
-                    "Siswa Baru",
-                    style: TextStyle(fontSize: fontSizeTitle),
-                  ),
-                  centerTitle: true,
-                ),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 35,
+    return BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
+      buildWhen: (previous, current) => previous.generation != current.generation,
+      builder: (context, state) {
+        return CustomBackgroundScaffold(
+            assets: BackgroundAssets.standart,
+            child: Form(
+              key: _formRegister,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomScrollView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  slivers: [
+                    SliverAppBar(
+                      toolbarHeight: 50,
+                      backgroundColor: Colors.transparent,
+                      leading: InkWell(
+                          onTap: () {
+                            GoRouter.of(context).pop();
+                          },
+                          child: Image.asset("assets/icons/back-icon.png")),
+                      title: const Text(
+                        "Siswa Baru",
+                        style: TextStyle(fontSize: fontSizeTitle),
                       ),
-                      _InputStudentName(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: _InputBirthday(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _InputSchoolFrom(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _InputGender(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _InputParentName(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _InputNumberPhoneStudent(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _InputNumberPhoneParent(),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      centerTitle: true,
+                    ),
+                    SliverList(
+                        delegate: SliverChildListDelegate([
+                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _InputClothesSize(),
-                          Flexible(child: SizedBox()),
-                          _InputHeight(),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Disclaimer !",
-                            style: TextStyle(
-                              color: whiteColor,
-                              fontWeight: FontWeight.w700,
-                              fontSize: fontSizeOverLarge,
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          const _InputStudentName(),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: _InputBirthday(),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _InputSchoolFrom(),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _InputGender(),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _InputParentName(),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _InputNumberPhoneStudent(),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _InputNumberPhoneParent(),
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _InputClothesSize(),
+                              Flexible(child: SizedBox()),
+                              _InputHeight(),
+                            ],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Disclaimer !",
+                                style: TextStyle(
+                                  color: whiteColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: fontSizeOverLarge,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Text(
-                          "Biaya Formulir Pendaftaran sebesar Rp 200.000 dapat di Bayarkan menggunakan metode pembayaran yang sudah kami sediakan",
-                          style: TextStyle(
-                            color: whiteColor,
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: Text(
+                              "Biaya Formulir Pendaftaran sebesar Rp 200.000 dapat di Bayarkan menggunakan metode pembayaran yang sudah kami sediakan",
+                              style: TextStyle(
+                                color: whiteColor,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Text(
-                          "*Persyaratan lain dapat menyusul pada saat tahun ajaran baru 2025 TA Baru dimulai Bulan Juni 2025",
-                          style: TextStyle(
-                            color: whiteColor,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(
+                              "*Persyaratan lain dapat menyusul pada saat tahun ajaran baru ${state.generation?.data?.schoolGeneration?.years?? "-"} TA Baru dimulai Tahun  ${state.generation?.data?.schoolGeneration?.years?? "-"}",
+                              style: const TextStyle(
+                                color: whiteColor,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _BottomButon(),
-                      ),
-                    ],
-                  )
-                ]))
-              ],
-            ),
-          ),
-        ));
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: _BottomButon(),
+                          ),
+                        ],
+                      )
+                    ]))
+                  ],
+                ),
+              ),
+            ));
+      }
+    );
   }
 }

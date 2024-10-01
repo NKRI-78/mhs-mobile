@@ -41,7 +41,7 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
 
       emit(state.copyWith(news: list, newsPagination: pagination, loadingNews: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loadingNews: false));
     }

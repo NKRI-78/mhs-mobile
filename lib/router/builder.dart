@@ -38,6 +38,7 @@ import 'package:mhs_mobile/modules/show_more_news/view/show_more_news.dart';
 import 'package:mhs_mobile/modules/show_more_testimoni/view/show_more_testimoni.dart';
 import 'package:mhs_mobile/modules/show_pdf/view/show_pdf.dart';
 import 'package:mhs_mobile/modules/splash_screen/views/splash_screen.dart';
+import 'package:mhs_mobile/modules/update/view/update_page.dart';
 import 'package:mhs_mobile/modules/waiting_payment/view/waiting_payment_page.dart';
 import 'package:mhs_mobile/modules/webview/view/webview.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
@@ -132,13 +133,24 @@ class SplashScreenRoute extends GoRouteData {
       ],
     ),
     TypedGoRoute<WaitingPaymentRoute>(path: 'waiting-payment'),
-    TypedGoRoute<PaymentMessageRoute>(path: 'payment-message')
+    TypedGoRoute<PaymentMessageRoute>(path: 'payment-message'),
+    TypedGoRoute<UpdateRoute>(path: 'update'),
   ],
 )
 class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+class UpdateRoute extends GoRouteData {
+  final String currentVersion;
+  final String newVersion;
+
+  UpdateRoute({required this.currentVersion, required this.newVersion});
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return UpdatePage(currentVersion: currentVersion, newVersion: newVersion,);
   }
 }
 class NoConnectionRoute extends GoRouteData {

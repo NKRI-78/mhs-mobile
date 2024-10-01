@@ -21,7 +21,7 @@ class PartnershipCubit extends Cubit<PartnershipState> {
       var value = await partnership.getPartnership();
       emit(state.copyWith(partnership: value));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loadingPartnership: false));
     }

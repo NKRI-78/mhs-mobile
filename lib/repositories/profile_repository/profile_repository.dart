@@ -34,7 +34,7 @@ class ProfileRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -66,7 +66,7 @@ class ProfileRepository {
     return [];
     } catch (e) {
       debugPrint('error profile $e');
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 
@@ -84,7 +84,7 @@ class ProfileRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }

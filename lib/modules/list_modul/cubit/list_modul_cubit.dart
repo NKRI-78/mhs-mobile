@@ -25,7 +25,7 @@ class ListModulCubit extends Cubit<ListModulState> {
 
       emit(state.copyWith(document: list, loadingModul: false));
     } catch (e) {
-      rethrow;
+      throw "Ada masalah pada server";
     }
   }
 }
