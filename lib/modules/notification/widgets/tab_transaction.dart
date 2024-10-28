@@ -16,7 +16,7 @@ class TabTransaction extends StatelessWidget {
     return BlocBuilder<NotificationBloc, NotificationState>(
       buildWhen: (previous, current) => previous.payment != current.payment,
       builder: (context, state) {
-        return state.loading == true ? const LoadingPage() : state.payment?.isEmpty ?? true ? const EmptyPage(msg: "Tidak ada transaksi") : ListView.builder(
+        return state.loading == true ? const LoadingPage() : state.payment?.isEmpty ?? true ? const EmptyPage(msg: "Tidak ada pembayaran") : ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,

@@ -9,6 +9,7 @@ class ShowSnackbar {
       [Duration? time]) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        // duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
         backgroundColor: backgroundColor,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mhs_mobile/misc/modal.dart';
+import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
 import 'package:mhs_mobile/router/builder.dart';
@@ -38,9 +36,9 @@ class TabInformation extends StatelessWidget {
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.all(Radius.circular(13))
+                  decoration: BoxDecoration(
+                    color: data?.readAt != null ? whiteColor : greyDescColor.withOpacity(0.5),
+                    borderRadius: const BorderRadius.all(Radius.circular(13))
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   child: Row(

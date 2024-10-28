@@ -8,7 +8,8 @@ class ImageCard extends StatelessWidget {
   final double? height;
   final double radius;
   final BoxFit? fit;
-  const ImageCard({super.key, required this.image, this.height, required this.radius, this.width, this.fit = BoxFit.fill});
+  final bool? isAvatar;
+  const ImageCard({super.key, required this.image, this.height, required this.radius, this.width, this.fit = BoxFit.fill, this.isAvatar = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ImageCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(radius))
           ),
           child: Image.asset(
-            imageDefault,
+            isAvatar == true ? avatarDefault : imageDefault,
             width: width,
             height: height,
             fit: BoxFit.cover,

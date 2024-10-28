@@ -22,7 +22,7 @@ class _InputBirthdayState extends State<_InputBirthday> {
       controller: controller,
       readOnly: true,
       onTap: () async {
-       var date = await  showCupertinoModalPopup<DateTime?>(
+       await  showCupertinoModalPopup<DateTime?>(
           // backgroundColor: whiteColor.withOpacity(0.5),
           context: context, 
           builder: (ctx) {

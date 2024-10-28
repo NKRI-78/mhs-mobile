@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart';
 
 class ProfileState extends Equatable {
@@ -38,7 +39,7 @@ class ProfileState extends Equatable {
     String? address,
     bool? isSelected,
     String? avatar,
-    File? fileImage,
+    ValueGetter<File?>? fileImage,
     ProfileModel? profile,
     bool? loadingProfile,
   }) {
@@ -47,7 +48,7 @@ class ProfileState extends Equatable {
       isSelected: isSelected ?? this.isSelected,
       fullname: fullname ?? this.fullname,
       avatar: avatar ?? this.avatar,
-      fileImage: fileImage ?? this.fileImage,
+      fileImage: fileImage != null ? fileImage() : this.fileImage,
       profile: profile ?? this.profile,
       loadingProfile: loadingProfile ?? this.loadingProfile,
     );

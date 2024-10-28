@@ -13,6 +13,7 @@ class _BottomButon extends StatelessWidget {
             if (_formRegister.currentState?.validate() ?? false) {
               var state = context.read<NewStudentCubit>().state;
               final validator = context.read<NewStudentCubit>();
+              print("No tlp Ortu : ${state.parentPhone}");
               final bool isClear = validator.submissionValidation(
               context,
                 phone: state.phone,

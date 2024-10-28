@@ -10,6 +10,7 @@ class _InputNis extends StatelessWidget {
       onChanged: (value) {},
       isName: true,
       hintText: "",
+      maxLength: 9,
       fillColor: whiteColor.withOpacity(0.10),
       emptyText: "Masukan NIS anda",
       textInputType: TextInputType.text,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,9 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
       var list = value.list;
       var pagination = value.pagination;
 
-      emit(state.copyWith(news: list, newsPagination: pagination, loadingNews: false));
-    } catch (e) {
-      throw "Ada masalah pada server";
+      emit(state.copyWith(news: list, nextPageNews: pagination.next, newsPagination: pagination),);
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } finally {
       emit(state.copyWith(loadingNews: false));
     }
@@ -49,7 +50,7 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
 
   FutureOr<void> loadMoreNews() async {
     try {
-      var value = await homeRepo.getNews();
+      var value = await homeRepo.getNews(page: state.nextPageNews);
       var list = value.list;
       var pagination = value.pagination;
       

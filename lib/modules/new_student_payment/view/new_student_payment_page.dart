@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mhs_mobile/misc/modal.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
@@ -54,40 +55,25 @@ class NewStudentPaymentView extends StatelessWidget {
                       delegate: SliverChildListDelegate([
                         Container(
                           width: double.infinity,
-                          height: 175,
+                          height: 150,
                           decoration: BoxDecoration(
                             color: greyColor, 
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(20),
                           child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "Total Pembayaran",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: fontSizeLarge
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 50,
-                                  ),
-                                  Text(
-                                    "Detail",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11,
-                                      color: primaryColor
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                "Total Pembayaran",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: fontSizeLarge
+                                ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
                               Text(
                                 "Rp. 200.000",
@@ -185,7 +171,6 @@ class NewStudentPaymentView extends StatelessWidget {
                               } else {
                                 try {
                                   var paymentNumber = await cubit.checkout();
-                                  debugPrint("Number : $paymentNumber");
                                   if (context.mounted) {
                                     WaitingPaymentRoute(id: paymentNumber)
                                         .go(context);
@@ -197,7 +182,7 @@ class NewStudentPaymentView extends StatelessWidget {
                                 }
                               }
                             },
-                      child: const Text('Checkout'),
+                      child: const Text('Bayar'),
                     ),
                   );
                 },

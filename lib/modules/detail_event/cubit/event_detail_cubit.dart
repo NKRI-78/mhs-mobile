@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -23,8 +25,8 @@ class EventDetailCubit extends Cubit<EventDetailState> {
       final event = await repo.getEventDetail(idEvent.toString());
       debugPrint("id event fetch $idEvent");
       emit(state.copyWith(event: event, idEvent: idEvent.toString(), loading: false));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 

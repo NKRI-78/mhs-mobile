@@ -34,6 +34,8 @@ class ProfileData {
   Student? student;
   bool? isWaitingAprovalAdmin;
   WaitingPaymentNewStudent? waitingPaymentNewStudent;
+  Parent? parent;
+  List<Children>? children;
 
   ProfileData(
       {this.id,
@@ -51,7 +53,9 @@ class ProfileData {
       this.role,
       this.student,
       this.isWaitingAprovalAdmin,
-      this.waitingPaymentNewStudent});
+      this.waitingPaymentNewStudent,
+      this.parent,
+      this.children});
 
   ProfileData.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
@@ -68,11 +72,18 @@ class ProfileData {
     profile = json['Profile'] != null ? Profile.fromJson(json['Profile']) : null;
     role = json['Role'] != null ? Role.fromJson(json['Role']) : null;
     student = json['student'] != null ? Student.fromJson(json['student']) : null;
+    parent = json['parent'] != null ? Parent.fromJson(json['parent']) : null;
     isWaitingAprovalAdmin = json['isWaitingAprovalAdmin'] ?? false;
     waitingPaymentNewStudent = json['waitingPaymentNewStudent'] != null
     ? WaitingPaymentNewStudent.fromJson(
         json['waitingPaymentNewStudent'])
     : null;
+    if (json['children'] != null) {
+      children = <Children>[];
+      json['children'].forEach((v) {
+        children!.add(Children.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -98,6 +109,12 @@ class ProfileData {
     if (waitingPaymentNewStudent != null) {
       data['waitingPaymentNewStudent'] =
           waitingPaymentNewStudent!.toJson();
+    }
+    if (parent != null) {
+      data['parent'] = parent!.toJson();
+    }
+    if (children != null) {
+      data['children'] = children!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -364,6 +381,8 @@ class Student {
   int? schoolGenerationId;
   int? generationRegistrationId;
   SchoolGeneration? schoolGeneration;
+  List<AttendanceStudents>? attendanceStudents;
+  Testimoni? testimoni;
 
   Student(
       {this.id,
@@ -392,7 +411,9 @@ class Student {
       this.parentId,
       this.schoolGenerationId,
       this.generationRegistrationId,
-      this.schoolGeneration});
+      this.schoolGeneration,
+      this.attendanceStudents,
+      this.testimoni});
 
   Student.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
@@ -423,6 +444,15 @@ class Student {
     generationRegistrationId = json['GenerationRegistrationId'];
     schoolGeneration = json['SchoolGeneration'] != null
         ? SchoolGeneration.fromJson(json['SchoolGeneration'])
+        : null;
+    if (json['AttendanceStudents'] != null) {
+      attendanceStudents = <AttendanceStudents>[];
+      json['AttendanceStudents'].forEach((v) {
+        attendanceStudents!.add(AttendanceStudents.fromJson(v));
+      });
+    }
+    testimoni = json['Testimoni'] != null
+        ? Testimoni.fromJson(json['Testimoni'])
         : null;
   }
 
@@ -457,6 +487,13 @@ class Student {
     if (schoolGeneration != null) {
       data['SchoolGeneration'] = schoolGeneration!.toJson();
     }
+    if (attendanceStudents != null) {
+      data['AttendanceStudents'] =
+          attendanceStudents!.map((v) => v.toJson()).toList();
+    }
+    if (testimoni != null) {
+      data['Testimoni'] = testimoni!.toJson();
+    }
     return data;
   }
 }
@@ -476,6 +513,284 @@ class SchoolGeneration {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['years'] = years;
     data['generation'] = generation;
+    return data;
+  }
+}
+
+class AttendanceStudents {
+  int? id;
+  String? date;
+  int? attendanceId;
+  int? studentId;
+  String? createdAt;
+  String? updatedAt;
+  Attendance? attendance;
+
+  AttendanceStudents(
+      {this.id,
+      this.date,
+      this.attendanceId,
+      this.studentId,
+      this.createdAt,
+      this.updatedAt,
+      this.attendance});
+
+  AttendanceStudents.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    date = json['date'];
+    attendanceId = json['attendanceId'];
+    studentId = json['studentId'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    attendance = json['Attendance'] != null
+        ? Attendance.fromJson(json['Attendance'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['date'] = date;
+    data['attendanceId'] = attendanceId;
+    data['studentId'] = studentId;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    if (attendance != null) {
+      data['Attendance'] = attendance!.toJson();
+    }
+    return data;
+  }
+}
+
+class Attendance {
+  String? date;
+  String? time;
+  String? subject;
+
+  Attendance({this.date, this.time, this.subject});
+
+  Attendance.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    time = json['time'];
+    subject = json['subject'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['date'] = date;
+    data['time'] = time;
+    data['subject'] = subject;
+    return data;
+  }
+}
+
+class Parent {
+  int? id;
+  String? fullname;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  int? userId;
+
+  Parent(
+      {this.id,
+      this.fullname,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.userId});
+
+  Parent.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    fullname = json['fullname'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    deletedAt = json['deletedAt'];
+    userId = json['UserId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['fullname'] = fullname;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['deletedAt'] = deletedAt;
+    data['UserId'] = userId;
+    return data;
+  }
+}
+
+class Children {
+  int? id;
+  String? nisn;
+  String? fullname;
+  String? birthDate;
+  String? gender;
+  String? originSchool;
+  String? address;
+  String? phone;
+  String? parentName;
+  String? parentJob;
+  String? parentPhone;
+  String? programSchool;
+  int? height;
+  String? outfitSize;
+  int? status;
+  String? statusMessage;
+  String? photo;
+  String? classYear;
+  String? end;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  int? userId;
+  int? parentId;
+  int? schoolGenerationId;
+  int? generationRegistrationId;
+
+  Children(
+      {this.id,
+      this.nisn,
+      this.fullname,
+      this.birthDate,
+      this.gender,
+      this.originSchool,
+      this.address,
+      this.phone,
+      this.parentName,
+      this.parentJob,
+      this.parentPhone,
+      this.programSchool,
+      this.height,
+      this.outfitSize,
+      this.status,
+      this.statusMessage,
+      this.photo,
+      this.classYear,
+      this.end,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.userId,
+      this.parentId,
+      this.schoolGenerationId,
+      this.generationRegistrationId});
+
+  Children.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nisn = json['nisn'];
+    fullname = json['fullname'];
+    birthDate = json['birthDate'];
+    gender = json['gender'];
+    originSchool = json['originSchool'];
+    address = json['address'];
+    phone = json['phone'];
+    parentName = json['parentName'];
+    parentJob = json['parentJob'];
+    parentPhone = json['parentPhone'];
+    programSchool = json['programSchool'];
+    height = json['height'];
+    outfitSize = json['outfitSize'];
+    status = json['status'];
+    statusMessage = json['statusMessage'];
+    photo = json['photo'];
+    classYear = json['classYear'];
+    end = json['end'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    deletedAt = json['deletedAt'];
+    userId = json['UserId'];
+    parentId = json['ParentId'];
+    schoolGenerationId = json['SchoolGenerationId'];
+    generationRegistrationId = json['GenerationRegistrationId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['nisn'] = nisn;
+    data['fullname'] = fullname;
+    data['birthDate'] = birthDate;
+    data['gender'] = gender;
+    data['originSchool'] = originSchool;
+    data['address'] = address;
+    data['phone'] = phone;
+    data['parentName'] = parentName;
+    data['parentJob'] = parentJob;
+    data['parentPhone'] = parentPhone;
+    data['programSchool'] = programSchool;
+    data['height'] = height;
+    data['outfitSize'] = outfitSize;
+    data['status'] = status;
+    data['statusMessage'] = statusMessage;
+    data['photo'] = photo;
+    data['classYear'] = classYear;
+    data['end'] = end;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['deletedAt'] = deletedAt;
+    data['UserId'] = userId;
+    data['ParentId'] = parentId;
+    data['SchoolGenerationId'] = schoolGenerationId;
+    data['GenerationRegistrationId'] = generationRegistrationId;
+    return data;
+  }
+}
+
+class Testimoni {
+  int? id;
+  int? rating;
+  String? caption;
+  String? message;
+  String? imageUrl;
+  String? name;
+  bool? status;
+  String? createdAt;
+  String? updatedAt;
+  int? userId;
+  int? studentId;
+
+  Testimoni(
+      {this.id,
+      this.rating,
+      this.caption,
+      this.message,
+      this.imageUrl,
+      this.name,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.userId,
+      this.studentId});
+
+  Testimoni.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    rating = json['rating'];
+    caption = json['caption'];
+    message = json['message'];
+    imageUrl = json['imageUrl'];
+    name = json['name'];
+    status = json['status'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    userId = json['UserId'];
+    studentId = json['StudentId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['rating'] = rating;
+    data['caption'] = caption;
+    data['message'] = message;
+    data['imageUrl'] = imageUrl;
+    data['name'] = name;
+    data['status'] = status;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['UserId'] = userId;
+    data['StudentId'] = studentId;
     return data;
   }
 }

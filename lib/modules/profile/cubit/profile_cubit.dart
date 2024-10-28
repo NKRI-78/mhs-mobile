@@ -22,7 +22,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> fetchProfile() async {
     try {
       ProfileModel? data = await homeRepo.getProfile();
-      emit(state.copyWith(profile: data));
+      emit(state.copyWith(profile: data, avatar: data.data.profile?.pictureUrl ?? ""));
     } catch (e) {
       debugPrint(e.toString());
     } finally {
@@ -69,10 +69,10 @@ class ProfileCubit extends Cubit<ProfileState> {
             ));
         if (cropped != null) {
           imageResult = cropped;
-          emit(state.copyWith(fileImage: imageResult, isSelected: true));
+          emit(state.copyWith(fileImage: () => imageResult, isSelected: true));
         } else {
           imageResult = null;
-          emit(state.copyWith(fileImage: imageResult));
+          emit(state.copyWith(fileImage: () => imageResult));
         }
       } else {
         File? fileImage;
@@ -94,10 +94,10 @@ class ProfileCubit extends Cubit<ProfileState> {
             ));
         if (cropped != null) {
           fileImage = cropped;
-          emit(state.copyWith(fileImage: fileImage, isSelected: true));
+          emit(state.copyWith(fileImage: () => fileImage, isSelected: true));
         } else {
           fileImage = null;
-          emit(state.copyWith(fileImage: fileImage));
+          emit(state.copyWith(fileImage: () => fileImage));
         }
       }
     }
@@ -111,7 +111,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await repo.updateProfile(linkAvatar: remaplink[0]['url']['url'],
       );
-      emit(state.copyWith(fileImage: null, isSelected: false));
+      emit(state.copyWith(fileImage: null, isSelected: false, avatar: remaplink[0]['url']['url']));
       
       if(context.mounted){
         ShowSnackbar.snackbar(context, "Profil berhasil diubah", '', successColor);
@@ -125,8 +125,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void removeImage() {
-    emit(state.copyWith(fileImage: null));
+  Future<void> removeImage() async {
+    debugPrint("Clicked");
+    try { 
+      emit(state.copyWith(fileImage: () => null, isSelected: false));
+      debugPrint("Is Selected : ${state.isSelected}");
+    } catch (e) {
+      debugPrint("Error : $e");
+    }
   }
 
   void copyState({required ProfileState newState}) {
@@ -135,7 +141,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   @override
   Future<void> close() {
-    debugPrint("Close Profile");
     emit(state.copyWith(isSelected: false));
     return super.close();
   }

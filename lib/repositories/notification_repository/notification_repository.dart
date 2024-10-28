@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/api_url.dart';
@@ -14,20 +15,19 @@ class NotificationRepository {
 
   final http = getIt<BaseNetworkClient>();
 
-  Future<PaginationModel<NotifData>> getNotif() async {
+  Future<PaginationModel<NotifData>> getNotif({int page = 1}) async {
     try {
-      final res = await http.get(Uri.parse(notif));
+      final res = await http.get(Uri.parse('$notif?page=$page'));
+      
 
-      // debugPrint(res.body);
+      debugPrint('$notif?page=$page');
 
      final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        var listdata = json['data']['data'];
-        debugPrint("List data notif : $listdata");
-        var pagination = Pagination.fromJson(json['data']);
         var list = (json['data']['data'] as List)
             .map((e) => NotifData.fromJson(e))
             .toList();
+        var pagination = Pagination.fromJson(json['data']);
         return PaginationModel<NotifData>(pagination: pagination, list: list);
       }
       if (res.statusCode == 400) {
@@ -35,8 +35,8 @@ class NotificationRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
   Future<PaginationModel<PaymentData>> getTransaction() async {
@@ -60,8 +60,23 @@ class NotificationRepository {
       } else {
         throw "Error";
       }
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
+    }
+  }
+
+  Future<String> readNotif({required int idNotif}) async {
+    try {
+      final res = await http.put(Uri.parse("$notif/read/$idNotif"));
+
+      debugPrint("Read all : $notif/read/$idNotif");
+      if (res.statusCode == 200) {
+        return "Berhasil membaca";
+      } else {
+        throw "error api";
+      }
     } catch (e) {
-      throw "Ada masalah pada server";
+      rethrow;
     }
   }
 }

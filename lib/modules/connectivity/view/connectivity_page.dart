@@ -8,8 +8,7 @@ class NoConnectivityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: primaryColor,
         body: Center(
           child: Stack(
@@ -25,27 +24,28 @@ class NoConnectivityScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   logoMhs,
-                    //   scale: 3,
-                    // ),
-                    const Icon(Icons.signal_wifi_off, size: 200, color: whiteColor,),
+                    Image.asset(
+                      noConnection,
+                      scale: 3,
+                    ),
                     const SizedBox(height: 20,),
-                    Text(
-                      msg,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: whiteColor
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        msg,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: whiteColor
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -17,31 +17,30 @@ class SelectPaymentChannel extends StatelessWidget {
           children: state.channels
               .map(
                 (e) => ListTile(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 5),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   title: Text(e.name ?? ""),
                   onTap: () {
                     context.read<NewStudentPaymentCubit>().setPaymentChannel(e);
                     Navigator.pop(context);
                   },
                   selected: true,
-                  tileColor: Colors.red,
                   selectedColor: primaryColor,
                   splashColor: primaryColor,
                   leading: ImageCard(
                     image: e.logo ?? "", 
-                    height: 50,
+                    height: 40,
                     width: 50,
                     radius: 10
                   ),
-                  // subtitle: Text(
-                  //   (e.paymentType ?? "").replaceAll(
-                  //     "_",
-                  //     " ",
-                  //   ),
-                  //   style: const TextStyle(
-                  //     fontSize: 10,
-                  //   ),
-                  // ),
+                  subtitle: Text(
+                    (e.paymentType ?? "").replaceAll(
+                      "_",
+                      " ",
+                    ).replaceAll("GOPAY", "QRIS"),
+                    style: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
                   trailing: const Icon(Iconsax.arrow_right),
                 ),
               )

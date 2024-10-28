@@ -19,3 +19,5 @@ class GetTestimoni extends HomeEvent {}
 class DeleteFcm extends HomeEvent {}
 
 class SetFcm extends HomeEvent {}
+
+class GetCounNotif extends HomeEvent {}

@@ -8,6 +8,7 @@ class HeaderHome extends StatelessWidget {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
         bool isLogin = state.isLogin;
+
         return SizedBox(
           width: double.infinity,
           height: isLogin ? 190 : 150,
@@ -15,10 +16,11 @@ class HeaderHome extends StatelessWidget {
             builder: (context, st) {
               String roleId = st.profile?.data.role?.slug ?? "USER";
               String nameStudent = st.profile?.data.student?.fullname ?? "-" ;
+              String nameParent = st.profile?.data.parent?.fullname ?? "-" ;
               String nameUser = st.profile?.data.name ?? "" ;
               bool waitAdmin = st.profile?.data.isWaitingAprovalAdmin ?? false ;
-
-              debugPrint("user name : $nameUser");
+              int countNotif = getIt<HomeBloc>().state.countNotif;
+              debugPrint("user name : $countNotif");
               return Stack(
                 children: [
                   Positioned(
@@ -45,7 +47,7 @@ class HeaderHome extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                isLogin ? (st.profile?.data.student == null ? nameUser : nameStudent) : "Metro Hotel School",
+                                isLogin ? (st.profile?.data.student != null ? nameStudent : st.profile?.data.parent != null ? nameParent : nameUser) : "Metro Hotel School",
                                 style: const TextStyle(
                                   color: whiteColor,
                                   fontSize: 20,
@@ -57,9 +59,9 @@ class HeaderHome extends StatelessWidget {
                                 color: greyInputColor.withOpacity(0.5),
                                 endIndent: 30,
                               ),
-                              roleId == "STUDENT" ? Text(
+                              roleId == "STUDENT" || roleId == "ALUMNI" || roleId == "PARENT"  ? Text(
                                 st.message?.data.messageHome ?? "-",
-                                maxLines: 3,
+                                maxLines: 5,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: whiteColor,
@@ -118,27 +120,27 @@ class HeaderHome extends StatelessWidget {
                                             size: 20,
                                           )
                                         ),
-                                      // Align(
-                                      //   alignment: Alignment.topRight,
-                                      //   child: Padding(
-                                      //     padding: const EdgeInsets.only(right: 8),
-                                      //     child:Container(
-                                      //       width: 20,
-                                      //       height: 20,
-                                      //       decoration: BoxDecoration(
-                                      //         color: redColor,
-                                      //         borderRadius: BorderRadius.circular(20)
-                                      //       ),
-                                      //       child: const Text(
-                                      //         "0",
-                                      //         textAlign: TextAlign.center,
-                                      //         style: TextStyle(
-                                      //           color: whiteColor
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // )
+                                        countNotif != 0 ? Align(
+                                          alignment: Alignment.topRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 20),
+                                            child:Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                color: redColor,
+                                                borderRadius: BorderRadius.circular(20)
+                                              ),
+                                              child: Text(
+                                                "$countNotif",
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: whiteColor
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ) : const SizedBox.shrink()
                                     ],
                                   ),
                                 )

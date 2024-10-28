@@ -34,7 +34,7 @@ class TestimoniCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(testimoni.name ?? "",
+                    Text("${testimoni.student == null ? testimoni.name : testimoni.student?.fullname ?? "-"}",
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       softWrap: true,

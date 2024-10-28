@@ -6,7 +6,7 @@ class _InputGender extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<GenderModel> _list = [
+    List<GenderModel> list = [
       GenderModel(
         name: "Laki - Laki",
         value: "L"
@@ -34,7 +34,7 @@ class _InputGender extends StatelessWidget {
               color: whiteColor
             ),
           ),
-          items: _list
+          items: list
           .map((item) => DropdownMenuItem<String>(
                 value: item.value,
                 child: Text(
@@ -54,8 +54,10 @@ class _InputGender extends StatelessWidget {
           },
           onChanged: (value) {
             context.read<NewStudentCubit>().copyToState(gender: value);
+            debugPrint("Jenkel Input $value");
           },
           onSaved: (value) {
+            context.read<NewStudentCubit>().copyToState(gender: value);
           },
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.only(right: 8),

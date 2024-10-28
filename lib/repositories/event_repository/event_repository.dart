@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/api_url.dart';
@@ -33,8 +34,8 @@ class EventRepository {
       } else {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -49,8 +50,8 @@ class EventRepository {
       } else {
         throw "Ada masalah pada server";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -67,8 +68,8 @@ class EventRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +50,8 @@ class EventBloc extends HydratedBloc<EventEvent, EventState> {
       emit(
         state.copyWith(event: data.list, nextPageEvent: data.paginate.next),
       );
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } finally {
       emit(state.copyWith(loading: false));
     }

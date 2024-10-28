@@ -8,14 +8,18 @@ class RegisterState extends Equatable {
   final String password;
   final String rePassword;
   final bool loading;
+  final List<Contact>? contact;
+
 
   const RegisterState(
-      {this.name = '',
-      this.phone = '',
-      this.email = '',
-      this.password = '',
-      this.rePassword = '',
-      this.loading = false});
+    {this.name = '',
+    this.phone = '',
+    this.email = '',
+    this.password = '',
+    this.rePassword = '',
+    this.loading = false,
+    this.contact = const [],
+  });
 
   @override
   List<Object?> get props =>
@@ -28,6 +32,7 @@ class RegisterState extends Equatable {
     String? password,
     String? rePassword,
     bool? loading,
+    List<Contact>? contact,
   }) {
     return RegisterState(
       name: name ?? this.name,
@@ -36,6 +41,7 @@ class RegisterState extends Equatable {
       password: password ?? this.password,
       rePassword: rePassword ?? this.rePassword,
       loading: loading ?? this.loading,
+      contact: contact ?? this.contact,
     );
   }
 }

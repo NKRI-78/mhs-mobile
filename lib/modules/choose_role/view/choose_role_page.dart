@@ -85,10 +85,11 @@ class ChooseRoleView extends StatelessWidget {
                         LoginStudentRoute().go(context);
                       } else if(st.roleSelect == "Orang Tua"){
                         LoginParentRoute().go(context);
+                      } else if(st.roleSelect == "Alumni"){
+                        LoginAlumniRoute().go(context);
                       } else {
                         ShowSnackbar.snackbar(context,"Pilih Role Anda", '', errorColor);
                       }
-                      // LoginRoute().push(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: whiteColor

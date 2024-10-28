@@ -91,11 +91,17 @@ class RegisterView extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           children: [
-                            const TextSpan(text: "Sudah Punya Akun ? "),
+                            const TextSpan(
+                              text: "Sudah Punya Akun ? ",
+                              style: TextStyle(
+                                fontSize: fontSizeLarge
+                              )
+                            ),
                             TextSpan(
                               text: "Masuk",
                               style: const TextStyle(
                                 color: redColor,
+                                fontSize: fontSizeLarge
                               ),
                               recognizer: TapGestureRecognizer()
                               ..onTap = () {

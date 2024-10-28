@@ -13,10 +13,13 @@ part 'app_state.dart';
 part 'app_bloc.g.dart';
 
 class AppBloc extends HydratedBloc<AppEvent, AppState> {
+  // Listen to connectivity changes
+
   AppBloc() : super(const AppState()) {
     on<FinishBeginingTour>(_onFinishBeginingTour);
     on<SetAuthenticated>(_onSetAuthenticated);
     on<SetUserLogout>(_onSetUserLogout);
+    on<CheckConnectivity>(_onCheckConnectivity);
   }
 
   AppRepository repo = getIt<AppRepository>();
@@ -43,5 +46,9 @@ class AppBloc extends HydratedBloc<AppEvent, AppState> {
   FutureOr<void> _onSetAuthenticated(
       SetAuthenticated event, Emitter<AppState> emit) {
     emit(state.copyWith(user: event.user, token: event.token));
+  }
+
+  FutureOr<void> _onCheckConnectivity(CheckConnectivity event, Emitter<AppState> emit) async {
+
   }
 }

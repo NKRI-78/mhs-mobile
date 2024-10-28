@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/settings/widgets/list_setting.dart';
-import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 
 class SettingPage extends StatelessWidget {

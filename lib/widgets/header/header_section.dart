@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 
 class HeaderSection extends StatelessWidget {
-  const HeaderSection({super.key, required this.title, required this.isCircle, this.isPrimary = false});
+  const HeaderSection({super.key, required this.title, required this.isCircle, this.isPrimary = false, this.widgetRight});
 
   final String title;
   final bool isCircle;
   final bool? isPrimary;
+  final List<Widget>? widgetRight;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class HeaderSection extends StatelessWidget {
           color: isPrimary == true || isCircle == true ? whiteColor : blackColor,
         ),
       ),
+      actions: widgetRight,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         background: Container(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/api_url.dart';
@@ -25,8 +26,8 @@ class MediaRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

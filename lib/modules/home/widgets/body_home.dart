@@ -9,6 +9,7 @@ import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/modules/home/widgets/banners_widget.dart';
 import 'package:mhs_mobile/modules/home/widgets/footer_address.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/bottom_menu.dart';
+import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_alumni.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_parent.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_botton/header_menu_student.dart';
 import 'package:mhs_mobile/modules/home/widgets/menus_widget.dart';
@@ -36,7 +37,8 @@ class BodyHome extends StatelessWidget {
               onRefresh: () async {
                 getIt<HomeBloc>().add(HomeInitialData());
               },
-              child: ListView(children: [
+              child: ListView(
+                children: [
               const HeaderHome(),
               Stack(
               clipBehavior: Clip.none,
@@ -55,11 +57,11 @@ class BodyHome extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 13),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      children: const [
-                        BannersWidget(),
-                        MenusWidget(),
-                        TestimoniWidget(),
-                        NewsWidget(),
+                      children: [
+                        const BannersWidget(),
+                        MenusWidget(role: roleId,),
+                        const TestimoniWidget(),
+                        const NewsWidget(),
                       ],
                     ),
                   ),
@@ -70,79 +72,80 @@ class BodyHome extends StatelessWidget {
                   right: 10,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: roleId == "STUDENT"
-                        ? const HeaderMenuStudent()
-                        : roleId == "PARENT" ? const HeaderMenuParent() : waitingPaymentNewStudent != null ?
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: greenColor,
-                      
-                              padding: const EdgeInsets.symmetric(vertical: 15)
-                            ),
-                            child: const Text("Menunggu Pembayaran"),
-                            onPressed: () {
-                              WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
-                            },
-                          ) : isWaitingAprovalAdmin
-                            ? BottomMenu(
-                                title: 'Menunggu Persetujuan Admin',
-                                onPressed: () {},
-                              )
-                            : isLogin
-                                ? BottomMenu(
-                                    title: 'Pilih Akun Anda',
-                                    onPressed: () {
-                                      ChooseRoleRoute().go(context);
-                                    },
-                                  )
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        flex: 6,
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              RegisterRoute().go(context);
-                                            },
-                                            child: const Center(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 15),
-                                                child: Text(
-                                                  "Gabung Bersama Kami",
-                                                  style: TextStyle(
-                                                    color: whiteColor,
-                                                    height: 1,
-                                                    fontSize: fontSizeLarge,
-                                                    fontWeight: FontWeight.bold
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const CircleBorder(),
-                                        ),
-                                        onPressed: () {
-                                          z.toggle!();
-                                        },
-                                        child: const Center(
-                                          child: Icon(Iconsax.element_3),
-                                        )),
-                                      )
-                                    ],
+                    child: 
+                      roleId == "STUDENT" ? const HeaderMenuStudent()
+                    : roleId == "PARENT" ? const HeaderMenuParent()
+                    : roleId == "ALUMNI" ? HeaderMenuAlumni(nameStudent: state.profile?.data.student?.testimoni?.message ?? "",) 
+                    : waitingPaymentNewStudent != null ?
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: greenColor,
+                  
+                          padding: const EdgeInsets.symmetric(vertical: 15)
+                        ),
+                        child: const Text("Menunggu Pembayaran"),
+                        onPressed: () {
+                          WaitingPaymentRoute(id: state.profile?.data.waitingPaymentNewStudent?.paymentNumber.toString() ?? "").go(context);
+                        },
+                      ) : isWaitingAprovalAdmin
+                        ? BottomMenu(
+                            title: 'Menunggu Persetujuan Admin',
+                            onPressed: () {},
+                          )
+                        : isLogin
+                      ? BottomMenu(
+                          title: 'Pilih Akun Anda',
+                          onPressed: () {
+                            ChooseRoleRoute().go(context);
+                          },
+                        )
+                      : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                        Expanded(
+                          flex: 6,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                RegisterRoute().go(context);
+                              },
+                              child: const Center(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                  child: Text(
+                                    "Gabung Bersama Kami",
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      height: 1,
+                                      fontSize: fontSizeLarge,
+                                      fontWeight: FontWeight.bold
+                                    ),
                                   ),
+                                ),
+                              )),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                          ),
+                          onPressed: () {
+                            z.toggle!();
+                          },
+                          child: const Center(
+                            child: Icon(Iconsax.element_3),
+                          )),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
-                        ),
-                        const FooterAddress()
-                      ]),
-            ));
+          ),
+          const FooterAddress()
+          ]),
+        ));
       },
     );
   }

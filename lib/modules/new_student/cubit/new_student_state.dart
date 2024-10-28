@@ -36,16 +36,16 @@ class NewStudentState extends Equatable {
 
   @override
   List<Object?> get props => [
-        fullname,
-        birthDate,
-        originSchool,
-        parentName,
-        phone,
-        parentPhone,
-        outfitSize,
-        height,
-        gender,
-      ];
+    fullname,
+    birthDate,
+    originSchool,
+    parentName,
+    phone,
+    parentPhone,
+    outfitSize,
+    height,
+    gender,
+  ];
 
   NewStudentState copyWith({
     String? fullname,

@@ -11,10 +11,10 @@ class _InputStudent extends StatelessWidget {
       return CustomTextField(
         labelText: 'Nama Siswa',
         isEmail: true,
-        onChanged: (p0) {
-          var cubit = context.read<LoginParentCubit>();
-          cubit.copyState(cubit.state.copyWith(student: p0));
-        },
+        // onChanged: (p0) {
+        //   var cubit = context.read<LoginParentCubit>();
+        //   cubit.copyState(cubit.state.copyWith(student: p0));
+        // },
         hintText: "Nama Siswa",
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Nama Siswa wajib di isi",

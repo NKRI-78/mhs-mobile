@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -20,8 +22,8 @@ class PartnershipCubit extends Cubit<PartnershipState> {
       emit(state.copyWith(loadingPartnership: true));
       var value = await partnership.getPartnership();
       emit(state.copyWith(partnership: value));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } finally {
       emit(state.copyWith(loadingPartnership: false));
     }

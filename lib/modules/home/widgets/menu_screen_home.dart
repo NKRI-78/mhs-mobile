@@ -18,6 +18,7 @@ class MenuScreenHome extends StatelessWidget {
       bool isLogin = st.isLogin;
       return BlocBuilder<HomeBloc, HomeState>(builder: (context, st) {
         String roleId = st.profile?.data.role?.slug ?? "";
+        int countNotif = context.read<HomeBloc>().state.countNotif;
         return Scaffold(
             backgroundColor: primaryColor,
             body: Stack(
@@ -52,8 +53,9 @@ class MenuScreenHome extends StatelessWidget {
                                   (value) => NotificationRoute().go(context),
                                 );
                               },
+                              countNotif: countNotif,
                             ) : const SizedBox.shrink(),
-                            roleId == "STUDENT" || roleId == "PARENT" ? MenuButton(
+                            isLogin ? MenuButton(
                               text: 'Profile',
                               onPressed: () {
                                 z.close?.call()?.then(
@@ -130,10 +132,12 @@ class MenuButton extends StatelessWidget {
   const MenuButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    required this.onPressed, 
+    this.countNotif,
   });
 
   final String text;
+  final int? countNotif;
   final Function() onPressed;
 
   @override
@@ -154,25 +158,25 @@ class MenuButton extends StatelessWidget {
                     fontSize: fontSizeExtraLarge,
                     fontWeight: FontWeight.bold),
               )),
-          // text == "Notifikasi" ? Positioned(
-          //   left: 95,
-          //   top: 5,
-          //   child: Container(
-          //     width: 20,
-          //     height: 20,
-          //     decoration: BoxDecoration(
-          //       color: redColor,
-          //       borderRadius: BorderRadius.circular(20)
-          //     ),
-          //     child: const Text(
-          //       "0",
-          //       textAlign: TextAlign.center,
-          //       style: TextStyle(
-          //         color: whiteColor
-          //       ),
-          //     ),
-          //   ),
-          // ) : Container()
+          text == "Notifikasi" && countNotif != 0 ? Positioned(
+            left: 95,
+            top: 5,
+            child: Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: redColor,
+                borderRadius: BorderRadius.circular(20)
+              ),
+              child: Text(
+                "$countNotif",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: whiteColor
+                ),
+              ),
+            ),
+          ) : Container()
         ],
       ),
     );

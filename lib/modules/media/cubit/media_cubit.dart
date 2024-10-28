@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -23,8 +25,8 @@ class MediaCubit extends Cubit<MediaState> {
       var list = value;
 
       emit(state.copyWith(media: list, loadingMedia: false));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } finally {
       emit(state.copyWith(loadingMedia: false));
     }

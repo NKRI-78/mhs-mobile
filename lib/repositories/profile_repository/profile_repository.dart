@@ -33,8 +33,8 @@ class ProfileRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -83,8 +83,8 @@ class ProfileRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

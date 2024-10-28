@@ -13,14 +13,16 @@ import 'package:mhs_mobile/repositories/app_repository/models/profile_model.dart
 import 'package:mhs_mobile/repositories/home_repository/models/banner_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/message_home_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/testimoni_alumni_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/repositories/payment_repository/models/payment_channel_model.dart';
 
 class HomeRepository {
   Uri get bannerUri => Uri.parse('${MyApi.baseUrl}/api/v1/banner');
-  Uri get testimoni => Uri.parse('${MyApi.baseUrl}/api/v1/testimoni/dummy');
-  Uri get newUri => Uri.parse('${MyApi.baseUrl}/api/v1/news');
+  Uri get testimoni => Uri.parse('${MyApi.baseUrl}/api/v1/testimoni');
+  String get newUri => '${MyApi.baseUrl}/api/v1/news';
   Uri get profileUri => Uri.parse('${MyApi.baseUrl}/api/v1/profile');
+  Uri get notifUri => Uri.parse('${MyApi.baseUrl}/api/v1/notification');
   Uri get messageHome => Uri.parse('${MyApi.baseUrl}/api/v1/caption/by-user-role');
   String get studentUrl => '${MyApi.baseUrl}/api/v1/student';
   String get profile => '${MyApi.baseUrl}/api/v1/profile';
@@ -45,8 +47,8 @@ class HomeRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -67,8 +69,8 @@ class HomeRepository {
       } else {
         throw "Ada masalah pada server";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -89,8 +91,8 @@ class HomeRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -123,14 +125,14 @@ class HomeRepository {
       } else {
         throw "Ada masalah pada server";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
-  Future<PaginationModel<NewsModel>> getNews() async {
+  Future<PaginationModel<NewsModel>> getNews({int page = 1}) async {
     try {
-      var res = await MyClient().get(newUri);
+      final res = await http.get(Uri.parse('$newUri?page=$page'));
 
       debugPrint(res.body);
 
@@ -147,8 +149,8 @@ class HomeRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -180,8 +182,8 @@ class HomeRepository {
       } else {
         throw "Error";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -196,8 +198,23 @@ class HomeRepository {
       } else {
         throw "error api";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
+    }
+  }
+  
+  Future<int?> getCountNotif() async {
+    try {
+      var res = await MyClient().get(Uri.parse('$notifUri/count-information'));
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return json['data'];
+      } else {
+        throw "error api";
+      }
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -216,8 +233,8 @@ class HomeRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

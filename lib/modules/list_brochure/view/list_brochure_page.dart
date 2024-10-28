@@ -110,7 +110,7 @@ class _ListBrochureViewState extends State<ListBrochureView> {
                   size: 30,
                 )
               ),
-              body: st.loadingBrocuhure ? const LoadingPage() : st.document.isEmpty ? const EmptyPage(msg: "Tidak ada brosur") :  Stack(
+              body: st.loadingBrocuhure ? const LoadingPage() : st.document.isEmpty ? const Center(child: EmptyPage(msg: "Tidak ada brosur")) :  Stack(
                   fit: StackFit.expand,
                   clipBehavior: Clip.none,
                   children: [

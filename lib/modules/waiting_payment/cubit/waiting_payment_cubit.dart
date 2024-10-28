@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
@@ -18,8 +20,8 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
     try {
       var payment = await paymentRepo.findPayment(id);
       emit(state.copyWith(loading: false, payment: payment));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -27,8 +29,8 @@ class WaitingPaymentCubit extends Cubit<WaitingPaymentState> {
     try {
       var payment = await paymentRepo.findPayment(id);
       emit(state.copyWith(loading: false, payment: payment));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 

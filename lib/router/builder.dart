@@ -3,6 +3,8 @@ import 'package:galleryimage/gallery_image_view_wrapper.dart';
 import 'package:galleryimage/gallery_item_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/absence/view/absence_page.dart';
+import 'package:mhs_mobile/modules/add_testimoni/view/add_testimoni.dart';
 import 'package:mhs_mobile/modules/begining_tour/view/begining_tour_page.dart';
 import 'package:mhs_mobile/modules/change_password/view/change_password_page.dart';
 import 'package:mhs_mobile/modules/choose_role/view/choose_role_page.dart';
@@ -13,18 +15,22 @@ import 'package:mhs_mobile/modules/event/view/event_page.dart';
 import 'package:mhs_mobile/modules/forgot_password/view/forgot_password_page.dart';
 import 'package:mhs_mobile/modules/forgot_password_change/view/forgot_password_change_page.dart';
 import 'package:mhs_mobile/modules/forgot_password_otp/view/forgot_password_otp_page.dart';
+import 'package:mhs_mobile/modules/grade/views/grade_page.dart';
 import 'package:mhs_mobile/modules/home/view/home_page.dart';
 import 'package:mhs_mobile/modules/list_brochure/view/fullscreen_brochure_page.dart';
 import 'package:mhs_mobile/modules/list_brochure/view/list_brochure_page.dart';
 import 'package:mhs_mobile/modules/list_modul/view/list_modul_page.dart';
 import 'package:mhs_mobile/modules/list_presentation/view/fullscreen_presentation_page.dart';
 import 'package:mhs_mobile/modules/list_presentation/view/list_presentation_page.dart';
+import 'package:mhs_mobile/modules/login_alumni/views/login_alumni_page.dart';
 import 'package:mhs_mobile/modules/login/views/login_page.dart';
 import 'package:mhs_mobile/modules/login_parent/views/login_parent_page.dart';
 import 'package:mhs_mobile/modules/login_student/views/login_student_page.dart';
 import 'package:mhs_mobile/modules/media/view/media_page.dart';
 import 'package:mhs_mobile/modules/new_student/models/new_student_model.dart';
 import 'package:mhs_mobile/modules/new_student/view/new_student_page.dart';
+import 'package:mhs_mobile/modules/new_student/widgets/contact/contact_parent.dart';
+import 'package:mhs_mobile/modules/new_student/widgets/contact/contact_student.dart';
 import 'package:mhs_mobile/modules/new_student_payment/view/new_student_payment_page.dart';
 import 'package:mhs_mobile/modules/news_detail/view/news_detail.dart';
 import 'package:mhs_mobile/modules/notification/view/notification_page.dart';
@@ -32,6 +38,7 @@ import 'package:mhs_mobile/modules/partnership/view/partnership_page.dart';
 import 'package:mhs_mobile/modules/privacypolicy/view/privacy_page.dart';
 import 'package:mhs_mobile/modules/profile/view/profile.dart';
 import 'package:mhs_mobile/modules/register/view/register_page.dart';
+import 'package:mhs_mobile/modules/register/widgets/contact.dart';
 import 'package:mhs_mobile/modules/register_otp/view/register_otp_page.dart';
 import 'package:mhs_mobile/modules/settings/view/settings_page.dart';
 import 'package:mhs_mobile/modules/show_more_news/view/show_more_news.dart';
@@ -87,6 +94,8 @@ class SplashScreenRoute extends GoRouteData {
       TypedGoRoute<WaitingPaymentNotifRoute>(path: 'waiting-payment-notif'),
     ]),
     TypedGoRoute<ShowMoreTestimoniRoute>(path: 'show-more-testimoni'),
+    TypedGoRoute<AddTestimoniRoute>(path: 'add-testimoni'),
+    TypedGoRoute<GradeRoute>(path: 'grade'),
     TypedGoRoute<ShowMoreNewsRoute>(path: 'show-more-news', routes: [
       TypedGoRoute<SMNewsDetailRoute>(path: 'sm-news-detail'),
     ]),
@@ -101,6 +110,7 @@ class SplashScreenRoute extends GoRouteData {
       TypedGoRoute<RegisterOtpRoute>(
         path: 'register-otp',
       ),
+      TypedGoRoute<ContactListRoute>(path: 'contact-list'),
       TypedGoRoute<LoginRoute>(
         path: 'login', routes: [
           TypedGoRoute<ForgotPasswordRoute>(
@@ -124,10 +134,15 @@ class SplashScreenRoute extends GoRouteData {
         TypedGoRoute<LoginParentRoute>(
           path: 'login-parent',
         ),
+        TypedGoRoute<LoginAlumniRoute>(
+          path: 'login-alumni',
+        ),
         TypedGoRoute<NewStudentRoute>(
           path: 'new-student',
           routes: [
             TypedGoRoute<NewStudentPaymentRoute>(path: 'payment'),
+            TypedGoRoute<ContactListStudentRoute>(path: 'contact-student'),
+            TypedGoRoute<ContactListParentRoute>(path: 'contact-parent'),
           ],
         ),
       ],
@@ -135,12 +150,31 @@ class SplashScreenRoute extends GoRouteData {
     TypedGoRoute<WaitingPaymentRoute>(path: 'waiting-payment'),
     TypedGoRoute<PaymentMessageRoute>(path: 'payment-message'),
     TypedGoRoute<UpdateRoute>(path: 'update'),
+    TypedGoRoute<AbsenceRoute>(path: 'absence'),
   ],
 )
 class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+class ContactListRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return  const ContactPage();
+  }
+}
+class ContactListParentRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return  const ContactParentPage();
+  }
+}
+class ContactListStudentRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return  const ContactStudentPage();
   }
 }
 class UpdateRoute extends GoRouteData {
@@ -167,6 +201,12 @@ class SettingRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SettingPage();
+  }
+}
+class AbsenceRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AbsencePage();
   }
 }
 
@@ -399,6 +439,18 @@ class ShowMoreTestimoniRoute extends GoRouteData {
     return const ShowMoreTestimoniPage();
   }
 }
+class AddTestimoniRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AddTestimoniPage();
+  }
+}
+class GradeRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const GradePage();
+  }
+}
 
 class FullScreenPresentationRoute extends GoRouteData {
   @override
@@ -449,6 +501,13 @@ class LoginParentRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginParentPage();
+  }
+}
+
+class LoginAlumniRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const LoginAlumniPage();
   }
 }
 

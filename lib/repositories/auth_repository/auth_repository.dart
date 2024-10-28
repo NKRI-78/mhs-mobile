@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,8 +63,8 @@ class AuthRepository {
         throw json['message'] ?? "Terjadi kesalahan";
       }
       throw json['message'] ?? "Terjadi kesalahan";
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -83,20 +84,19 @@ class AuthRepository {
         return;
       }
       if (res.statusCode == 400) {
-        throw json['message'] ?? "Terjadi kesalahan";
+        throw json['message'] ==  "Harap masukkan npm sesuai dengan yang telah di input sistem" ? "Mohon maaf NPM yang anda masukkan tidak di ketahui, Mohon periksa kembali" : json['message'];
       }
       throw json['message'] ?? "Terjadi kesalahan";
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
-  Future<LoggedIn> loginParent(
-      {required String fullname, required String student , required String nisn}) async {
+  Future<void> loginParent(
+      {required String fullname , required String nisn}) async {
     try {
       final res = await httpBase.post(Uri.parse('$v1/verify-parent'), body: {
         'fullname': fullname,
-        'studentName': student,
         'nisn': nisn,
       });
 
@@ -104,19 +104,37 @@ class AuthRepository {
 
       final json = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        return LoggedIn(
-          token: json['data']['token'],
-          user: User.fromJson(
-            json['data'],
-          ),
-        );
+        return;
       }
       if (res.statusCode == 400) {
-        throw json['message'] ?? "Terjadi kesalahan";
+        throw json['message'] ==  "Harap masukkan npm sesuai dengan yang telah di input sistem" ? "Mohon maaf NPM yang anda masukkan tidak di ketahui, Mohon periksa kembali" : json['message'];
       }
       throw json['message'] ?? "Terjadi kesalahan";
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
+    }
+  }
+
+  Future<void> loginAlumni(
+      {required String query, required String nisn}) async {
+    try {
+      final res = await httpBase.post(Uri.parse('$v1/verify-alumnus'), body: {
+        'query': query,
+        'nisn': nisn,
+      });
+
+      debugPrint(res.body);
+
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return;
+      }
+      if (res.statusCode == 400) {
+        throw json['message'] ==  "Harap masukkan npm sesuai dengan yang telah di input sistem" ? "Mohon maaf NPM yang anda masukkan tidak di ketahui, Mohon periksa kembali" : json['message'];
+      }
+      throw json['message'] ?? "Terjadi kesalahan";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -143,8 +161,8 @@ class AuthRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -159,8 +177,8 @@ class AuthRepository {
       } else {
         throw "Ada masalah pada server";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -185,8 +203,8 @@ class AuthRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
     return null;
   }
@@ -207,8 +225,8 @@ class AuthRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -229,8 +247,8 @@ class AuthRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 
@@ -252,8 +270,8 @@ class AuthRepository {
       if (res.statusCode == 400) {
         throw json['message'] ?? "Terjadi kesalahan";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,20 +25,22 @@ class LoginParentCubit extends Cubit<LoginPaarentState> {
   Future<void> submit(BuildContext context) async {
     try {
       emit(state.copyWith(loading: true));
-      final loggedIn = await repo.loginParent(fullname: state.fullname, nisn: state.nis, student: state.student);
+      await repo.loginParent(fullname: state.fullname, nisn: state.nis);
       if (context.mounted) {
-        getIt<AppBloc>().add(SetAuthenticated(user: loggedIn.user, token: loggedIn.token));
         if (getIt.isRegistered<HomeBloc>()) {
           getIt<HomeBloc>().add(HomeInitialData());
         }
+        ShowSnackbar.snackbar(context, "Verifikasi Berhasil", '', successColor);
         HomeRoute().go(context);
       }
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } catch (e) {
       if (!context.mounted) {
         return;
       }
       ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
-      throw "Ada masalah pada server";
+      rethrow;
     } finally {
       emit(state.copyWith(loading: false));
     }

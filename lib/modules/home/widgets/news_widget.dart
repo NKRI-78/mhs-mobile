@@ -5,6 +5,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/news_model.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class NewsWidget extends StatelessWidget {
@@ -51,7 +52,7 @@ class NewsWidget extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            state.loadingNew ? const LoadingPage(height: .20,) : ListView(
+            state.loadingNew ? const LoadingPage(height: .20,) : state.news.isEmpty ? const EmptyPage(msg: "Tidak ada berita", height: .1,noImage: false,) : ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: state.news

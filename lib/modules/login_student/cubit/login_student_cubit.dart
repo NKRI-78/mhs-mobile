@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,12 +32,14 @@ class LoginStudentCubit extends Cubit<LoginStudentState> {
         ShowSnackbar.snackbar(context, "Verifikasi Berhasil", '', successColor);
         HomeRoute().go(context);
       }
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } catch (e) {
       if (!context.mounted) {
         return;
       }
       ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
-      throw "Ada masalah pada server";
+      rethrow;
     } finally {
       emit(state.copyWith(loading: false));
     }

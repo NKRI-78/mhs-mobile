@@ -24,14 +24,14 @@ class TestimoniCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(testimoni.name ?? "",
+                  Text("${testimoni.student == null ? testimoni.name : testimoni.student?.fullname ?? "-"}",
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     softWrap: true,

@@ -47,7 +47,7 @@ class _ButtonDownload extends StatelessWidget {
               height: 30,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor
+                  backgroundColor: greenColor
                 ),
                 onPressed: () async {
                   context.read<ProfileCubit>().uploadProfile(context: context);
@@ -79,7 +79,7 @@ class _ButtonDownload extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor
                 ),
-                onPressed: () async {
+                onPressed: st.avatar == "" || st.isSelected ? null : () async {
                   DownloadHelper.downloadWidget(ktaImageKey, "${DateFormat('yyyyddMMHHmm').format(DateTime.now())}-kta-mhs-mobile-${fullname.replaceAll(" ", "-").toLowerCase()}.png", context);
                 }, 
                 child: const Row(

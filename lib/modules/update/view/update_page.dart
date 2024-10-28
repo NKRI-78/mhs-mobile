@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/helper.dart';
 import 'package:mhs_mobile/misc/theme.dart';
@@ -49,10 +51,10 @@ class UpdatePage extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text(
-                        "Silahkan unduh versi terbaru pada Google Play Store.",
+                      Text(
+                        "Silahkan unduh versi terbaru pada ${Platform.isAndroid ? "Google Play Store" : "App Store"}.",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: whiteColor,
                           fontSize: fontSizeLarge
                         ),
@@ -72,7 +74,7 @@ class UpdatePage extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        "Current Version $currentVersion | New Version $newVersion",
+                        "Versi Sekarang $currentVersion | Versi Terbaru $newVersion",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: whiteColor,

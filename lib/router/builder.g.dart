@@ -147,6 +147,14 @@ RouteBase get $homeRoute => GoRouteData.$route(
           factory: $ShowMoreTestimoniRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: 'add-testimoni',
+          factory: $AddTestimoniRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'grade',
+          factory: $GradeRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'show-more-news',
           factory: $ShowMoreNewsRouteExtension._fromState,
           routes: [
@@ -189,6 +197,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
               factory: $RegisterOtpRouteExtension._fromState,
             ),
             GoRouteData.$route(
+              path: 'contact-list',
+              factory: $ContactListRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
               path: 'login',
               factory: $LoginRouteExtension._fromState,
               routes: [
@@ -221,12 +233,24 @@ RouteBase get $homeRoute => GoRouteData.$route(
               factory: $LoginParentRouteExtension._fromState,
             ),
             GoRouteData.$route(
+              path: 'login-alumni',
+              factory: $LoginAlumniRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
               path: 'new-student',
               factory: $NewStudentRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
                   path: 'payment',
                   factory: $NewStudentPaymentRouteExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'contact-student',
+                  factory: $ContactListStudentRouteExtension._fromState,
+                ),
+                GoRouteData.$route(
+                  path: 'contact-parent',
+                  factory: $ContactListParentRouteExtension._fromState,
                 ),
               ],
             ),
@@ -243,6 +267,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'update',
           factory: $UpdateRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'absence',
+          factory: $AbsenceRouteExtension._fromState,
         ),
       ],
     );
@@ -664,6 +692,41 @@ extension $ShowMoreTestimoniRouteExtension on ShowMoreTestimoniRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $AddTestimoniRouteExtension on AddTestimoniRoute {
+  static AddTestimoniRoute _fromState(GoRouterState state) =>
+      AddTestimoniRoute();
+
+  String get location => GoRouteData.$location(
+        '/add-testimoni',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GradeRouteExtension on GradeRoute {
+  static GradeRoute _fromState(GoRouterState state) => GradeRoute();
+
+  String get location => GoRouteData.$location(
+        '/grade',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ShowMoreNewsRouteExtension on ShowMoreNewsRoute {
   static ShowMoreNewsRoute _fromState(GoRouterState state) =>
       ShowMoreNewsRoute();
@@ -834,6 +897,23 @@ extension $RegisterOtpRouteExtension on RegisterOtpRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ContactListRouteExtension on ContactListRoute {
+  static ContactListRoute _fromState(GoRouterState state) => ContactListRoute();
+
+  String get location => GoRouteData.$location(
+        '/register/contact-list',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $LoginRouteExtension on LoginRoute {
   static LoginRoute _fromState(GoRouterState state) => LoginRoute();
 
@@ -969,6 +1049,23 @@ extension $LoginParentRouteExtension on LoginParentRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $LoginAlumniRouteExtension on LoginAlumniRoute {
+  static LoginAlumniRoute _fromState(GoRouterState state) => LoginAlumniRoute();
+
+  String get location => GoRouteData.$location(
+        '/choose-role/login-alumni',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $NewStudentRouteExtension on NewStudentRoute {
   static NewStudentRoute _fromState(GoRouterState state) => NewStudentRoute();
 
@@ -1013,6 +1110,42 @@ extension $NewStudentPaymentRouteExtension on NewStudentPaymentRoute {
           'height': height,
           'gender': gender,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ContactListStudentRouteExtension on ContactListStudentRoute {
+  static ContactListStudentRoute _fromState(GoRouterState state) =>
+      ContactListStudentRoute();
+
+  String get location => GoRouteData.$location(
+        '/choose-role/new-student/contact-student',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ContactListParentRouteExtension on ContactListParentRoute {
+  static ContactListParentRoute _fromState(GoRouterState state) =>
+      ContactListParentRoute();
+
+  String get location => GoRouteData.$location(
+        '/choose-role/new-student/contact-parent',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -1083,6 +1216,23 @@ extension $UpdateRouteExtension on UpdateRoute {
           'current-version': currentVersion,
           'new-version': newVersion,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AbsenceRouteExtension on AbsenceRoute {
+  static AbsenceRoute _fromState(GoRouterState state) => AbsenceRoute();
+
+  String get location => GoRouteData.$location(
+        '/absence',
       );
 
   void go(BuildContext context) => context.go(location);

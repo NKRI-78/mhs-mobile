@@ -9,10 +9,12 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/profile/cubit/profile_cubit.dart';
 import 'package:mhs_mobile/modules/profile/cubit/profile_state.dart';
 import 'package:mhs_mobile/modules/profile/widgets/detail_user.dart';
-import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
+import 'package:mhs_mobile/widgets/images/image_circle.dart';
 
 part '../widgets/_button_download.dart';
+part '../widgets/card_kta.dart';
+part '../widgets/avatar_profile.dart';
 
 final GlobalKey ktaImageKey = GlobalKey();
 
@@ -35,110 +37,23 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
       return BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, st) {
-          String nameStudent = st.profile?.data.student?.fullname ?? "" ;
-      String nameUser = st.profile?.data.name ?? "" ;
-        debugPrint("Is Selected ? : ${st.isSelected}");
+        String nameStudent = st.profile?.data.student?.fullname ?? "" ;
+        String nameUser = st.profile?.data.name ?? "" ;
+        String nameParent = st.profile?.data.parent?.fullname ?? "-" ;
+        debugPrint("Avatar ? : ${st.avatar}");
           return Scaffold(
+            appBar: AppBar(
+              title: const Text("Profile"),
+            ),
             backgroundColor: whiteColor,
-            body: Stack(
-              fit: StackFit.loose,
-              clipBehavior: Clip.none,
-              children: [
-                CustomScrollView(
-                  shrinkWrap: true,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  slivers: [
-                    const HeaderSection(
-                      title: "Profile",
-                      isCircle: false,
-                      isPrimary: false,
-                    ),
-                    SliverList(
-                        delegate: SliverChildListDelegate([
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: RepaintBoundary(
-                            key: ktaImageKey,
-                            child: Stack(
-                            clipBehavior: Clip.antiAlias,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/KTA-MHS.png",
-                                    width: double.infinity,
-                                  ),
-                                  Positioned(
-                                    top: 45,
-                                    left: 20,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: st.fileImage != null
-                                    ? SizedBox(
-                                      height: 95,
-                                      width: 95,
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1,
-                                        child: Image.file(
-                                          File(st.fileImage!.path),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    )
-                                    : SizedBox(
-                                      height: 95,
-                                      width: 95,
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1, 
-                                        child: ImageCard(
-                                          image: st.profile?.data.profile?.pictureUrl ?? "",
-                                          radius: 0,
-                                        ),
-                                      ),
-                                    ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 25,
-                                    bottom: st.profile?.data.student?.nisn != null ? 38 : 25,
-                                    child: Text((nameStudent.isEmpty ? nameUser : nameStudent),
-                                      maxLines: 2,
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
-                                      style: GoogleFonts.roboto(
-                                        color: whiteColor,
-                                        fontSize: fontSizeLarge,
-                                        height: 1,
-                                        fontWeight: FontWeight.w900
-                                      ),
-                                    ),
-                                  ),
-                                  st.profile?.data.student?.nisn != null ? Positioned(
-                                    left: 25,
-                                    bottom: 20,
-                                    child: Text("NPM : ${(st.profile?.data.student?.nisn ?? "-")}",
-                                      maxLines: 2,
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
-                                      style: GoogleFonts.roboto(
-                                        color: whiteColor,
-                                        fontSize: fontSizeLarge,
-                                        height: 1,
-                                        fontWeight: FontWeight.w400
-                                      ),
-                                    ),
-                                  ) : const SizedBox.shrink(),
-                                ],
-                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          child:  _ButtonDownload(fullname: (nameStudent.isEmpty ? nameUser : nameStudent)),
-                        ),
-                    ]))
-                  ],
+            body: Column(
+              children: <Widget>[
+                st.profile?.data.student == null || st.profile?.data.role?.slug == "ALUMNI" ? const AvatarProfile() : const CardKta() ,
+                st.profile?.data.student == null || st.profile?.data.role?.slug == "ALUMNI" ? const SizedBox.shrink() : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child:  _ButtonDownload(fullname: (st.profile?.data.student != null ? nameStudent : st.profile?.data.parent != null ? nameParent : nameUser)),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
+                Expanded(
                   child: Container(
                   padding: const EdgeInsets.only(top: 30,right: 30,left: 30),
                   width: double.infinity,
@@ -158,35 +73,21 @@ class ProfileView extends StatelessWidget {
                         CarListUser(detail: "Asal Sekolah :", title: st.profile?.data.student?.originSchool ?? "-"),
                         CarListUser(detail: "No. Tlpn :", title: st.profile?.data.student?.phone ?? ""),
                         CarListUser(detail: "Orang Tua :", title: st.profile?.data.student?.parentName ?? "-"),
-                        // const SizedBox(
-                        //   height: 60,
-                        // ),
-                        // SizedBox(
-                        //   width: double.infinity,
-                        //   height: 50,
-                        //   child: ElevatedButton(
-                        //     style: ElevatedButton.styleFrom(
-                        //       side: const BorderSide()
-                        //     ),
-                        //     onPressed: (){}, 
-                        //     child: const Text(
-                        //       "Ubah Profil"
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ) : Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // CarListUser(detail: "Nama :", title: st.profile?.data.name ?? "-"),
                         CarListUser(detail: "Email :", title: st.profile?.data.email ?? "-"),
                         CarListUser(detail: "No. Tlpn :", title: st.profile?.data.phone ?? "-"),
+                        st.profile?.data.children != null ? CarListUser(detail: "Nama Siswa :", title: st.profile?.data.children?[0].fullname ?? "-") : const SizedBox.shrink(),
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                  )
+                ],
+              ),
           );
         }
       );

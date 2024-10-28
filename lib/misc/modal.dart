@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/testimoni_alumni_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 
@@ -106,46 +107,93 @@ class GeneralModal {
     });
   }
 
-  // static Future<void> showNotif ({
-  //   required BuildContext context,
-  //   required NotifData data,
-  // }) async {
-  //   showCupertinoModalPopup(
-  //     context: context,
-  //     barrierColor: blackColor.withOpacity(0.50),
-  //     builder: (_) {
-  //       final size = MediaQuery.of(_).size;
-  //       return widget(
-  //         child: Container(
-  //             decoration: const BoxDecoration(
-  //                 color: primaryColor,
-  //                 borderRadius: BorderRadius.only(
-  //                   topLeft: Radius.circular(12),
-  //                   topRight: Radius.circular(12),
-  //                 ),
-  //               ),
-  //               height: size.height * 0.27,
-  //             child: Column(
-  //               children: [
-  //                 DetailCheckIn(
-  //                   label: 'Judul',
-  //                   text: data.data.title,
-  //                 ),
-  //                 DetailCheckIn(
-  //                   label: 'Deskripsi',
-  //                   text: data.data.description,
-  //                 ),
-  //                 DetailCheckIn(
-  //                   label: 'Tipe',
-  //                   text: data.type,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //       );
-  //     },
-  //   );
-  // }
+  static Future<void> showResult({
+    required String msg,
+    required BuildContext context,
+    required String locationImage,
+  }) async {
+    showAnimatedDialog(
+    barrierDismissible: true,
+    alignment: Alignment.bottomCenter,
+    context: context,
+    builder: (BuildContext context) {
+      return Builder(
+        builder: (BuildContext context) {
+          return Container(
+            margin: const EdgeInsets.only(left: 25.0, right: 25.0),
+            child: CustomDialog(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              minWidth: 180.0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(5.0),
+                        height: 270.0,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 10.0,
+                              left: 25.0,
+                              right: 25.0,
+                              bottom: 10.0),
+                          child: Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(height: 30.0),
+                              Image.asset(
+                                locationImage,
+                                width: 120.0,
+                                height: 120.0,
+                                fit: BoxFit.fill,
+                              ),
+                              const SizedBox(height: 15.0),
+                              Text(msg,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: fontSizeLarge,
+                                      color: blackColor)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 15,
+                        right: 20,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Image.asset(
+                            "assets/icons/close-icon.png",
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
 
   static Future<void> showTestimoni({
     required BuildContext context,
@@ -205,6 +253,7 @@ class GeneralModal {
                           scrollDirection: Axis.vertical,
                           child: Text(
                             testimoni.message ?? "",
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: blackColor,
                               fontSize: fontSizeDefault,
@@ -222,6 +271,60 @@ class GeneralModal {
       animationType: DialogTransitionType.scale,
       curve: Curves.fastEaseInToSlowEaseOut,
       duration: const Duration(seconds: 1),
+    );
+  }
+
+  static Future<void> showDetailPayment ({required BuildContext context,}) async {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(32))),
+      context: context, 
+      builder: (context) {
+        return Wrap(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 200,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Perhatian !",
+                    style: TextStyle(
+                      color: blackColor,
+                      fontSize: fontSizeLarge,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Untuk pembayaran ",
+                          style: TextStyle(
+                            color: blackColor,
+                            fontSize: fontSizeDefault,
+                          )
+                        ),
+                        TextSpan(
+                          text: "Virtual Account",
+                          style: TextStyle(
+                            color: blackColor,
+                            fontSize: fontSizeDefault,
+                            fontWeight: FontWeight.bold
+                          )
+                        ),
+                      ]
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

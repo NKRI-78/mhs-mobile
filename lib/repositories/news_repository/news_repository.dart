@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/api_url.dart';
@@ -22,8 +23,8 @@ class NewsRepository {
       } else {
         throw "Ada masalah pada server";
       }
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

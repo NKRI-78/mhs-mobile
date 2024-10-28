@@ -43,7 +43,6 @@ class LoginCubit extends Cubit<LoginState> {
         return;
       }
       ShowSnackbar.snackbar(context, e.toString(), '', errorColor);
-      throw "Ada masalah pada server";
     } finally {
       emit(state.copyWith(loading: false));
     }

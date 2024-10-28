@@ -14,7 +14,7 @@ class _FieldPassword extends StatelessWidget {
         labelText: "Kata Sandi",
         isPassword: true,
         hintText: "Kata Sandi",
-        // emptyText: "",
+        emptyText: "Masukkan Kata Sandi",
         fillColor: whiteColor.withOpacity(0.10),
         textInputType: TextInputType.emailAddress,
         textInputAction: TextInputAction.done,

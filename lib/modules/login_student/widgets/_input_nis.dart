@@ -13,6 +13,7 @@ class _InputNis extends StatelessWidget {
             var cubit = context.read<LoginStudentCubit>();
             cubit.copyState(cubit.state.copyWith(nis: value));
           },
+          maxLength: 9,
           hintText: "NPM (Nomor Pokok Mahasiswa)",
           fillColor: whiteColor.withOpacity(0.10),
           emptyText: "Masukan NIS anda",

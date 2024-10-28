@@ -2,28 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 
 class EmptyPage extends StatelessWidget {
-  const EmptyPage({super.key, required this.msg});
+  const EmptyPage({super.key, required this.msg, this.height = .75, this.noImage = true});
 
   final String msg;
+  final double? height;
+  final bool? noImage;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * .75,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * height!,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Image.asset(
-            //   AssetsConst.imageIcNoEvent,
-            //   width: 250.0,
-            //   height: 250.0,
-            // ),
-            const SizedBox(
-              height: 5,
-            ),
+            noImage! ?
+            Image.asset(
+              noData,
+            ) : const SizedBox.shrink(),
             Text(msg,
             textAlign: TextAlign.center,
             maxLines: 2,

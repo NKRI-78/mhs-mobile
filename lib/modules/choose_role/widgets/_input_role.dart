@@ -3,8 +3,8 @@ part of '../view/choose_role_page.dart';
 
 const List<String> _list = [
     'Siswa',
-    // 'Alumni',
-    // 'Orang Tua',
+    'Orang Tua',
+    'Alumni',
   ];
 String? selectedValue;
 

@@ -4,6 +4,7 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/widgets/card/testimoni_card.dart';
 import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
 import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class TestimoniWidget extends StatelessWidget {
@@ -51,7 +52,7 @@ class TestimoniWidget extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(top: 40),
                 scrollDirection: Axis.horizontal,
-                child: st.loadingTestimoni ? const LoadingPage(height: .20,) :  Row(
+                child: st.loadingTestimoni ? const LoadingPage(height: .20,) : st.testimoni!.isEmpty ? const EmptyPage(msg: "Tidak ada testimoni", height: .1,noImage: false,) :  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: st.testimoni!.map((e) => Padding(

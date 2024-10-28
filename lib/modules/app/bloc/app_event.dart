@@ -8,6 +8,8 @@ final class FinishBeginingTour extends AppEvent {}
 
 final class SetUserLogout extends AppEvent {}
 
+final class CheckConnectivity extends AppEvent {}
+
 final class SetAuthenticated extends AppEvent {
   final User user;
   final String token;

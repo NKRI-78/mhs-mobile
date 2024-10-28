@@ -85,12 +85,19 @@ class DateUntil {
     String date = DateFormat("yyyy-MM-dd").format(result);
     return date;
   }
+
   static String getFormatedDateWithHours(String formatDate) {
     DateTime dateParse = DateTime.parse(formatDate);
     final result = DateTime(dateParse.year, dateParse.month, dateParse.day, dateParse.hour, dateParse.minute, 9, 0, 0);
     initializeDateFormatting("id");
-    String date = DateFormat("dd MMMM yyyy | HH:mm a","id_ID").format(result);
+    String date = DateFormat("dd MMMM yyyy | HH:mm","id_ID").format(result);
     return date;
+  }
+  static String getDay(String formatDate) {
+    DateTime dateParse = DateTime.parse(formatDate);
+    final result = DateTime(dateParse.year, dateParse.month, dateParse.day, dateParse.hour, dateParse.minute, 9, 0, 0);
+    initializeDateFormatting("id");
+    return DateFormat.EEEE("id").format(result);
   }
 
   static int getHashCode(DateTime key) {

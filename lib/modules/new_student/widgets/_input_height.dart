@@ -14,6 +14,15 @@ class _InputHeight extends StatelessWidget {
         },
         isPhoneNumber: true,
         hintText: "Tinggi Badan",
+        suffixIcon: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "CM",
+            ),
+          ],
+        ),
+        isSuffixIcon: true,
         fillColor: whiteColor.withOpacity(0.10),
         emptyText: "Masukan tinggi badan anda",
         textInputType: TextInputType.number,

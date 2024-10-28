@@ -17,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final bool isSuffixIcon;
   final Widget? suffixIcon;
   final String? labelText;
+  final String? initialValue;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final TextInputType? textInputType;
   final int minLines;
@@ -37,6 +38,8 @@ class CustomTextField extends StatefulWidget {
   final bool isEnabled;
   final bool isCapital;
   final int? maxLength;
+  final Function()? onEditingComplete;
+  final Function(String?)? onSaved;
 
   final void Function(String)? onChanged;
 
@@ -51,6 +54,7 @@ class CustomTextField extends StatefulWidget {
     this.hintText,
     this.emptyText,
     this.labelText,
+    this.initialValue,
     this.floatingLabelBehavior = FloatingLabelBehavior.never,
     this.textInputType,
     this.counterColor = whiteColor,
@@ -71,6 +75,8 @@ class CustomTextField extends StatefulWidget {
     this.isCapital = false,
     this.maxLength,
     this.isPhoneNumber = false,
+    this.onEditingComplete,
+    this.onSaved,
   });
 
   @override
@@ -89,6 +95,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(context) {
     return TextFormField(
+      initialValue: widget.initialValue,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       minLines: widget.maxLines,
@@ -96,6 +103,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       focusNode: widget.focusNode,
       keyboardType: widget.textInputType,
       maxLength: widget.maxLength,
+      onSaved: widget.onSaved,
+      onEditingComplete: widget.onEditingComplete,
       readOnly: widget.readOnly,
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -174,13 +183,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        // enabledBorder: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(8.0),
-        //   borderSide: const BorderSide(
-        //       color: whiteColor,
-        //       width: 1.0,
-        //       ),
-        // ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+              color: whiteColor,
+              width: 1.0,
+              ),
+        ),
       ),
     );
   }

@@ -13,10 +13,12 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) => AppState(
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String? ?? '',
+      isConnected: json['isConnected'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
       'alreadyShowBeginingTour': instance.alreadyShowBeginingTour,
       'user': instance.user,
       'token': instance.token,
+      'isConnected': instance.isConnected,
     };

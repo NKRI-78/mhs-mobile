@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -25,8 +27,8 @@ class ListBrocureCubit extends Cubit<ListBrocureState> {
       var list = value;
 
       emit(state.copyWith(document: list, loadingBrocuhure: false));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

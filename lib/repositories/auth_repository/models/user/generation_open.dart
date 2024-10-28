@@ -24,7 +24,7 @@ class Data {
   String? name;
   String? startRegisterDate;
   String? endRegisterDate;
-  Null? closeRegisterDate;
+  String? closeRegisterDate;
   String? createdAt;
   String? updatedAt;
   int? schoolGenerationId;
@@ -77,9 +77,9 @@ class SchoolGeneration {
   String? generation;
   String? years;
   String? nameBem;
-  Null? userBemId;
-  Null? startRegisterDate;
-  Null? endRegisterDate;
+  int? userBemId;
+  String? startRegisterDate;
+  String? endRegisterDate;
   String? createdAt;
   String? updatedAt;
 

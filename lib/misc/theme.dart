@@ -52,10 +52,16 @@ const greyInputColor = Color(0xFFC7C7C7);
 const circleUnselect = Color(0xFFECECEC);
 const circleSelect = Color(0xFFBBBBBB);
 const testimoniColor = Color(0xFFE3FCFE);
+const gradeAbsenColor = Color(0xFF8484EE);
+const gradePraktikColor = Color(0xFFF9E746);
+const gradeUtsColor = Color(0xFF4BCC96);
+const gradeUasColor = Color(0xFF5AA9F6);
+const gradeIpkColor = Color(0xFFF89D4A);
 
 //images
 const String logoMhs = "assets/images/logo.png";
 const String logoMhsNoText = "assets/images/logo-no-text.png";
+const String logoMhsNoTextWithBg = "assets/images/logo-mhs-no-text-with-bg.png";
 const String imageDefault = "assets/images/no_image.png";
 const String circleTop = "assets/images/circle_background_top.png";
 const String circleDown = "assets/images/circle_background_bottom.png";
@@ -65,10 +71,19 @@ const String circleFull = "assets/images/circle_background_full.png";
 const String inovatifLogo = "assets/images/logo-inovatif.png";
 const String bottomInfo = "assets/images/bottom_info.png";
 const String avatarDefault = "assets/images/default.jpg";
+const String noData = "assets/images/no-data.png";
+const String noConnection = "assets/images/no-connection.png";
+const String successAbsence = "assets/images/success-absence.png";
 
 //icons
 const String backIcon = "assets/icons/back-icon.png";
 const String logoutIcon = "assets/icons/shutdown-button.png";
+const String ceklisIcon = "assets/icons/success-checklis.png";
+const String absenIcon = "assets/icons/Calendar.png";
+const String praktikIcon = "assets/icons/Cooking.png";
+const String utsIcon = "assets/icons/File.png";
+const String uasIcon = "assets/icons/Choose-Page.png";
+const String totalIcon = "assets/icons/Bill.png";
 
 //Font Size
 const double fontSizeOverExtraSmall = 9.0;

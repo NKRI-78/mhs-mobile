@@ -6,7 +6,9 @@ import 'package:mhs_mobile/router/builder.dart';
 
 
 class MenusWidget extends StatelessWidget {
-  const MenusWidget({super.key});
+  const MenusWidget({super.key, required this.role});
+
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +41,23 @@ class MenusWidget extends StatelessWidget {
           ListBrochureRoute().go(context);
         },
       ),
+      AppbarMenuModel(
+        title: 'Nilai',
+        icon: "Scorecard", 
+        onTap: () { 
+          GradeRoute().go(context);
+        },
+      ),
     ];
     return GridView.builder(
     shrinkWrap: true,
     physics: const ScrollPhysics(),
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      mainAxisSpacing: 10.0,
-      crossAxisSpacing: 10.0,
-      crossAxisCount: 4,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      mainAxisSpacing: role == "STUDENT" ? 0 : 10.0,
+      crossAxisSpacing: role == "STUDENT" ? 0 : 10.0,
+      crossAxisCount: role == "STUDENT" ? 5 : 4,
     ),
-    itemCount: listMenu.length,
+    itemCount: role == "STUDENT" ? listMenu.length : 4,
     itemBuilder: (context, index) {
       final data = listMenu[index];
       return MenuWidget(

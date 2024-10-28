@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/modules/connectivity/utils/connectivity_observer.dart';
 import 'package:mhs_mobile/modules/list_modul/cubit/list_modul_cubit.dart';
 import 'package:mhs_mobile/modules/list_modul/widgets/card_module.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';

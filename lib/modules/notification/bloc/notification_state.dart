@@ -8,6 +8,8 @@ class NotificationState extends Equatable {
   final List<NotifData>? notif;
   final List<PaymentData>? payment;
   final int tabIndex;
+  final int countNotif;
+  final int countTrasaction;
   final bool loading;
   final int nextPageBroadcast;
 
@@ -17,6 +19,8 @@ class NotificationState extends Equatable {
     this.notif = const [],
     this.payment = const [],
     this.tabIndex = 0,
+    this.countNotif = 0,
+    this.countTrasaction = 1,
     this.loading = true,
     this.nextPageBroadcast = 0,
   });
@@ -29,6 +33,8 @@ class NotificationState extends Equatable {
     notif,
     payment,
     tabIndex,
+    countNotif,
+    countTrasaction,
     loading,
     nextPageBroadcast
   ];
@@ -39,6 +45,8 @@ class NotificationState extends Equatable {
     List<NotifData>? notif,
     List<PaymentData>? payment,
     int? tabIndex,
+    int? countNotif,
+    int? countTrasaction,
     bool? loading,
     int? nextPageBroadcast
   }){
@@ -48,6 +56,8 @@ class NotificationState extends Equatable {
       notif: notif ?? this.notif,
       payment: payment ?? this.payment,
       tabIndex: tabIndex ?? this.tabIndex,
+      countNotif: countNotif ?? this.countNotif,
+      countTrasaction: countTrasaction ?? this.countTrasaction,
       loading: loading ?? this.loading,
       nextPageBroadcast: nextPageBroadcast ?? this.nextPageBroadcast,
     );

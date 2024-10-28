@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/theme.dart';
+import 'package:mhs_mobile/router/builder.dart';
+import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 
 class HeaderMenuParent extends StatelessWidget {
   const HeaderMenuParent({super.key});
@@ -18,7 +20,10 @@ class HeaderMenuParent extends StatelessWidget {
                   enabledMouseCursor: MouseCursor.defer,
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)))),
-              onPressed: () {},
+              onPressed: () {
+                // ShowSnackbar.snackbar(context, "Fitur ini belum tersedia", '', errorColor);
+                GradeRoute().go(context);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

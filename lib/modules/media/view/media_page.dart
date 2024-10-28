@@ -39,11 +39,11 @@ class MediaView extends StatelessWidget {
                 isCircle: true,
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 100),
+                padding: EdgeInsets.symmetric(vertical: st.media.isEmpty ? 0 : 80, horizontal: st.media.isEmpty ? 0 : 100),
                 sliver: st.loadingMedia ? const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator.adaptive()),
                 ) : st.media.isEmpty ? const SliverFillRemaining(
-                  child: Center(child: EmptyPage(msg: "Tidak ada partnership"))) :  SliverGrid.builder(
+                  child: Center(child: EmptyPage(msg: "Tidak ada media"))) :  SliverGrid.builder(
                   itemCount: st.media.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
@@ -72,20 +72,17 @@ class MediaView extends StatelessWidget {
                           fit: StackFit.loose,
                           clipBehavior: Clip.none,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 35, left: 20, right: 20),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(data.name ?? "",
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: whiteColor,
-                                    fontSize: fontSizeDefault,
-                                    fontWeight: FontWeight.w500
-                                  ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(data.name ?? "",
+                                maxLines: 2,
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: whiteColor,
+                                  fontSize: fontSizeDefault,
+                                  fontWeight: FontWeight.w500
                                 ),
                               ),
                             ),

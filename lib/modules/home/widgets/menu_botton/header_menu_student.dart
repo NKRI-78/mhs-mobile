@@ -65,7 +65,8 @@ class HeaderMenuStudent extends StatelessWidget {
                           bottomRight: Radius.circular(20),
                           topRight: Radius.circular(20)))),
               onPressed: () {
-                ShowSnackbar.snackbar(context, "Fitur ini belum tersedia...", '', errorColor);
+                // ShowSnackbar.snackbar(context, "Fitur ini belum tersedia...", '', errorColor);
+                AbsenceRoute().go(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

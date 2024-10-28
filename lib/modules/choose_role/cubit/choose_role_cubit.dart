@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
@@ -19,8 +21,8 @@ class ChooseRoleCubit extends Cubit<ChooseRoleState> {
       GenerationOpenModel? data = await repo.getGenerationOpen();
 
       emit(state.copyWith(generation: data));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     }
   }
 }

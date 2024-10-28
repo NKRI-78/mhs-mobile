@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
+import 'package:mhs_mobile/modules/connectivity/utils/connectivity_observer.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/modules/home/widgets/body_home.dart';
 import 'package:mhs_mobile/modules/home/widgets/menu_screen_home.dart';
@@ -49,7 +51,7 @@ class HomeView extends StatelessWidget {
       style: DrawerStyle.defaultStyle,
       menuBackgroundColor: primaryColor,
       menuScreen: const MenuScreenHome(),
-      mainScreen: const BodyHome()
+      mainScreen: const NetworkObserverPage(child: BodyHome())
     );
   }
 }

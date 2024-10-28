@@ -8,6 +8,7 @@ class HomeState extends Equatable {
   final List<TestimoniData>? testimoni;
   final ProfileModel? profile;
   final MessageHomeModel? message;
+  final int countNotif;
   final bool loadingBanner;
   final bool loadingNew;
   final bool loadingProfile;
@@ -21,6 +22,7 @@ class HomeState extends Equatable {
     this.testimoni = const [],
     this.profile,
     this.message,
+    this.countNotif = 0,
     this.loadingBanner = true,
     this.loadingNew = false,
     this.loadingProfile = true,
@@ -36,6 +38,7 @@ class HomeState extends Equatable {
         testimoni,
         profile,
         message,
+        countNotif,
         loadingBanner,
         loadingNew,
         loadingProfile,
@@ -50,6 +53,7 @@ class HomeState extends Equatable {
     List<TestimoniData>? testimoni,
     ProfileModel? profile,
     MessageHomeModel? message,
+    int? countNotif,
     bool? loadingBanner,
     bool? loadingNew,
     bool? loadingProfile,
@@ -62,6 +66,7 @@ class HomeState extends Equatable {
       profile: profile ?? this.profile,
       message: message ?? this.message,
       testimoni: testimoni ?? this.testimoni,
+      countNotif: countNotif ?? this.countNotif,
       banners: banners ?? this.banners,
       loadingBanner: loadingBanner ?? this.loadingBanner,
       loadingNew: loadingNew ?? this.loadingNew,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/repositories/news_repository/models/detail_news_model.dart';
@@ -19,8 +21,8 @@ class DetailNewsCubit extends Cubit<DetailNewsState> {
       emit(state.copyWith(loading: true));
       final news = await repo.getDetailNews(newsId);
       emit(state.copyWith(news: news, idNews: newsId));
-    } catch (e) {
-      throw "Ada masalah pada server";
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
     } finally {
       emit(state.copyWith(loading: false));
     }
