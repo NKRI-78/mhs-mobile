@@ -15,6 +15,7 @@ part '../widgets/_input_phone.dart';
 part '../widgets/_input_email.dart';
 part '../widgets/_field_password.dart';
 part '../widgets/_field_confirm_password.dart';
+part '../widgets/_field_referal.dart';
 
 final GlobalKey<FormState> _formRegister = GlobalKey<FormState>();
 
@@ -83,6 +84,10 @@ class RegisterView extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: _FieldConfirmPassword(),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: FieldReferral(),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(bottom: 20),

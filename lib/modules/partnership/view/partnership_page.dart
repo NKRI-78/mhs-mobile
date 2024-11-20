@@ -6,6 +6,7 @@ import 'package:mhs_mobile/modules/partnership/cubit/partnership_cubit.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 
 class PartnershipPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class PartnershipView extends StatelessWidget {
               SliverPadding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 sliver : st.loadingPartnership ? const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator.adaptive()),
+                  child: LoadingPage(),
                 ) : st.partnership.isEmpty ? const SliverFillRemaining(
                   child: Center(child: EmptyPage(msg: "Tidak ada partnership"))) : SliverGrid.builder(
                   itemCount: st.partnership.length,

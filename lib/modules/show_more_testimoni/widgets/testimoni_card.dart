@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mhs_mobile/misc/modal.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_circle.dart';
 
 class TestimoniCard extends StatelessWidget {
@@ -13,7 +14,8 @@ class TestimoniCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GeneralModal.showTestimoni(context: context, testimoni: testimoni);
+        // GeneralModal.showTestimoni(context: context, testimoni: testimoni);
+        DetailTestimoniRoute($extra: testimoni).go(context);
       },
       child: Container(
         decoration: BoxDecoration(

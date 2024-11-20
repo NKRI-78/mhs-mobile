@@ -8,8 +8,8 @@ const GlobalObjectKey<NavigatorState> myNavigatorKey = GlobalObjectKey<Navigator
 
 class MyRouter {
   static GoRouter init(AppBloc app) => GoRouter(
-        routes: $appRoutes,
-        navigatorKey: myNavigatorKey,
-        initialLocation: SplashScreenRoute().location,
-      );
+    routes: $appRoutes,
+    navigatorKey: myNavigatorKey,
+    initialLocation: SplashScreenRoute().location,
+  );
 }

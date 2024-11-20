@@ -7,6 +7,7 @@ class RegisterState extends Equatable {
   final String email;
   final String password;
   final String rePassword;
+  final String referral;
   final bool loading;
   final List<Contact>? contact;
 
@@ -17,13 +18,14 @@ class RegisterState extends Equatable {
     this.email = '',
     this.password = '',
     this.rePassword = '',
+    this.referral = '',
     this.loading = false,
     this.contact = const [],
   });
 
   @override
   List<Object?> get props =>
-      [name, phone, email, password, rePassword, loading];
+      [name, phone, email, password, rePassword, referral, loading];
 
   RegisterState copyWith({
     String? name,
@@ -31,6 +33,7 @@ class RegisterState extends Equatable {
     String? email,
     String? password,
     String? rePassword,
+    String? referral,
     bool? loading,
     List<Contact>? contact,
   }) {
@@ -40,6 +43,7 @@ class RegisterState extends Equatable {
       email: email ?? this.email,
       password: password ?? this.password,
       rePassword: rePassword ?? this.rePassword,
+      referral: referral ?? this.referral,
       loading: loading ?? this.loading,
       contact: contact ?? this.contact,
     );

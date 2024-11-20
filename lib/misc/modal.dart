@@ -234,7 +234,7 @@ class GeneralModal {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      padding: const EdgeInsets.only(top: 2, bottom: 15, right: 15, left: 15),
                       child: Text(
                         testimoni.name ?? "",
                         style: const TextStyle(
@@ -247,7 +247,7 @@ class GeneralModal {
                     Padding(
                       padding: const EdgeInsets.only(top: 2, bottom: 15, right: 15, left: 15),
                       child: SizedBox(
-                        height: 100,
+                        height: 50,
                         child: SingleChildScrollView(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
@@ -259,7 +259,7 @@ class GeneralModal {
                               fontSize: fontSizeDefault,
                             ),
                           ),
-                        ),
+                        ), 
                       ),
                     ),
                   ],

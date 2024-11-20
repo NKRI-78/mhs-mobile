@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 
-class PageSuccessPayment extends StatelessWidget {
-  const PageSuccessPayment({super.key, required this.msg});
+class PagePaymentStatus extends StatelessWidget {
+  const PagePaymentStatus({super.key, required this.msg, required this.img});
 
   final String msg;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class PageSuccessPayment extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              completedSuccessfully,
+              img,
               width: 250.0,
               height: 250.0,
             ),

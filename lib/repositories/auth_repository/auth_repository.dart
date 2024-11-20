@@ -143,13 +143,16 @@ class AuthRepository {
     String email = '',
     String phone = '',
     String password = '',
+    String referral = '',
   }) async {
+    debugPrint("Ref : $referral");
     try {
       final res = await http.post(Uri.parse('$v1/register'), body: {
         'name': name,
         'email': email,
         'phone': phone,
         'password': password,
+        'referral': referral,
       });
 
       debugPrint(res.body);

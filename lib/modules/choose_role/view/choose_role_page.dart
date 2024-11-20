@@ -181,7 +181,6 @@ class ChooseRoleView extends StatelessWidget {
                               );
                               }
                             ).then((value){
-                              // dispose the timer in case something else has triggered the dismiss.
                               timer?.cancel();
                               timer = null;
                             });

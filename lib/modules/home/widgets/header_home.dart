@@ -1,5 +1,16 @@
 part of '../view/home_page.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    if (isEmpty) return "";
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+
+  String capitalizeEachWord() {
+    return split(" ").map((word) => word.capitalize()).join(" ");
+  }
+}
+
 class HeaderHome extends StatelessWidget {
   const HeaderHome({super.key});
 
@@ -15,9 +26,9 @@ class HeaderHome extends StatelessWidget {
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, st) {
               String roleId = st.profile?.data.role?.slug ?? "USER";
-              String nameStudent = st.profile?.data.student?.fullname ?? "-" ;
-              String nameParent = st.profile?.data.parent?.fullname ?? "-" ;
-              String nameUser = st.profile?.data.name ?? "" ;
+              String nameStudent = st.profile?.data.student?.fullname?.capitalizeEachWord() ?? "-" ;
+              String nameParent = st.profile?.data.parent?.fullname?.capitalizeEachWord() ?? "-" ;
+              String nameUser = st.profile?.data.name?.capitalizeEachWord() ?? "" ;
               bool waitAdmin = st.profile?.data.isWaitingAprovalAdmin ?? false ;
               int countNotif = getIt<HomeBloc>().state.countNotif;
               debugPrint("user name : $countNotif");

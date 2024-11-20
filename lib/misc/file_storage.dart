@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 import 'package:open_file_plus/open_file_plus.dart';
@@ -75,6 +76,12 @@ class FileStorage {
     final path = await localPath;
     debugPrint('Filename : $filename');
     File file = File('$path/MHS-MOBILE/$filename');
+    final result = await ImageGallerySaver.saveImage(
+      Uint8List.fromList(bytes),
+      quality: 80,
+      isReturnImagePathOfIOS: true,
+      name: filename);
+    print(result);
     return file.writeAsBytes(bytes);
   }
 }

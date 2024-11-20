@@ -45,13 +45,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     String? email,
     String? password,
     String? rePassword,
+    String? referral,
   }) {
     emit(state.copyWith(
         name: name,
         email: email,
         password: password,
         phone: phone,
-        rePassword: rePassword));
+        rePassword: rePassword,
+        referral: referral
+    ));
   }
 
   Future<String> submit() async {
@@ -68,7 +71,8 @@ class RegisterCubit extends Cubit<RegisterState> {
           name: state.name,
           email: state.email.toLowerCase(),
           phone: state.phone,
-          password: state.password
+          password: state.password,
+          referral: state.referral
         );
       }
       emit(state.copyWith(loading: false));

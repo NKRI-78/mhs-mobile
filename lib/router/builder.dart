@@ -11,6 +11,7 @@ import 'package:mhs_mobile/modules/choose_role/view/choose_role_page.dart';
 import 'package:mhs_mobile/modules/connectivity/view/connectivity_page.dart';
 import 'package:mhs_mobile/modules/detail_event/view/event_detail_page.dart';
 import 'package:mhs_mobile/modules/detail_notification/view/detail_notification_page.dart';
+import 'package:mhs_mobile/modules/detail_testimoni/view/detail_testimoni.dart';
 import 'package:mhs_mobile/modules/event/view/event_page.dart';
 import 'package:mhs_mobile/modules/forgot_password/view/forgot_password_page.dart';
 import 'package:mhs_mobile/modules/forgot_password_change/view/forgot_password_change_page.dart';
@@ -48,6 +49,7 @@ import 'package:mhs_mobile/modules/splash_screen/views/splash_screen.dart';
 import 'package:mhs_mobile/modules/update/view/update_page.dart';
 import 'package:mhs_mobile/modules/waiting_payment/view/waiting_payment_page.dart';
 import 'package:mhs_mobile/modules/webview/view/webview.dart';
+import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
 import 'package:mhs_mobile/widgets/pages/page_message_payment.dart';
 part 'builder.g.dart';
@@ -93,7 +95,9 @@ class SplashScreenRoute extends GoRouteData {
       TypedGoRoute<DetailNotifRoute>(path: 'detail-notifikasi'),
       TypedGoRoute<WaitingPaymentNotifRoute>(path: 'waiting-payment-notif'),
     ]),
-    TypedGoRoute<ShowMoreTestimoniRoute>(path: 'show-more-testimoni'),
+    TypedGoRoute<ShowMoreTestimoniRoute>(path: 'show-more-testimoni', routes: [
+      TypedGoRoute<DetailTestimoniRoute>(path: 'detail-testimoni'),
+    ]),
     TypedGoRoute<AddTestimoniRoute>(path: 'add-testimoni'),
     TypedGoRoute<GradeRoute>(path: 'grade'),
     TypedGoRoute<ShowMoreNewsRoute>(path: 'show-more-news', routes: [
@@ -586,6 +590,18 @@ class WaitingPaymentNotifRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) {
     return WaitingPaymentPage(
       id: id,
+    );
+  }
+}
+
+class DetailTestimoniRoute extends GoRouteData {
+  final TestimoniData $extra;
+
+  DetailTestimoniRoute({required this.$extra});
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return DetailTestimoni(
+      testimoni: $extra
     );
   }
 }

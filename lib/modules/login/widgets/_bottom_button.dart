@@ -10,22 +10,23 @@ class _BottomButon extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         height: 47,
-        child: ElevatedButton(
-          onPressed: state.loading
-              ? null
-              : () {
-                  if (_formLogin.currentState?.validate() ?? false) {
-                    context.read<LoginCubit>().submit(context);
-                  }
-                  if(context.mounted){
-                    FocusScope.of(context).unfocus();
-                  }
-                },
-          child: state.loading
-              ? const CircularProgressIndicator.adaptive()
-              : const Text(
-                  'Masuk',
-                ),
+        child: CustomButton(
+          onTap: () {
+            if (_formLogin.currentState?.validate() ?? false) {
+              context.read<LoginCubit>().submit(context);
+            }
+            if(context.mounted){
+              FocusScope.of(context).unfocus();
+            }
+          },
+          isLoading: state.loading ? true : false,
+          isBorder: false,
+          isBorderRadius: true,
+          isBoxShadow: false,
+          btnTxt: "Masuk",
+          loadingColor: primaryColor,
+          btnColor: redColor,
+          btnTextColor: whiteColor,
         ),
       );
     });

@@ -145,6 +145,12 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'show-more-testimoni',
           factory: $ShowMoreTestimoniRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'detail-testimoni',
+              factory: $DetailTestimoniRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'add-testimoni',
@@ -690,6 +696,28 @@ extension $ShowMoreTestimoniRouteExtension on ShowMoreTestimoniRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DetailTestimoniRouteExtension on DetailTestimoniRoute {
+  static DetailTestimoniRoute _fromState(GoRouterState state) =>
+      DetailTestimoniRoute(
+        $extra: state.extra as TestimoniData,
+      );
+
+  String get location => GoRouteData.$location(
+        '/show-more-testimoni/detail-testimoni',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 extension $AddTestimoniRouteExtension on AddTestimoniRoute {

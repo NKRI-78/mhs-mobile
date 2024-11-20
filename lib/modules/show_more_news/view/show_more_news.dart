@@ -4,6 +4,8 @@ import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/show_more_news/cubit/show_more_news_cubit.dart';
 import 'package:mhs_mobile/modules/show_more_news/widgets/card_news.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowMoreNewsPage extends StatelessWidget {
@@ -47,7 +49,10 @@ class ShowMoreNewsView extends StatelessWidget {
                   isCircle: true,
                   isPrimary: false,
                 ),
-                SliverList(
+                st.loadingNews ? const SliverFillRemaining(
+                child: Center(child: CircularProgressIndicator.adaptive()),
+              ) : st.news.isEmpty ? const SliverFillRemaining(
+                child: Center(child: EmptyPage(msg: "Tidak ada testimoni"))) : SliverList(
                   delegate: SliverChildListDelegate([
                     ListView(
                       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

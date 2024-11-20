@@ -40,7 +40,7 @@ class ShowMoreTestimoniView extends StatelessWidget {
             st.loadingTestimoni ? const SliverFillRemaining(
                 child: Center(child: CircularProgressIndicator.adaptive()),
               ) : st.testimoni.isEmpty ? const SliverFillRemaining(
-                child: Center(child: EmptyPage(msg: "Tidak ada testimoni alumni"))) : SliverPadding(
+                child: Center(child: EmptyPage(msg: "Tidak ada testimoni"))) : SliverPadding(
               padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
               sliver: SliverGrid.builder(
                 itemCount: st.testimoni.length,

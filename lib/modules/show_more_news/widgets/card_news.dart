@@ -45,9 +45,12 @@ class CardNews extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       news.title ?? '',
+                      textAlign: TextAlign.start,
                       style: GoogleFonts.roboto().copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

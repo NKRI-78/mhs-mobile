@@ -32,13 +32,12 @@ class NewStudentPaymentCubit extends Cubit<NewStudentPaymentState> {
   Future<String> checkout() async {
     try {
       emit(state.copyWith(loading: true));
-      var paymentNumber =
-          await homeRepo.registerStudent(student, state.channel!);
+      var paymentNumber = await homeRepo.registerStudent(student, state.channel!);
       emit(state.copyWith(loading: false));
       return paymentNumber;
     } catch (e) {
       emit(state.copyWith(loading: false));
-      throw "Ada masalah pada server";
+      throw e == "Pendaftaran belum dibuka" ? e : "Ada masalah pada server";
     }
   }
 }
