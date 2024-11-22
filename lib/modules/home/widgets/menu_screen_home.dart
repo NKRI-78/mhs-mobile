@@ -55,7 +55,7 @@ class MenuScreenHome extends StatelessWidget {
                               },
                               countNotif: countNotif,
                             ) : const SizedBox.shrink(),
-                            isLogin ? MenuButton(
+                            roleId == "STUDENT" || roleId == "PARENT" ? MenuButton(
                               text: 'Profile',
                               onPressed: () {
                                 z.close?.call()?.then(

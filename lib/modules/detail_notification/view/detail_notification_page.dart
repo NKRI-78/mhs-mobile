@@ -1,89 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mhs_mobile/misc/injections.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
-import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
+import 'package:mhs_mobile/modules/detail_notification/cubit/detail_notification_cubit.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 import '../../notification/bloc/notification_bloc.dart';
 
 class DetailNotificationPage extends StatelessWidget {
-  const DetailNotificationPage({super.key, required this.notifData});
+  const DetailNotificationPage({super.key, required this.idNotif});
 
-  final NotifData notifData;
+  final int idNotif;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NotificationBloc()..add(NotificationInitial()),
-      child: DetailNotificationView(notifData: notifData,)
+    return BlocProvider<DetailNotificationCubit>(
+      create: (context) => DetailNotificationCubit()..fetchDetailNotif(idNotif),
+      child: DetailNotificationView(id: idNotif,)
     );
   }
 }
 
-class DetailNotificationView extends StatefulWidget {
-  const DetailNotificationView({super.key, required this.notifData});
+class DetailNotificationView extends StatelessWidget {
+  const DetailNotificationView({super.key, required this.id});
 
-  final NotifData notifData;
+  final int id;
 
-  @override
-  State<DetailNotificationView> createState() => _DetailNotificationViewState();
-}
-
-class _DetailNotificationViewState extends State<DetailNotificationView> {
-  @override
-  void initState() {
-    getIt<NotificationBloc>().add(NotifRead(idNotif: widget.notifData.id));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    getIt<NotificationBloc>().add(NotifcationRefreshInfo());
-    getIt<NotificationBloc>().add(NotifCount());
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
-    print("Count Trans : ${getIt<NotificationBloc>().state.countTrasaction}");
     return Scaffold(
-      body: CustomScrollView(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        slivers: [
-          HeaderSection(
-            title: widget.notifData.type, 
-            isCircle: true,
-            isPrimary: false,
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(10.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    widget.notifData.data.title,
-                    style: const TextStyle(
-                      fontSize: fontSizeOverLarge,
-                      fontWeight: FontWeight.bold,
+      body: BlocBuilder<DetailNotificationCubit, DetailNotificationState>(
+        buildWhen: (previous, current) => previous.detailNotifModel != current.detailNotifModel,
+        builder: (context, state) {
+          return CustomScrollView(
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            slivers: [
+              const HeaderSection(
+                title: "BROADCAST", 
+                isCircle: true,
+                isPrimary: false,
+              ),
+              state.loadingNotif ? const SliverFillRemaining(
+                child: Center(child: LoadingPage()),
+              ) : state.detailNotifModel?.data == null ? const SliverFillRemaining(
+                child: Center(child: EmptyPage(msg: "Notif tidak ditemukan"))) : SliverPadding(
+                padding: const EdgeInsets.all(10.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        state.detailNotifModel?.data?.title ?? "-",
+                        style: const TextStyle(
+                          fontSize: fontSizeOverLarge,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Html(
+                        data: state.detailNotifModel?.data?.message ?? "-",
+                        style: {
+                          "a": Style(
+                            color: Colors.blue,
+                          ),
+                        },
+                        onLinkTap: (String? url, Map<String, String> attributes, element) async {
+                          WebViewRoute(url: url!, title: "MHS-MOBILE").go(context);
+                        },
+                      ),
+                    )
+                  ]),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    widget.notifData.data.description,
-                    style: const TextStyle(
-                      fontSize: fontSizeDefault,
-                    ),
-                  ),
-                )
-              ]),
-            ),
-          )
-        ]
+              )
+            ]
+          );
+        }
       ),
     );
   }

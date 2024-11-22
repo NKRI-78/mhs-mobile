@@ -7,6 +7,7 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:no_screenshot/no_screenshot.dart';
 
 class ShowPdf extends StatefulWidget {
   const ShowPdf({super.key, required this.linkPdf, required this.title});
@@ -27,6 +28,15 @@ class _ShowPdfState extends State<ShowPdf> {
 
   ///is Recording is set to false initially.
   bool isRecording = false;
+
+  final _noScreenshot = NoScreenshot.instance;
+
+  void stopScreenshotListening() async {
+    await _noScreenshot.screenshotOff();
+  }
+  void startScreenshotListening() async {
+    await _noScreenshot.screenshotOn();
+  }
 
 
   secureAndroid() async {
@@ -49,23 +59,25 @@ Future<void> checkScreenRecord() async {
     isRecording = recordStatus;
     setState(() {});
  }
+ 
 
   @override
   initState(){
     if(Platform.isAndroid){
-      secureAndroid();
+      // secureAndroid();
+      stopScreenshotListening();
     }else {
       checkScreenRecord();
     }
-    _screenRecordsSubscription =
-        preventScreenCapture.screenRecordsIOS.listen(updateRecordStatus);
+    _screenRecordsSubscription = preventScreenCapture.screenRecordsIOS.listen(updateRecordStatus);
     super.initState();
   }
 
   @override
   void dispose() {
     if(Platform.isAndroid){
-      unSecureAndroid();
+      startScreenshotListening();
+      // unSecureAndroid();
     }else {
       _screenRecordsSubscription.cancel();
     }
@@ -122,7 +134,7 @@ Future<void> checkScreenRecord() async {
               ),
             ),
         ),
-      body: SfPdfViewer.network(
+      body: isRecording ? const SizedBox.shrink() : SfPdfViewer.network(
         widget.linkPdf,
         enableTextSelection: false,
       ),

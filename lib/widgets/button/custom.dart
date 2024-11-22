@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
   final bool isPrefixIcon;
 
   const CustomButton({
-    Key? key, 
+    super.key, 
     required this.onTap, 
     this.btnTxt, 
     this.customText = false,
@@ -43,7 +43,7 @@ class CustomButton extends StatelessWidget {
     this.isBoxShadow = false,
     this.isBackgroundImage = false,
     this.isPrefixIcon = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

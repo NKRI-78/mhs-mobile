@@ -6,12 +6,14 @@ import 'package:mhs_mobile/misc/api_url.dart';
 import 'package:mhs_mobile/misc/http_client.dart';
 import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
+import 'package:mhs_mobile/repositories/notification_repository/model/detail_notification_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/transaction_model.dart';
 
 class NotificationRepository {
   String get notif => '${MyApi.baseUrl}/api/v1/notification';
   String get payment => '${MyApi.baseUrl}/api/v1/payment/user';
+  String get detailNotif => '${MyApi.baseUrl}/api/v1/broadcast';
 
   final http = getIt<BaseNetworkClient>();
 
@@ -72,6 +74,23 @@ class NotificationRepository {
       debugPrint("Read all : $notif/read/$idNotif");
       if (res.statusCode == 200) {
         return "Berhasil membaca";
+      } else {
+        throw "error api";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<DetailNotifModel> detailNotification({required int id}) async {
+    try {
+      final res = await http.get(Uri.parse("$detailNotif/$id"));
+
+      debugPrint("Read all : $detailNotif/$id");
+      debugPrint(res.body);
+      final json = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return DetailNotifModel.fromJson(json);
       } else {
         throw "error api";
       }

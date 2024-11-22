@@ -34,7 +34,7 @@ class NotifInformationModelData {
     int totalPages;
     int currentPage;
     dynamic previous;
-    int next;
+    dynamic next;
 
     NotifInformationModelData({
         required this.data,
@@ -71,18 +71,18 @@ class NotifData {
     int notifiableId;
     dynamic readAt;
     String createdAt;
-    String updatedAt;
-    User? user;
+    DateTime updatedAt;
+    User user;
 
     NotifData({
         required this.data,
-        this.id = 0,
+        required this.id,
         required this.type,
         required this.notifiableId,
         required this.readAt,
-        this.createdAt = "",
-        this.updatedAt = "",
-        this.user = null,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.user,
     });
 
     factory NotifData.fromJson(Map<String, dynamic> json) => NotifData(
@@ -92,7 +92,7 @@ class NotifData {
         notifiableId: json["notifiableId"],
         readAt: json["readAt"],
         createdAt: json["createdAt"],
-        updatedAt: json["updatedAt"],
+        updatedAt: DateTime.parse(json["updatedAt"]),
         user: User.fromJson(json["User"]),
     );
 
@@ -103,28 +103,52 @@ class NotifData {
         "notifiableId": notifiableId,
         "readAt": readAt,
         "createdAt": createdAt,
-        "updatedAt": updatedAt,
-        "User": user?.toJson(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "User": user.toJson(),
     };
 }
 
 class DatumData {
     String title;
     String description;
+    DataData data;
 
     DatumData({
         required this.title,
         required this.description,
+        required this.data,
     });
 
     factory DatumData.fromJson(Map<String, dynamic> json) => DatumData(
         title: json["title"],
         description: json["description"],
+        data: DataData.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
         "title": title,
         "description": description,
+        "data": data.toJson(),
+    };
+}
+
+class DataData {
+    String type;
+    int id;
+
+    DataData({
+        required this.type,
+        required this.id,
+    });
+
+    factory DataData.fromJson(Map<String, dynamic> json) => DataData(
+        type: json["type"],
+        id: json["id"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "type": type,
+        "id": id,
     };
 }
 
@@ -133,6 +157,7 @@ class User {
     String name;
     String username;
     String email;
+    dynamic referral;
     String phone;
     String password;
     int otp;
@@ -140,7 +165,7 @@ class User {
     DateTime verifiedEmail;
     DateTime createdAt;
     DateTime updatedAt;
-    String deletedAt;
+    dynamic deletedAt;
     int roleId;
 
     User({
@@ -148,6 +173,7 @@ class User {
         required this.name,
         required this.username,
         required this.email,
+        required this.referral,
         required this.phone,
         required this.password,
         required this.otp,
@@ -160,19 +186,20 @@ class User {
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"] ?? 0,
-        name: json["name"] ?? "",
-        username: json["username"] ?? "",
-        email: json["email"] ?? "",
-        phone: json["phone"] ?? "",
-        password: json["password"] ?? "",
-        otp: json["otp"] ?? 0,
-        fcm: json["fcm"] ?? "",
+        id: json["id"],
+        name: json["name"],
+        username: json["username"],
+        email: json["email"],
+        referral: json["referral"],
+        phone: json["phone"],
+        password: json["password"],
+        otp: json["otp"],
+        fcm: json["fcm"],
         verifiedEmail: DateTime.parse(json["verifiedEmail"]),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        deletedAt: json["deletedAt"] ?? "",
-        roleId: json["RoleId"] ?? 0,
+        deletedAt: json["deletedAt"],
+        roleId: json["RoleId"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -180,6 +207,7 @@ class User {
         "name": name,
         "username": username,
         "email": email,
+        "referral": referral,
         "phone": phone,
         "password": password,
         "otp": otp,

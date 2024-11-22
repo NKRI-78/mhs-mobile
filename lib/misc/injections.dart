@@ -6,6 +6,7 @@ import 'package:mhs_mobile/modules/app/bloc/app_bloc.dart';
 import 'package:mhs_mobile/modules/connectivity/bloc/connectivity_bloc.dart';
 import 'package:mhs_mobile/modules/connectivity/cubit/connectivity_cubit.dart';
 import 'package:mhs_mobile/modules/detail_event/cubit/event_detail_cubit.dart';
+import 'package:mhs_mobile/modules/detail_notification/cubit/detail_notification_cubit.dart';
 import 'package:mhs_mobile/modules/event/bloc/event_bloc.dart';
 import 'package:mhs_mobile/modules/grade/cubit/grade_cubit.dart';
 import 'package:mhs_mobile/modules/login/cubit/login_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:mhs_mobile/repositories/auth_repository/auth_repository.dart';
 import 'package:mhs_mobile/repositories/event_repository/event_repository.dart';
 import 'package:mhs_mobile/repositories/grade_student_repository/grade_student_repository.dart';
 import 'package:mhs_mobile/repositories/news_repository/news_repository.dart';
+import 'package:mhs_mobile/repositories/notification_repository/notification_repository.dart';
 import 'package:mhs_mobile/repositories/profile_repository/profile_repository.dart';
 
 final getIt = GetIt.instance;
@@ -48,6 +50,7 @@ class MyInjection {
     getIt.registerLazySingleton<LoginStudentCubit>(() => LoginStudentCubit());
     getIt.registerLazySingleton<AddTestimoniCubit>(() => AddTestimoniCubit());
     getIt.registerLazySingleton<GradeCubit>(() => GradeCubit());
+    getIt.registerLazySingleton<DetailNotificationCubit>(() => DetailNotificationCubit());
 
     /// Http Client
     getIt.registerLazySingleton<BaseNetworkClient>(
@@ -63,5 +66,6 @@ class MyInjection {
     getIt.registerLazySingleton<AbsenceRepository>(() => AbsenceRepository());
     getIt.registerLazySingleton<AddTestimoniRepository>(() => AddTestimoniRepository());
     getIt.registerLazySingleton<GradeStudentRepository>(() => GradeStudentRepository());
+    getIt.registerLazySingleton<NotificationRepository>(() => NotificationRepository());
   }
 }

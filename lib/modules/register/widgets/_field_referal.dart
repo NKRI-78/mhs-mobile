@@ -9,8 +9,8 @@ class FieldReferral extends StatelessWidget {
       onChanged: (value) {
         context.read<RegisterCubit>().setState(referral: value);
       },
-      labelText: "Kode Referral",
-      hintText: "Kode Referral",
+      labelText: "Kode Referral (Optional)",
+      hintText: "Kode Referral (Optional)",
       isCapital: true,
       fillColor: whiteColor.withOpacity(0.10),
       textInputType: TextInputType.text,

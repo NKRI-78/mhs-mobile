@@ -5,6 +5,7 @@ import 'package:mhs_mobile/modules/show_more_testimoni/cubit/show_more_testimoni
 import 'package:mhs_mobile/modules/show_more_testimoni/widgets/testimoni_card.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class ShowMoreTestimoniPage extends StatelessWidget {
   const ShowMoreTestimoniPage({super.key});
@@ -38,7 +39,7 @@ class ShowMoreTestimoniView extends StatelessWidget {
               isPrimary: true,
             ),
             st.loadingTestimoni ? const SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator.adaptive()),
+                child: Center(child: LoadingPage()),
               ) : st.testimoni.isEmpty ? const SliverFillRemaining(
                 child: Center(child: EmptyPage(msg: "Tidak ada testimoni"))) : SliverPadding(
               padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 10),

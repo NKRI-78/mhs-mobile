@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 
 class PrivacyPage extends StatelessWidget {
@@ -27,6 +28,9 @@ class PrivacyPage extends StatelessWidget {
                 "a": Style(
                   color: Colors.blue,
                 ),
+              },
+              onLinkTap: (String? url, Map<String, String> attributes, element) async {
+                WebViewRoute(url: url!, title: "MHS-MOBILE").go(context);
               },
             )
             ])

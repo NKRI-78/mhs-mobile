@@ -50,9 +50,9 @@ class ShowMoreNewsView extends StatelessWidget {
                   isPrimary: false,
                 ),
                 st.loadingNews ? const SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator.adaptive()),
+                child: Center(child: LoadingPage()),
               ) : st.news.isEmpty ? const SliverFillRemaining(
-                child: Center(child: EmptyPage(msg: "Tidak ada testimoni"))) : SliverList(
+                child: Center(child: EmptyPage(msg: "Tidak ada berita"))) : SliverList(
                   delegate: SliverChildListDelegate([
                     ListView(
                       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

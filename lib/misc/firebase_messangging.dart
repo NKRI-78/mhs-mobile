@@ -19,15 +19,40 @@ class FirebaseMessagingMisc {
       (message) async {
         debugPrint('Pasklik');
         debugPrint("Data : ${message?.data}");
+        await Future.delayed(const Duration(seconds: 2));
+        if (myNavigatorKey.currentContext != null &&
+            message?.data['type'] == "BROADCAST") {
+          DetailNotifRoute(id: int.parse(message?.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+        }
+        if (myNavigatorKey.currentContext != null &&
+            message?.data['type'] == "NEWS") {
+          NewsDetailRoute(newsId: int.parse(message?.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+        }
+        if (myNavigatorKey.currentContext != null &&
+            message?.data['type'] == "EVENT") {
+          EventDetailRoute(idEvent: int.parse(message?.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+        }
       },
     );
 
     FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      await Future.delayed(const Duration(seconds: 2));
       debugPrint("Test comment id${message.data['title']}");
       debugPrint("Data notif: ${message.data}");
+      await Future.delayed(const Duration(seconds: 2));
+      if (myNavigatorKey.currentContext != null &&
+          message.data['type'] == "BROADCAST") {
+        DetailNotifRoute(id: int.parse(message.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+      }
+      if (myNavigatorKey.currentContext != null &&
+          message.data['type'] == "NEWS") {
+        NewsDetailRoute(newsId: int.parse(message.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+      }
+      if (myNavigatorKey.currentContext != null &&
+          message.data['type'] == "EVENT") {
+        EventDetailRoute(idEvent: int.parse(message.data['id'] ?? "0")).push(myNavigatorKey.currentContext!);
+      }
     });
   }
 }
@@ -115,6 +140,15 @@ void onDidReceiveNotificationResponse(
   final String? payload = notificationResponse.payload;
   if (notificationResponse.payload != null) {
     debugPrint("Test comment id ${json.decode(payload!)}");
+    if (json.decode(payload)['type'] == "BROADCAST") {
+      DetailNotifRoute(id: int.parse(json.decode(payload)['id'])).push(myNavigatorKey.currentContext!);
+    }
+    if (json.decode(payload)['type'] == "NEWS") {
+      NewsDetailRoute(newsId: int.parse(json.decode(payload)['id'])).push(myNavigatorKey.currentContext!);
+    }
+    if (json.decode(payload)['type'] == "EVENT") {
+      EventDetailRoute(idEvent: int.parse(json.decode(payload)['id'])).push(myNavigatorKey.currentContext!);
+    }
   }
 }
 

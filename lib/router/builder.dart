@@ -606,24 +606,11 @@ class DetailTestimoniRoute extends GoRouteData {
   }
 }
 class DetailNotifRoute extends GoRouteData {
-  final String type;
-  final String title;
-  final String description;
   final int id;
-  final int notifiableId;
-  final String readAt;
 
-  DetailNotifRoute(this.type, this.title, this.description, this.notifiableId, this.readAt, {required this.id});
+  DetailNotifRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return DetailNotificationPage(
-      notifData: NotifData(
-        data: DatumData(title: title, description: description), 
-        id: id, 
-        type: type, 
-        notifiableId: notifiableId, 
-        readAt: readAt, 
-      ),
-    );
+    return DetailNotificationPage(idNotif: id,);
   }
 }

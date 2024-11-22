@@ -8,6 +8,7 @@ import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/widgets/extension/snackbar.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class AbsencePage extends StatelessWidget {
   const AbsencePage({super.key});
@@ -89,7 +90,7 @@ class AbsenceView extends StatelessWidget {
                   ],
                 ),
                 st.loadingProfile ? const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator.adaptive()),
+                  child: Center(child: LoadingPage()),
                 ) : st.profile!.data.student!.attendanceStudents!.isEmpty ? const SliverFillRemaining(
                   child: Center(child: EmptyPage(msg: "Kamu belum absen"))) :  SliverList.builder(
                   itemCount: st.profile?.data.student?.attendanceStudents?.length ?? 0,

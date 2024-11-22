@@ -35,7 +35,7 @@ class FileStorage {
       backgroundColor: isExistFile ? errorColor : greenColor,
       duration: const Duration(seconds: 5),
       content: Text(
-        "${isExistFile ? 'File sudah ada di ' : 'File berhasil diunduh, File disimpan di '} $path/MHS-MOBILE/$filename",
+        isExistFile ? 'File sudah ada di ' : 'File berhasil diunduh',
         style: const TextStyle(color: whiteColor, fontWeight: FontWeight.w700),
       ),
       action: SnackBarAction(

@@ -8,6 +8,7 @@ import 'package:mhs_mobile/misc/injections.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mhs_mobile/misc/pagination.dart';
 import 'package:mhs_mobile/repositories/home_repository/home_repository.dart';
+import 'package:mhs_mobile/repositories/notification_repository/model/detail_notification_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/notificaiton_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/model/transaction_model.dart';
 import 'package:mhs_mobile/repositories/notification_repository/notification_repository.dart';
@@ -30,6 +31,7 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
     on<NotifRead>(_onNotifRead);
     on<NotifCount>(_onNotifCount);
     on<NotifLoadMore>(_onNotifLoadMore);
+    on<NotificationDetail>(_onNotificationDetail);
   }
 
   static RefreshController notifRefreshInfoCtrl = RefreshController();
@@ -147,6 +149,18 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
       debugPrint("error news $e");
     } finally {
       notifRefreshInfoCtrl.loadComplete();
+    }
+  }
+
+  FutureOr<void> _onNotificationDetail(NotificationDetail event, Emitter<NotificationState> emit) async {
+    try {
+      emit(state.copyWith(loading: true));
+      DetailNotifModel notif = await repo.detailNotification(id: event.id);
+      emit(state.copyWith(detailNotif: notif, idNotif: event.id));
+    } on SocketException {
+      throw "Terjadi kesalahan jaringan";
+    } finally {
+      emit(state.copyWith(loading: false));
     }
   }
 }

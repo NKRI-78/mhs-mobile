@@ -627,22 +627,12 @@ extension $NotificationRouteExtension on NotificationRoute {
 
 extension $DetailNotifRouteExtension on DetailNotifRoute {
   static DetailNotifRoute _fromState(GoRouterState state) => DetailNotifRoute(
-        state.uri.queryParameters['type']!,
-        state.uri.queryParameters['title']!,
-        state.uri.queryParameters['description']!,
-        int.parse(state.uri.queryParameters['notifiable-id']!),
-        state.uri.queryParameters['read-at']!,
         id: int.parse(state.uri.queryParameters['id']!),
       );
 
   String get location => GoRouteData.$location(
         '/notifikasi/detail-notifikasi',
         queryParams: {
-          'type': type,
-          'title': title,
-          'description': description,
-          'notifiable-id': notifiableId.toString(),
-          'read-at': readAt,
           'id': id.toString(),
         },
       );

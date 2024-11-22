@@ -14,6 +14,12 @@ final class NotificationCopyState extends NotificationEvent {
   NotificationCopyState({required this.newState});
 }
 
+final class NotificationDetail extends NotificationEvent { 
+  final int id;
+
+  NotificationDetail({required this.id}); 
+}
+
 final class NotifRead extends NotificationEvent { 
   final int idNotif;
 

@@ -66,6 +66,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _onGetBanners(
       GetBanners event, Emitter<HomeState> emit) async {
     try {
+      emit(state.copyWith(loadingBanner: true));
       var value = await homeRepo.getBanners();
       var list = value;
 

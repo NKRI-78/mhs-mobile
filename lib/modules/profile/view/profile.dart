@@ -16,17 +16,6 @@ part '../widgets/_button_download.dart';
 part '../widgets/card_kta.dart';
 part '../widgets/avatar_profile.dart';
 
-extension StringExtension on String {
-  String capitalize() {
-    if (isEmpty) return "";
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
-  }
-
-  String capitalizeEachWord() {
-    return split(" ").map((word) => word.capitalize()).join(" ");
-  }
-}
-
 final GlobalKey ktaImageKey = GlobalKey();
 
 class ProfilePage extends StatelessWidget {
@@ -48,9 +37,9 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
       return BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, st) {
-        String nameStudent = st.profile?.data.student?.fullname?.capitalizeEachWord() ?? "" ;
-        String nameUser = st.profile?.data.name?.capitalizeEachWord() ?? "" ;
-        String nameParent = st.profile?.data.parent?.fullname?.capitalizeEachWord() ?? "-" ;
+        String nameStudent = st.profile?.data.student?.fullname ?? "" ;
+        String nameUser = st.profile?.data.name ?? "" ;
+        String nameParent = st.profile?.data.parent?.fullname ?? "-" ;
         debugPrint("Avatar ? : ${st.avatar}");
           return Scaffold(
             appBar: AppBar(
@@ -59,8 +48,8 @@ class ProfileView extends StatelessWidget {
             backgroundColor: whiteColor,
             body: Column(
               children: <Widget>[
-                const CardKta() ,
-                Padding(
+                st.profile?.data.student == null || st.profile?.data.role?.slug == "ALUMNI" ? const AvatarProfile() : const CardKta() ,
+                st.profile?.data.student == null || st.profile?.data.role?.slug == "ALUMNI" ? const SizedBox.shrink() : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child:  _ButtonDownload(fullname: (st.profile?.data.student != null ? nameStudent : st.profile?.data.parent != null ? nameParent : nameUser)),
                 ),

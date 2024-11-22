@@ -41,7 +41,7 @@ class MediaView extends StatelessWidget {
               SliverPadding(
                 padding: EdgeInsets.symmetric(vertical: st.media.isEmpty ? 0 : 80, horizontal: st.media.isEmpty ? 0 : 100),
                 sliver: st.loadingMedia ? const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator.adaptive()),
+                  child: Center(child: LoadingPage()),
                 ) : st.media.isEmpty ? const SliverFillRemaining(
                   child: Center(child: EmptyPage(msg: "Tidak ada media"))) :  SliverGrid.builder(
                   itemCount: st.media.length,

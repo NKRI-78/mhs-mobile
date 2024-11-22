@@ -6,6 +6,8 @@ import 'package:mhs_mobile/modules/news_detail/cubit/detail_news_cubit.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class NewsDetailPage extends StatelessWidget {
   const NewsDetailPage({super.key, required this.newsId});
@@ -44,7 +46,10 @@ class NewsDetailView extends StatelessWidget {
                 isCircle: false,
                 isPrimary: true,
               ),
-              SliverList(
+              st.loading ? const SliverFillRemaining(
+                child: Center(child: LoadingPage()),
+              ) : st.news?.data == null ? const SliverFillRemaining(
+                child: Center(child: EmptyPage(msg: "Berita tidak ditemukan"))) : SliverList(
                 delegate: SliverChildListDelegate([
                   ImageCard(
                     image: data?.imageUrl ?? "", 

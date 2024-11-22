@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:mhs_mobile/misc/theme.dart';
-import 'package:mhs_mobile/repositories/home_repository/models/testimoni_alumni_model.dart';
 import 'package:mhs_mobile/repositories/home_repository/models/testimoni_model.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
 

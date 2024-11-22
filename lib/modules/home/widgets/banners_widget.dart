@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhs_mobile/modules/home/bloc/home_bloc.dart';
 import 'package:mhs_mobile/router/builder.dart';
 import 'package:mhs_mobile/widgets/images/image_card.dart';
+import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 int currentIndexMultipleImg = 0;
 
@@ -17,13 +19,7 @@ class BannersWidget extends StatelessWidget {
             previous.banners != current.banners ||
             previous.loadingBanner != current.loadingBanner,
         builder: (context, st) {
-          if (st.loadingBanner || st.banners!.isEmpty) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: ImageCard(image: "", radius: 20, width: double.infinity),
-            );
-          }
-          return Padding(
+          return st.loadingBanner ? const LoadingPage(height: .20,) : st.banners!.isEmpty ? const EmptyPage(msg: "Tidak ada banner", height: .3,noImage: true,) :  Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 15),
             child: CarouselSlider.builder(
               options: CarouselOptions(

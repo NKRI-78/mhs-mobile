@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mhs_mobile/misc/injections.dart';
 import 'package:mhs_mobile/misc/theme.dart';
 import 'package:mhs_mobile/modules/notification/bloc/notification_bloc.dart';
 import 'package:mhs_mobile/router/builder.dart';
@@ -24,15 +23,9 @@ class TabInformation extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final data = state.notif?[index];
               return InkWell(
-                onTap: () {
-                  DetailNotifRoute(
-                    data?.type ?? "", 
-                    data?.data.title ?? "", 
-                    data?.data.description ?? "", 
-                    data?.notifiableId ?? 0, 
-                    data?.readAt ?? "", 
-                    id: data?.id ?? 0
-                  ).go(context);
+                onTap: () async {
+                  context.read<NotificationBloc>().add(NotifRead(idNotif: data?.id ?? 0));
+                  DetailNotifRoute(id: data?.data.data.id ?? 0).go(context);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -68,7 +61,7 @@ class TabInformation extends StatelessWidget {
                               ),
                             ),
                             Text(
-                               data?.data.description ?? "",
+                               data?.data.description.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), "") ?? "",
                               maxLines: 2,
                               style: const TextStyle(
                                 color: greyDescColor,

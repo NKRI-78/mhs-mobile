@@ -6,6 +6,7 @@ import 'package:mhs_mobile/modules/detail_event/widget/detail_event.dart';
 import 'package:mhs_mobile/widgets/extension/date_util.dart';
 import 'package:mhs_mobile/widgets/header/header_section.dart';
 import 'package:mhs_mobile/widgets/pages/page_empty.dart';
+import 'package:mhs_mobile/widgets/pages/pages_loading.dart';
 
 class EventDetailPage extends StatelessWidget {
   const EventDetailPage({super.key, required this.idEvent});
@@ -53,8 +54,8 @@ class EventDetailView extends StatelessWidget {
                     isPrimary: true,
                   ),
                   state.loading ? const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator.adaptive()),
-                ) : state.event == null ? const SliverFillRemaining(
+                  child: Center(child: LoadingPage()),
+                  ) : state.event == null ? const SliverFillRemaining(
                   child: Center(child: EmptyPage(msg: "Tidak ada Event"))) : SliverList(
                     delegate: SliverChildListDelegate([
                       DetailEventList(

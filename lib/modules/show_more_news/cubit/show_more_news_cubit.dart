@@ -36,11 +36,12 @@ class ShowMoreNewsCubit extends Cubit<ShowMoreNewsState> {
 
   Future<void> fetchNews() async {
     try {
+      emit(state.copyWith(loadingNews: true));
       var value = await homeRepo.getNews();
       var list = value.list;
       var pagination = value.pagination;
 
-      emit(state.copyWith(news: list, nextPageNews: pagination.next, newsPagination: pagination),);
+      emit(state.copyWith(news: list, nextPageNews: pagination.next, newsPagination: pagination, loadingNews: false),);
     } on SocketException {
       throw "Terjadi kesalahan jaringan";
     } finally {
